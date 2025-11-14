@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Slash Coffee</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 30px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #000e07;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #013f09;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1a242f;
+        }
+
+        table {
+            width: 200%;
+            height: 200px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #ecf0f1;
+            color: #333;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr {
+            border-bottom: 3px solid #012e1b;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #addForm {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        #addForm input,
+        #addForm textarea,
+        #addForm select {
+            margin-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+        }
+
+        /* small responsive fix for the fixed header top spacing */
+        main {
+            margin-top: 6rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- top fixed header (nav) -->
+    <header
+        class="fixed top-0 left-0 right-0 h-20 bg-green-950 text-white font-bold z-30 px-6 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+            <h1 class="text-white text-2xl">Admin Dashboard</h1>
+            <nav class="hidden md:flex gap-4">
+                <a href="#addForm" class="text-sm text-white hover:underline">Add Product</a>
+                <a href="#seeProduct" class="text-sm text-white hover:underline">See Products</a>
+                <a href="#contentForm" class="text-sm text-white hover:underline">See Content</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="logout-btn px-3 py-1 rounded" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <!-- branding header -->
+    <header class="bg-gradient-to-r from-green-100 to-green-50 border-b border-green-200">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="./native_resources/logo.svg" alt="Logo" class="w-12 h-12 object-contain" />
+                <div>
+                    <p class="text-sm text-green-700">Slash Coffee — Admin</p>
+                    <p class="text-xs text-green-500">Manage products & content</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main layout -->
+    <main class="w-full mx-auto px-1 py-8 flex flex-col items-center justify-center">
+
+        <!-- Add / New Product Form -->
+        <section id="addForm" class="w-full bg-white border border-green-100 rounded-2xl p-6 shadow-sm">
+            <h2 class="text-2xl font-bold text-green-950 mb-4">Add New Product</h2>
+
+            <!-- Product Name -->
+            <label class="block text-sm font-medium text-green-800 mb-1">Product Name</label>
+            <input id="newName" type="text" placeholder="Product Name"
+                class="block w-full p-2 border border-green-200 rounded-md mb-4" required />
+
+            <!-- Image URLs -->
+            <label class="block text-sm font-medium text-green-800 mb-1">Image URLs</label>
+            <input id="newImg1" type="text" placeholder="Image 1 URL (https://...)"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" required />
+            <input id="newImg2" type="text" placeholder="Image 2 URL (https://...)"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" />
+            <input id="newImg3" type="text" placeholder="Image 3 URL (https://...)"
+                class="block w-full p-2 border border-green-200 rounded-md mb-4" />
+
+            <!-- Price + Availability -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-1">Price</label>
+                    <input id="newPrice" type="number" placeholder="0.00"
+                        class="block w-full p-2 border border-green-200 rounded-md" required />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-1">Availability</label>
+                    <select id="newAvailable" class="block w-full p-2 border border-green-200 rounded-md">
+                        <option value="available">Available</option>
+                        <option value="not available">Not Available</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <label class="block text-sm font-medium text-green-800 mb-1">Category</label>
+            <select id="newCategory" class="block w-full p-2 border border-green-200 rounded-md mb-4">
+                <option value="coffee beans">coffee beans</option>
+                <option value="merchandise products">merchandise products</option>
+                <option value="cake and pastry">cake and pastry</option>
+                <option value="Barista Training">Barista Training</option>
+            </select>
+
+            <!-- Details -->
+            <label class="block text-sm font-medium text-green-800 mb-1">Product Details</label>
+            <textarea id="newDetails1" rows="2" placeholder="Detail 1"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" required></textarea>
+            <textarea id="newDetails2" rows="2" placeholder="Detail 2"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2"></textarea>
+            <textarea id="newDetails3" rows="2" placeholder="Detail 3"
+                class="block w-full p-2 border border-green-200 rounded-md mb-4"></textarea>
+
+            <!-- Manufacturer Info -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-1">Manufacturer</label>
+                    <input id="newManufacturer" type="text" placeholder="Company name"
+                        class="block w-full p-2 border border-green-200 rounded-md" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-green-800 mb-1">Country of Manufacture</label>
+                    <input id="newManufacturedCountry" type="text" placeholder="Country name"
+                        class="block w-full p-2 border border-green-200 rounded-md" />
+                </div>
+            </div>
+
+            <!-- Key Points -->
+            <label class="block text-sm font-medium text-green-800 mb-1">Key Points</label>
+            <input id="newKey1" type="text" placeholder="Key Point 1"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" />
+            <input id="newKey2" type="text" placeholder="Key Point 2"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" />
+            <input id="newKey3" type="text" placeholder="Key Point 3"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" />
+            <input id="newKey4" type="text" placeholder="Key Point 4"
+                class="block w-full p-2 border border-green-200 rounded-md mb-2" />
+            <input id="newKey5" type="text" placeholder="Key Point 5"
+                class="block w-full p-2 border border-green-200 rounded-md mb-4" />
+
+            <!-- Submit -->
+            <button id="addBtn" type="button"
+                class="w-full bg-green-950 text-white font-semibold rounded-full py-3 hover:scale-[1.02] transition">
+                Add Product to Server
+            </button>
+        </section>
+
+        <!-- FULL PRODUCT TABLE (All Schema Fields Displayed) -->
+        <section id="seeProduct"
+            class="mt-10 w-full bg-white border border-green-100 rounded-2xl p-6 shadow-sm overflow-x-auto">
+            <!-- Header and Filters -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-4">
+                <h2 class="text-2xl font-bold text-green-950 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-700" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h3.28a1 1 0 01.948.684l1.498 4.49a1 1 0 01-.217.95L6.6 12.5a1 1 0 00-.3.707V19a1 1 0 001 1h2a1 1 0 001-1v-5.5l1.43-1.43a1 1 0 011.42 0l2.72 2.72a1 1 0 01.22.95l-1.5 4.49A1 1 0 0018.72 20H21a1 1 0 001-1V4a1 1 0 00-1-1H3z" />
+                    </svg>
+                    Product Inventory
+                </h2>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <input id="quickSearch" type="search" placeholder="Search by name or category"
+                        class="p-2 border border-green-200 rounded-md w-48 focus:outline-none focus:ring-2 focus:ring-green-400" />
+                    <select id="filterCategory"
+                        class="p-2 border border-green-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <option value="">All Categories</option>
+                        <option value="coffee beans">coffee beans</option>
+                        <option value="merchandise products">merchandise products</option>
+                        <option value="cake and pastry">cake and pastry</option>
+                        <option value="Barista Training">Barista Training</option>
+                    </select>
+                    <button id="reloadBtn"
+                        class="p-2 px-4 rounded-md bg-green-950 text-white font-medium hover:bg-green-800 hover:scale-[1.05] transition">Reload</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto h-80 bg-slate-500">
+                <table class=" divide-y divide-green-600 text-sm overflow-auto">
+                    <thead class="bg-green-50 text-red-800 font-semibold">
+                        <tr>
+                            <th class="px-3 py-2 text-left w-24">Image 1</th>
+                            <th class="px-3 py-2 text-left w-24">Image 2</th>
+                            <th class="px-3 py-2 text-left w-24">Image 3</th>
+                            <th class="px-3 py-2 text-left w-52">Name</th>
+                            <th class="px-3 py-2 text-left w-60">Category</th>
+                            <th class="px-3 py-2 text-left w-32">Price (৳)</th>
+                            <th class="px-3 py-2 text-left w-32">Manufacturer</th>
+                            <th class="px-3 py-2 text-left w-32">Made In</th>
+                            <th class="px-3 py-2 text-left w-60">Details1</th>
+                            <th class="px-3 py-2 text-left w-60">Details2</th>
+                            <th class="px-3 py-2 text-left w-60">Details3</th>
+                            <th class="px-3 py-2 text-left w-60">Key Points</th>
+                            <th class="px-3 py-2 text-left w-60">Availability</th>
+                            <th class="px-3 py-2 text-center w-60">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="productTable" class="bg-white divide-y divide-green-100">
+                        <!-- rows inserted dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-xs text-green-700/80 mt-4 italic">💡 Tip: Edit fields inline and click <span
+                    class="font-semibold">Update</span> to save your changes.</p>
+        </section>
+
+    </main>
+
+    <!-- Content form -->
+    <section id="contentForm" class="mt-12 max-w-6xl mx-auto px-4">
+        <h2 class="text-xl font-semibold mb-4">Add New Content Block</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input type="text" id="contentImg" placeholder="Image URL" required class="p-2 border rounded" />
+            <input type="text" id="contentHeading" placeholder="Heading" required class="p-2 border rounded" />
+            <input type="text" id="contentSubHeading" placeholder="Sub Heading" class="p-2 border rounded" />
+            <input type="text" id="contentProductId" placeholder="Product ID" class="p-2 border rounded" />
+            <textarea id="contentDetails" placeholder="Details"
+                class="h-52 p-2 border rounded col-span-1 md:col-span-2"></textarea>
+        </div>
+        <div class="mt-3">
+            <button id="addContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Post</button>
+        </div>
+    </section>
+
+    <!-- small content table and modal -->
+    <div class="max-w-6xl mx-auto px-4 mt-8">
+        <table class="w-full bg-white rounded shadow">
+            <thead>
+                <tr>
+                    <th class="p-3 text-left">Title</th>
+                    <th class="p-3 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="contentTable"></tbody>
+        </table>
+    </div>
+
+    <div id="contentModal"
+        style="display:none; position:fixed; top:0; left:0; width: 100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;"
+        class="h-11/12 w-full mt-20">
+        <div style="background:white; padding:1rem; border-radius:10px; max-width:500px; width:90%; margin:4rem auto;">
+            <h2 class="text-lg font-semibold mb-2">Edit Content Block</h2>
+            <input type="text" id="modalImg" placeholder="Image URL" class="w-full p-2 border rounded mb-2" />
+            <input type="text" id="modalHeading" placeholder="Heading" class="w-full p-2 border rounded mb-2" />
+            <input type="text" id="modalSubHeading" placeholder="Sub Heading" class="w-full p-2 border rounded mb-2" />
+            <textarea id="modalDetails" placeholder="Details" class="h-48 p-2 border rounded mb-2 w-full"></textarea>
+            <input type="text" id="modalProductId" placeholder="Product ID" class="w-full p-2 border rounded mb-2" />
+            <div class="flex gap-2 justify-end">
+                <button id="updateContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Update</button>
+                <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/products';
+        const table = document.getElementById('productTable');
+        const addBtn = document.getElementById('addBtn');
+
+        // Load products
+        async function loadProducts() {
+            try {
+                const res = await fetch(API_URL);
+                if (!res.ok) throw new Error('Failed to fetch products');
+                const products = await res.json();
+                renderProducts(products);
+            } catch (err) {
+                console.error('loadProducts error:', err);
+                table.innerHTML = `<tr><td colspan="14" class="p-4 text-red-600">Failed to load products</td></tr>`;
+            }
+        }
+
+        // Render products
+        function renderProducts(products) {
+            table.innerHTML = '';
+
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+
+                // sanitize values to avoid literal "undefined"
+                const img1 = p.img1 || '';
+                const img2 = p.img2 || '';
+                const img3 = p.img3 || '';
+
+                tr.innerHTML = `
+          <!-- Images -->
+          <td class="px-3 py-2 w-24 align-top text-center">
+            ${img1 ? `<img src="${img1}" alt="img1" class="w-16 h-16 object-cover rounded mb-1 border" />` : ''}
+            <input type="text" value="${img1}" data-id="${p._id}" data-field="img1" class="w-full text-xs border rounded p-1" />
+          </td>
+
+          <td class="px-3 py-2 w-24 align-top text-center">
+            ${img2 ? `<img src="${img2}" alt="img2" class="w-16 h-16 object-cover rounded mb-1 border" />` : ''}
+            <input type="text" value="${img2}" data-id="${p._id}" data-field="img2" class="w-full text-xs border rounded p-1" />
+          </td>
+
+          <td class="px-3 py-2 w-24 align-top text-center">
+            ${img3 ? `<img src="${img3}" alt="img3" class="w-16 h-16 object-cover rounded mb-1 border" />` : ''}
+            <input type="text" value="${img3}" data-id="${p._id}" data-field="img3" class="w-full text-xs border rounded p-1" />
+          </td>
+
+          <!-- Basic Info -->
+          <td class="px-3 py-2 w-52 align-top">
+            <textarea data-id="${p._id}" data-field="name" class="w-full text-sm border rounded p-1" rows="2">${p.name || ''}</textarea>
+            <!-- ID field (no data-field so it won't be sent in update) -->
+            <textarea class="w-full text-xs border rounded p-1 mt-1" rows="1">${p._id}</textarea>
+          </td>
+
+          <!-- Category -->
+          <td class="px-3 py-2 w-60 align-top">
+            <select data-id="${p._id}" data-field="category" class="w-full border rounded p-1 text-sm">
+              <option value="">-- select --</option>
+              <option value="coffee beans" ${p.category === 'coffee beans' ? 'selected' : ''}>coffee beans</option>
+              <option value="merchandise products" ${p.category === 'merchandise products' ? 'selected' : ''}>merchandise products</option>
+              <option value="cake and pastry" ${p.category === 'cake and pastry' ? 'selected' : ''}>cake and pastry</option>
+              <option value="Barista Training" ${p.category === 'Barista Training' ? 'selected' : ''}>Barista Training</option>
+            </select>
+          </td>
+
+          <td class="px-3 py-2 w-32 align-top">
+            <input type="number" value="${p.price != null ? p.price : ''}" data-id="${p._id}" data-field="price" class="w-full border rounded p-1 text-sm" />
+          </td>
+
+          <!-- Manufacturer Info -->
+          <td class="px-3 py-2 w-32 align-top">
+            <input value="${p.menufacturer || ''}" data-id="${p._id}" data-field="menufacturer" class="w-full border rounded p-1 text-sm" />
+          </td>
+          <td class="px-3 py-2 w-32 align-top">
+            <input value="${p.menufactured_country || ''}" data-id="${p._id}" data-field="menufactured_country" class="w-full border rounded p-1 text-sm" />
+          </td>
+
+          <!-- Details -->
+          <td class="px-3 py-2 w-60 align-top">
+            <textarea data-id="${p._id}" data-field="details1" rows="4" class="w-full border rounded p-1 text-sm">${p.details1 || ''}</textarea>
+          </td>
+          <td class="px-3 py-2 w-60 align-top">
+            <textarea data-id="${p._id}" data-field="details2" rows="4" class="w-full border rounded p-1 text-sm">${p.details2 || ''}</textarea>
+          </td>
+          <td class="px-3 py-2 w-60 align-top">
+            <textarea data-id="${p._id}" data-field="details3" rows="4" class="w-full border rounded p-1 text-sm">${p.details3 || ''}</textarea>
+          </td>
+
+          <!-- Key Points -->
+          <td class="px-3 py-2 w-60 align-top">
+            <input value="${p.key_points1 || ''}" data-id="${p._id}" data-field="key_points1" class="border rounded p-1 text-xs mb-1" />
+            <input value="${p.key_points2 || ''}" data-id="${p._id}" data-field="key_points2" class="border rounded p-1 text-xs mb-1" />
+            <input value="${p.key_points3 || ''}" data-id="${p._id}" data-field="key_points3" class="border rounded p-1 text-xs mb-1" />
+            <input value="${p.key_points4 || ''}" data-id="${p._id}" data-field="key_points4" class="border rounded p-1 text-xs mb-1" />
+            <input value="${p.key_points5 || ''}" data-id="${p._id}" data-field="key_points5" class="border rounded p-1 text-xs" />
+          </td>
+
+          <!-- Availability -->
+          <td class="px-3 py-2 w-60 align-top">
+            <select data-id="${p._id}" data-field="available" class="w-full border rounded p-1 text-sm">
+              <option value="available" ${p.available === 'available' ? 'selected' : ''}>Available</option>
+              <option value="not available" ${p.available === 'not available' ? 'selected' : ''}>Not Available</option>
+            </select>
+          </td>
+
+          <!-- Actions -->
+          <td class="px-3 py-2 w-60 text-center align-top">
+            <div class="flex gap-2 justify-center">
+              <button onclick="updateProduct('${p._id}')" class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-800 transition text-sm">Update</button>
+              <button onclick="deleteProduct('${p._id}')" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition text-sm">Delete</button>
+            </div>
+          </td>
+        `;
+
+                table.appendChild(tr);
+            });
+        }
+
+        // Add product
+        addBtn.addEventListener('click', async () => {
+            console.log("CLICKED");
+            try {
+                const name = document.getElementById('newName').value.trim() || "Unnamed Product";
+                const newProduct = {
+                    img1: document.getElementById('newImg1').value.trim(),
+                    img2: document.getElementById('newImg2').value.trim(),
+                    img3: document.getElementById('newImg3').value.trim(),
+                    name,
+                    price: parseFloat(document.getElementById('newPrice').value) || 0,
+                    category: document.getElementById('newCategory').value || "uncategorized",
+                    details1: document.getElementById('newDetails1').value.trim() || "No details provided",
+                    details2: document.getElementById('newDetails2').value.trim() || "No details provided",
+                    details3: document.getElementById('newDetails3').value.trim() || "No details provided",
+                    menufacturer: document.getElementById('newManufacturer').value.trim() || "No details provided",
+                    menufactured_country: document.getElementById('newManufacturedCountry').value.trim() || "No details provided",
+                    key_points1: document.getElementById('newKey1').value.trim() || "No details provided",
+                    key_points2: document.getElementById('newKey2').value.trim() || "No details provided",
+                    key_points3: document.getElementById('newKey3').value.trim() || "No details provided",
+                    key_points4: document.getElementById('newKey4').value.trim() || "No details provided",
+                    key_points5: document.getElementById('newKey5').value.trim() || "No details provided",
+                    available: document.getElementById('newAvailable').value
+                };
+                console.log('newProduct', newProduct)
+                await fetch("/api/products", {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newProduct)
+                });
+
+                // clear form (small UX nicety)
+                document.getElementById('newName').value = '';
+                document.getElementById('newImg1').value = '';
+                document.getElementById('newImg2').value = '';
+                document.getElementById('newImg3').value = '';
+                document.getElementById('newPrice').value = '';
+                document.getElementById('newDetails1').value = '';
+                document.getElementById('newDetails2').value = '';
+                document.getElementById('newDetails3').value = '';
+                document.getElementById('newManufacturer').value = '';
+                document.getElementById('newManufacturedCountry').value = '';
+                document.getElementById('newKey1').value = '';
+                document.getElementById('newKey2').value = '';
+                document.getElementById('newKey3').value = '';
+                document.getElementById('newKey4').value = '';
+                document.getElementById('newKey5').value = '';
+
+                await loadProducts();
+            } catch (err) {
+                console.error('Add product error:', err);
+                alert('Failed to add product.');
+            }
+        });
+
+        // Update product
+        async function updateProduct(id) {
+            try {
+                const fields = document.querySelectorAll(`[data-id="${id}"]`);
+                const updatedData = {};
+                fields.forEach(f => {
+                    const field = f.getAttribute('data-field');
+                    if (!field) return;
+                    updatedData[field] = f.value;
+                });
+                if (updatedData.price) updatedData.price = parseFloat(updatedData.price);
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData)
+                });
+                await loadProducts();
+            } catch (err) {
+                console.error('updateProduct error:', err);
+                alert('Failed to update product.');
+            }
+        }
+
+        // Delete product
+        async function deleteProduct(id) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+            try {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                await loadProducts();
+            } catch (err) {
+                console.error('deleteProduct error:', err);
+                alert('Failed to delete product.');
+            }
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
+            } catch (e) { /* ignore */ }
+            window.location.href = '/admin.html';
+        });
+
+        // init
+        loadProducts();
+
+
+
+
+
+
+        // ---------------- content blocks ----------------
+        const CONTENT_API = '/api/content';
+        const contentTable = document.getElementById('contentTable');
+        const addContentBtn = document.getElementById('addContentBtn');
+        const modal = document.getElementById('contentModal');
+        let currentContentId = null;
+
+        async function loadContent() {
+            try {
+                const res = await fetch(CONTENT_API);
+                if (!res.ok) throw new Error('Failed to fetch content');
+                const contents = await res.json();
+                renderContent(contents);
+            } catch (err) {
+                console.error('loadContent error:', err);
+            }
+        }
+
+        function renderContent(contents) {
+            contentTable.innerHTML = '';
+            contents.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+          <td class="p-3"><span class="contentTitle cursor-pointer text-green-800" data-id="${c._id}">${c.heading}</span></td>
+          <td class="p-3">
+            <button onclick="deleteContent('${c._id}')" class="px-3 py-1 bg-red-600 text-white rounded">Delete</button>
+          </td>
+        `;
+                contentTable.appendChild(tr);
+            });
+
+            document.querySelectorAll('.contentTitle').forEach(el => {
+                el.addEventListener('click', async () => {
+                    const id = el.getAttribute('data-id');
+                    currentContentId = id;
+                    const res = await fetch(`${CONTENT_API}/${id}`);
+                    const data = await res.json();
+                    document.getElementById('modalImg').value = data.img || '';
+                    document.getElementById('modalHeading').value = data.heading || '';
+                    document.getElementById('modalSubHeading').value = data.subHeading || '';
+                    document.getElementById('modalDetails').value = data.details || '';
+                    document.getElementById('modalProductId').value = data.productId || '';
+                    modal.style.display = 'flex';
+                });
+            });
+        }
+
+        addContentBtn.addEventListener('click', async () => {
+            try {
+                const newContent = {
+                    img: document.getElementById('contentImg').value.trim(),
+                    heading: document.getElementById('contentHeading').value.trim(),
+                    subHeading: document.getElementById('contentSubHeading').value.trim(),
+                    details: document.getElementById('contentDetails').value.trim(),
+                    productId: document.getElementById('contentProductId').value.trim()
+                };
+                await fetch(CONTENT_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newContent)
+                });
+                await loadContent();
+            } catch (err) {
+                console.error('addContent error:', err);
+                alert('Failed to add content');
+            }
+        });
+
+        document.getElementById('updateContentBtn').addEventListener('click', async () => {
+            try {
+                const updated = {
+                    img: document.getElementById('modalImg').value.trim(),
+                    heading: document.getElementById('modalHeading').value.trim(),
+                    subHeading: document.getElementById('modalSubHeading').value.trim(),
+                    details: document.getElementById('modalDetails').value.trim(),
+                    productId: document.getElementById('modalProductId').value.trim()
+                };
+                await fetch(`${CONTENT_API}/${currentContentId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updated)
+                });
+                modal.style.display = 'none';
+                await loadContent();
+            } catch (err) {
+                console.error('update content error:', err);
+                alert('Failed to update content');
+            }
+        });
+
+        async function deleteContent(id) {
+            if (!confirm('Are you sure?')) return;
+            try {
+                await fetch(`${CONTENT_API}/${id}`, { method: 'DELETE' });
+                await loadContent();
+            } catch (err) {
+                console.error('delete content error:', err);
+                alert('Failed to delete content');
+            }
+        }
+
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        loadContent();
+    </script>
+</body>
+
+</html>
