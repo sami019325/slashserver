@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
             heading: heading || "Untitled",
             subHeading: subHeading || "Untitled Subheading",
             details: details || "No details provided.",
-            productId: productId || 'null'
+            productId: productId || null
         });
 
         const saved = await newContent.save();
@@ -44,6 +44,25 @@ router.get("/:id", async (req, res) => {
 });
 
 
+// 🔍 SEARCH by subHeading (partial match)
+router.get("/search/subheading", async (req, res) => {
+    try {
+        const { q } = req.query;
+
+        if (!q) {
+            return res.status(400).json({ message: "Query 'q' is required" });
+        }
+
+        const results = await ContentBlock.find({
+            subHeading: { $regex: q, $options: "i" } // partial, case-insensitive
+        });
+
+        res.json(results);
+    } catch (err) {
+        console.error("❌ Error searching subHeading:", err);
+        res.status(500).json({ message: "Server error while searching" });
+    }
+});
 
 
 
