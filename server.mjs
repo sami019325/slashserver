@@ -35,7 +35,8 @@ const allowedOrigins = [
     "http://localhost:5000",          // 🧪 Local dev (Vite/React)
     "http://127.0.0.1:5500",
     "https://slashserver.onrender.com",
-    "http://admin.slashcoffeebd.com/"
+    "http://admin.slashcoffeebd.com",
+    "https://admin.slashcoffeebd.com"
     // "null", // when opened from file:///
     // null
 ];
