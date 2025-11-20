@@ -39,10 +39,45 @@ router.post("/", async (req, res) => {
 
 // get by ID
 router.get("/:id", async (req, res) => {
-    const blocks = await ContentBlock.findById(req.params.id);
-    res.json(blocks);
-});
+    const id = req.params.id;
 
+    // 1. Check if the ID parameter exists in the request
+    if (!id) {
+        return res.status(400).json({
+            message: "Missing ID parameter in the request URL."
+        });
+    }
+
+    // Optional: Add basic check for a 24-char hex string (Mongoose handles the full validation, 
+    // but this prevents reaching Mongoose if the ID is clearly invalid, like 'abc')
+    // This uses a regular expression to check for 24 hexadecimal characters.
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(400).json({
+            message: "Invalid ID format."
+        });
+    }
+
+    try {
+        const blocks = await ContentBlock.findById(id);
+
+        // 2. Check if a block was found
+        if (!blocks) {
+            return res.status(404).json({
+                message: "Content block not found."
+            });
+        }
+
+        res.json(blocks);
+    } catch (error) {
+        // This catch block handles the CastError if it somehow still occurs, 
+        // or other database errors.
+        console.error("Database error:", error);
+        res.status(500).json({
+            message: "Server error while fetching content block.",
+            error: error.message
+        });
+    }
+});
 
 // 🔍 SEARCH by subHeading (partial match)
 router.get("/search/subheading", async (req, res) => {

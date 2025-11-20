@@ -23,6 +23,8 @@ const orderDetails = new mongoose.Schema({
     ship_add1: String,
     ship_add2: String,
     ship_Contract: String,
+    Customer_Note: String,
+    Customer_Attach: String,
     Status: String
 });
 
