@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import MongoStore from "connect-mongo";
 // Routes
 import adminRoutes from "./routes/adminRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -55,22 +55,32 @@ app.use(
     })
 );
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Vary", "Origin");
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", req.headers.origin);
+//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     res.header("Vary", "Origin");
+//     next();
+// });
 
-
-// ✅ Session setup (if needed)
+// session setup
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "default_secret_key",
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: true }, // Set secure: true when using HTTPS
+        // ⬇️ Use MongoStore for production-ready sessions ⬇️
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI,
+            ttl: 14 * 24 * 60 * 60, // 14 days
+            autoRemove: "interval",
+            autoRemoveInterval: 10, // Check every 10 minutes
+        }),
+        cookie: {
+            secure: process.env.NODE_ENV === 'production', // Set to true only in production (if using HTTPS)
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+        },
     })
 );
 
@@ -96,10 +106,11 @@ app.use((req, res) => {
 // ✅ DATABASE CONNECTION
 // =============================
 // console.log(process.env.MONGO_URI)
+console.log("Attempting to connect with URI:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::", process.env.MONGO_URI);
 mongoose
     .connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true,
     })
     .then(() => console.log("✅ Connected to MongoDB"))
     .catch((err) => console.error("❌ MongoDB connection error:", err));
