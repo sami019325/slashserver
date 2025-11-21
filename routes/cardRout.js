@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import { Card } from "../models/card.js";
 import { isAdmin } from "./adminRoutes.js";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import axios from "axios"; // ✅ Added axios import
 
 // dotenv.config();
@@ -109,7 +109,9 @@ router.post("/", upload.single("image"), async (req, res) => {
 
         if (req.file) {
             const base64Image = req.file.buffer.toString("base64");
-            imgUrl = await uploadImageToImgBB(base64Image);
+            const uploaded = await uploadImageToImgBB(base64Image);
+            if (uploaded) imgUrl = uploaded; // only set if upload succeeded
+            else imgUrl = null; // proceed without crashing if upload failed or API key missing
         }
 
         const tempCard = {
@@ -155,7 +157,9 @@ router.put("/:id", isAdmin, upload.single("image"), async (req, res) => {
         let imgUrl = card.img1; // Keep existing image by default
         if (req.file) {
             const base64Image = req.file.buffer.toString("base64");
-            imgUrl = await uploadImageToImgBB(base64Image);
+            const uploaded = await uploadImageToImgBB(base64Image);
+            if (uploaded) imgUrl = uploaded;
+            // if upload failed, keep existing image rather than failing the whole request
         }
 
         // Update fields (use existing values if not provided in body)
