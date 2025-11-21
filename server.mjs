@@ -9,7 +9,7 @@ import MongoStore from "connect-mongo";
 // Routes
 import adminRoutes from "./routes/adminRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
-import cardRoutes from "./routes/cardRout.js";
+import cardRoutes from "./routes/cardRoutes.js";
 import contentRoutes from "./routes/contentRoutes.js";
 import pageItemRoutes from "./routes/pageContentRout.js";
 import paymentGateway from "./routes/paymentGayeway.js";
