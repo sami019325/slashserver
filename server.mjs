@@ -96,8 +96,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/content", contentRoutes);
 app.use("/api/pageItem", pageItemRoutes);
 app.use("/api/paymentpage", paymentGateway);
-app.use("/api/adminpanel1", adminPaneGetOnly);
 app.use("/api/cards", cardRoutes);
+app.use("/api/adminpanel1", adminPaneGetOnly);
 // ✅ 404 handler (for API routes)
 app.use((req, res) => {
     res.status(404).json({ alert: "Route not found" });
