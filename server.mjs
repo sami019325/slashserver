@@ -107,7 +107,6 @@ app.use((req, res) => {
 // ✅ DATABASE CONNECTION
 // =============================
 // console.log(process.env.MONGO_URI)
-console.log("Attempting to connect with URI:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::", process.env.MONGO_URI);
 mongoose
     .connect(process.env.MONGO_URI, {
         // useNewUrlParser: true,
