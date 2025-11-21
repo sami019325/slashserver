@@ -31,8 +31,8 @@ router.get("/", async (req, res) => {
 router.get("/limit", async (req, res) => {
     try {
         // Parse query params or set defaults
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req?.query?.page) || 1;
+        const limit = parseInt(req?.query?.limit) || 10;
         const skip = (page - 1) * limit;
 
         // Fetch products with pagination and sort by newest first
@@ -56,7 +56,7 @@ router.get("/limit", async (req, res) => {
 // GET product by name (MUST COME BEFORE /:id)
 router.get("/name/:name", async (req, res) => {
     try {
-        const name = req.params.name.trim();
+        const name = req?.params?.name.trim();
         // Search by name, case-insensitive, and sort by newest first
         const products = await Card.find({ name: { $regex: name, $options: "i" } }).sort({ _id: -1 });
 
@@ -70,7 +70,7 @@ router.get("/name/:name", async (req, res) => {
 // GET product by category (MUST COME BEFORE /:id)
 router.get("/ctgry/:ctgry", async (req, res) => {
     try {
-        const ctgry = req.params.ctgry.trim();
+        const ctgry = req?.params?.ctgry.trim();
         // Search by category, case-insensitive, and sort by newest first
         const Category = await Card.find({ category: { $regex: ctgry, $options: "i" } }).sort({ _id: -1 });
 
@@ -84,7 +84,7 @@ router.get("/ctgry/:ctgry", async (req, res) => {
 // GET one by ID (MUST COME LAST to avoid conflicts)
 router.get("/:id", async (req, res) => {
     try {
-        const card = await Card.findById(req.params.id);
+        const card = await Card.findById(req?.params?.id);
         if (!card) {
             return res.status(404).json({ message: "Card not found" });
         }
@@ -102,8 +102,8 @@ router.get("/:id", async (req, res) => {
 // CREATE card (with image upload)
 router.post("/", upload.single("image"), async (req, res) => {
     try {
-        console.log("Body:", req.body);
-        console.log("File:", req.file);
+        console.log("Body:", req?.body);
+        console.log("File:", req?.file);
 
         let imgUrl = null;
 
@@ -116,16 +116,14 @@ router.post("/", upload.single("image"), async (req, res) => {
 
         const tempCard = {
             img1: imgUrl,
-            name: req.body.name,
-            category: req.body.category,
-            price: null,
-            details1: req.body.note,
+            name: req.body?.name,
+            category: req.body?.category,
+            details1: req.body?.note,
             details2: "No details provided.",
-            details3: "No details provided.",
-            C_Number: req.body.phone,
-            C_Location: req.body.location,
+            C_Number: req.body?.phone,
+            C_Location: req.body?.location,
             available: "available",
-            Search: `${req.body.name} ${req.body.note} ${req.body.location}`,
+            Search: `${req.body?.name + ' ' + req.body?.note + ' ' + req.body?.location}`,
             reply: [],
         };
 
@@ -145,7 +143,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 // UPDATE card by ID (Protected by isAdmin)
 router.put("/:id", isAdmin, upload.single("image"), async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req?.params;
 
         // Find existing card
         const card = await Card.findById(id);
@@ -154,7 +152,7 @@ router.put("/:id", isAdmin, upload.single("image"), async (req, res) => {
         }
 
         // Handle Image Update
-        let imgUrl = card.img1; // Keep existing image by default
+        let imgUrl = card?.img1; // Keep existing image by default
         if (req.file) {
             const base64Image = req.file.buffer.toString("base64");
             const uploaded = await uploadImageToImgBB(base64Image);
@@ -163,11 +161,11 @@ router.put("/:id", isAdmin, upload.single("image"), async (req, res) => {
         }
 
         // Update fields (use existing values if not provided in body)
-        card.name = req.body.name || card.name;
-        card.category = req.body.category || card.category;
-        card.details1 = req.body.note || card.details1;
-        card.C_Number = req.body.phone || card.C_Number;
-        card.C_Location = req.body.location || card.C_Location;
+        card.name = req.body?.name || card.name;
+        card.category = req.body?.category || card?.category;
+        card.details1 = req.body?.note || card?.details1;
+        card.C_Number = req.body?.phone || card?.C_Number;
+        card.C_Location = req.body?.location || card?.C_Location;
         card.img1 = imgUrl;
 
         // Rebuild the Search string to keep it in sync with data changes
@@ -225,8 +223,8 @@ async function uploadImageToImgBB(base64Image) {
         );
 
         // Axios uses .data property for the response body
-        if (response.data && response.data.data && response.data.data.url) {
-            return response.data.data.url;
+        if (response.data && response?.data?.data && response.data?.data?.url) {
+            return response.data?.data?.url;
         } else {
             console.error("ImgBB Response Missing URL:", response.data);
             throw new Error("Image upload failed: Invalid response structure from ImgBB");
