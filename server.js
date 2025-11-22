@@ -17,7 +17,11 @@ import adminPaneGetOnly from "./routes/adminPanel1.js";
 
 dotenv.config();
 
+
 const app = express();
+// Trust the first proxy (Render load balancer) to ensure secure cookies work
+app.set('trust proxy', 1);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
