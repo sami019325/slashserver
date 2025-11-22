@@ -27,6 +27,11 @@ router.post("/logout", (req, res) => {
     res.json({ message: "Logged out" });
 });
 
+// CHECK AUTH
+router.get("/check-auth", isAdmin, (req, res) => {
+    res.json({ message: "Authenticated", user: req.session.user });
+});
+
 // Middleware for protection
 function isAdmin(req, res, next) {
     if (req.session.user && req.session.user.role === "admin") next();
