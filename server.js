@@ -64,15 +64,40 @@ app.use(
 //     next();
 // });
 
+// =============================
+// ✅ DATABASE CONNECTION (must be before session setup)
+// =============================
+mongoose
+    .connect(process.env.MONGO_URI, {
+        serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+        socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+        family: 4 // Use IPv4, skip trying IPv6
+    })
+    .then(() => console.log("✅ Connected to MongoDB"))
+    .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+// Handle connection events
+mongoose.connection.on('error', (err) => {
+    console.error('❌ MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+    console.warn('⚠️ MongoDB disconnected. Attempting to reconnect...');
+});
+
+mongoose.connection.on('reconnected', () => {
+    console.log('✅ MongoDB reconnected');
+});
+
 // session setup
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "default_secret_key",
         resave: false,
         saveUninitialized: false,
-        // ⬇️ Use MongoStore for production-ready sessions ⬇️
+        // ⬇️ Use MongoStore with existing mongoose connection ⬇️
         store: MongoStore.create({
-            mongoUrl: process.env.MONGO_URI,
+            client: mongoose.connection.getClient(), // Reuse mongoose connection
             ttl: 14 * 24 * 60 * 60, // 14 days
             autoRemove: "interval",
             autoRemoveInterval: 10, // Check every 10 minutes
@@ -87,6 +112,7 @@ app.use(
 
 // ✅ Serve static frontend files ( admin panel or static HTML)
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/native_resources", express.static(path.join(__dirname, "native_resources")));
 
 // =============================
 // ✅ ROUTES
@@ -102,18 +128,6 @@ app.use("/api/adminpanel1", adminPaneGetOnly);
 app.use((req, res) => {
     res.status(404).json({ alert: "Route not found" });
 });
-
-// =============================
-// ✅ DATABASE CONNECTION
-// =============================
-// console.log(process.env.MONGO_URI)
-mongoose
-    .connect(process.env.MONGO_URI, {
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true,
-    })
-    .then(() => console.log("✅ Connected to MongoDB"))
-    .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // =============================
 // ✅ SERVER START
