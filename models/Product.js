@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
     name: { type: String, default: "Unnamed Product" },
     category: { type: String, default: "uncategorized" },
     price: { type: Number, default: 0 },
+    quantity: { type: String, default: "0" },
     details1: { type: String, default: "No details provided." },
     details2: { type: String, default: "No details provided." },
     details3: { type: String, default: "No details provided." },

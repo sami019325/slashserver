@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
         });
     }
 
-    // Optional: Add basic check for a 24-char hex string (Mongoose handles the full validation, 
+    // basic check for a 24-char hex string (Mongoose handles the full validation, 
     // but this prevents reaching Mongoose if the ID is clearly invalid, like 'abc')
     // This uses a regular expression to check for 24 hexadecimal characters.
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -89,7 +89,7 @@ router.get("/search/subheading", async (req, res) => {
         }
 
         const results = await ContentBlock.find({
-            subHeading: { $regex: q, $options: "i" } // partial, case-insensitive
+            search_Key: { $regex: q, $options: "i" } // partial, case-insensitive
         });
 
         res.json(results);

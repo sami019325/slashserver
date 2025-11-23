@@ -103,13 +103,21 @@
                     class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
             </div>
 
-            <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-3 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Price</label>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">৳</span>
                         <input id="newPrice" type="number" placeholder="0.00"
-                            class="block w-full pl-9 p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                            class="block w-full pl-9 p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                            required />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity</label>
+                    <div class="relative">
+                        <input id="newQuantity" type="text" placeholder="e.g. 1kg/ 500g/ 1pcs"
+                            class="block w-full pl-9 p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
                             required />
                     </div>
                 </div>
@@ -117,7 +125,7 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Availability</label>
                     <div class="relative">
                         <select id="newAvailable"
-                            class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
+                            class="block w-full p-3.5 bg-white border placeholder-gray-400 border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
                             <option value="available">Available</option>
                             <option value="not available">Not Available</option>
                         </select>
@@ -134,7 +142,7 @@
             <label class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
             <div class="relative mb-6">
                 <select id="newCategory"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
                     <option value="coffee beans">Coffee Beans</option>
                     <option value="merchandise products">Merchandise Products</option>
                     <option value="cake and pastry">Cake and Pastry</option>
@@ -150,39 +158,39 @@
             <label class="block text-sm font-semibold text-gray-700 mb-2">Product Details</label>
             <div class="space-y-4 mb-6">
                 <textarea id="newDetails1" rows="2" placeholder="Primary Description"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
                     required></textarea>
                 <textarea id="newDetails2" rows="2" placeholder="Additional Detail (Optional)"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
                 <textarea id="newDetails3" rows="2" placeholder="Additional Detail (Optional)"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
             </div>
 
             <div class="grid grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Manufacturer</label>
                     <input id="newManufacturer" type="text" placeholder="Company name"
-                        class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                        class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Country of Manufacture</label>
                     <input id="newManufacturedCountry" type="text" placeholder="Country name"
-                        class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                        class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
                 </div>
             </div>
 
             <label class="block text-sm font-semibold text-gray-700 mb-2">Key Selling Points</label>
             <div class="grid grid-cols-2 gap-4 mb-8">
                 <input id="newKey1" type="text" placeholder="Key Point 1"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
                 <input id="newKey2" type="text" placeholder="Key Point 2"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
                 <input id="newKey3" type="text" placeholder="Key Point 3"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
                 <input id="newKey4" type="text" placeholder="Key Point 4"
-                    class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
                 <input id="newKey5" type="text" placeholder="Key Point 5"
-                    class="col-span-2 block w-full p-3.5 bg-white border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                    class="col-span-2 block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
             </div>
 
             <button id="addBtn" type="button"
@@ -232,13 +240,14 @@
                         <thead
                             class="bg-gray-50 text-gray-600 font-bold uppercase tracking-wider text-xs sticky top-0 z-20 shadow-sm border-b border-gray-200">
                             <tr>
-                                <th class="px-5 py-3 whitespace-nowrap w-[500px]">Img 1</th>
-                                <th class="px-5 py-3 whitespace-nowrap w-[500px]">Img 2</th>
-                                <th class="px-5 py-3 whitespace-nowrap w-[500px]">Img 3</th>
-                                <th class="px-5 py-3 whitespace-nowrap w-[800px]">Name</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 1</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 2</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 3</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[250px]">Name</th>
                                 <th class="px-5 py-3 whitespace-nowrap w-[400px]">Category</th>
                                 <th class="px-5 py-3 whitespace-nowrap w-[150px]">Price (৳)</th>
-                                <th class="px-5 py-3 whitespace-nowrap w-[200px]">Manufacturer</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[200px]">Quantity</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[401px] ">Manufacturer</th>
                                 <th class="px-5 py-3 whitespace-nowrap w-[150px]">Made In</th>
 
                                 <th class="px-5 py-3 whitespace-nowrap min-w-[300px] max-w-[350px]">Details 1</th>
@@ -372,7 +381,7 @@
                         <tr>
                             <th class="px-4 py-3">Image</th>
                             <th class="px-4 py-3">Name</th>
-                            <th class="px-4 py-3">Category</th>
+                            <th class="px-4 py-3 w-64">Category</th>
                             <th class="px-4 py-3 w-64">Note</th>
                             <th class="px-4 py-3">Phone</th>
                             <th class="px-4 py-3">Location</th>
@@ -388,50 +397,56 @@
     </main>
 
     <!-- Content form -->
-    <section id="contentForm" class="mt-12 max-w-6xl mx-auto px-4">
-        <h2 class="text-xl font-semibold mb-4">Add New Content Block</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input type="text" id="contentImg" placeholder="Image URL" required class="p-2 border rounded" />
-            <input type="text" id="contentHeading" placeholder="Heading" required class="p-2 border rounded" />
-            <input type="text" id="contentSubHeading" placeholder="Sub Heading" class="p-2 border rounded" />
-            <input type="text" id="contentProductId" placeholder="Product ID" class="p-2 border rounded" />
-            <textarea id="contentDetails" placeholder="Details"
-                class="h-52 p-2 border rounded col-span-1 md:col-span-2"></textarea>
-        </div>
-        <div class="mt-3">
-            <button id="addContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Post</button>
-        </div>
-    </section>
+    <main>
+        <section id="contentForm" class="mt-12 max-w-6xl mx-auto px-4">
+            <h2 class="text-xl font-semibold mb-4">Add New Article Block</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input type="text" id="contentImg" placeholder="Image URL" required class="p-2 border rounded" />
+                <input type="text" id="contentHeading" placeholder="Heading" required class="p-2 border rounded" />
+                <input type="text" id="contentSubHeading" placeholder="Sub Heading" class="p-2 border rounded" />
+                <input type="text" id="contentProductId" placeholder="Product ID" class="p-2 border rounded" />
+                <textarea id="contentDetails" placeholder="Details"
+                    class="h-52 p-2 border rounded col-span-1 md:col-span-2"></textarea>
+            </div>
+            <div class="mt-3">
+                <button id="addContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Post</button>
+            </div>
+        </section>
 
-    <!-- small content table and modal -->
-    <div class="max-w-6xl mx-auto px-4 mt-8">
-        <table class="w-full bg-white rounded shadow">
-            <thead>
-                <tr>
-                    <th class="p-3 text-left">Title</th>
-                    <th class="p-3 text-left">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="contentTable"></tbody>
-        </table>
-    </div>
+        <!-- small content table and modal -->
+        <div class="max-w-6xl mx-auto px-4 mt-8">
+            <table class="w-full bg-white rounded shadow">
+                <thead>
+                    <tr>
+                        <th class="p-3 text-left">Title</th>
+                        <th class="p-3 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contentTable"></tbody>
+            </table>
+        </div>
 
-    <div id="contentModal"
-        style="display:none; position:fixed; top:0; left:0; width: 100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;"
-        class="h-11/12 w-full mt-20">
-        <div style="background:white; padding:1rem; border-radius:10px; max-width:500px; width:90%; margin:4rem auto;">
-            <h2 class="text-lg font-semibold mb-2">Edit Content Block</h2>
-            <input type="text" id="modalImg" placeholder="Image URL" class="w-full p-2 border rounded mb-2" />
-            <input type="text" id="modalHeading" placeholder="Heading" class="w-full p-2 border rounded mb-2" />
-            <input type="text" id="modalSubHeading" placeholder="Sub Heading" class="w-full p-2 border rounded mb-2" />
-            <textarea id="modalDetails" placeholder="Details" class="h-48 p-2 border rounded mb-2 w-full"></textarea>
-            <input type="text" id="modalProductId" placeholder="Product ID" class="w-full p-2 border rounded mb-2" />
-            <div class="flex gap-2 justify-end">
-                <button id="updateContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Update</button>
-                <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 rounded">Close</button>
+        <div id="contentModal"
+            style="display:none; position:fixed; top:0; left:0; width: 100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;"
+            class="h-11/12 w-full mt-20">
+            <div
+                style="background:white; padding:1rem; border-radius:10px; max-width:500px; width:90%; margin:4rem auto;">
+                <h2 class="text-lg font-semibold mb-2">Edit Content Block</h2>
+                <input type="text" id="modalImg" placeholder="Image URL" class="w-full p-2 border rounded mb-2" />
+                <input type="text" id="modalHeading" placeholder="Heading" class="w-full p-2 border rounded mb-2" />
+                <input type="text" id="modalSubHeading" placeholder="Sub Heading"
+                    class="w-full p-2 border rounded mb-2" />
+                <textarea id="modalDetails" placeholder="Details"
+                    class="h-48 p-2 border rounded mb-2 w-full"></textarea>
+                <input type="text" id="modalProductId" placeholder="Product ID"
+                    class="w-full p-2 border rounded mb-2" />
+                <div class="flex gap-2 justify-end">
+                    <button id="updateContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Update</button>
+                    <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 rounded">Close</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         // Auth Check
@@ -477,10 +492,10 @@
 
                 tr.innerHTML = `
             <tr class="hover:bg-emerald-50/50 transition-colors group">
-                <td class="px-3 py-2 align-top text-center w-[500px]">
-                    <div class="flex flex-col items-center">
+                <td class="px-3 py-2 align-top text-center w-[300px]">
+                    <div class="flex flex-col items-center w-44">
                         ${img1 ? `<img src="${img1}" alt="img1"
-                            class="w-32 h-32 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
+                            class="w-40 h-40 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
                         ''}
                         <input type="text" value="${img1}" data-id="${p._id}" data-field="img1"
                             class="w-full text-xs border border-gray-200 rounded p-1.5 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
@@ -488,10 +503,10 @@
                     </div>
                 </td>
 
-                <td class="px-3 py-2 align-top text-center w-[500px]">
-                    <div class="flex flex-col items-center">
+                <td class="px-3 py-2 align-top text-center w-[300px]">
+                    <div class="flex flex-col items-center w-44">
                         ${img2 ? `<img src="${img2}" alt="img2"
-                            class="w-32 h-32 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
+                            class="w-40 h-40 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
                         ''}
                         <input type="text" value="${img2}" data-id="${p._id}" data-field="img2"
                             class="w-full text-xs border border-gray-200 rounded p-1.5 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
@@ -499,10 +514,10 @@
                     </div>
                 </td>
 
-                <td class="px-3 py-2 align-top text-center w-[500px]">
-                    <div class="flex flex-col items-center">
+                <td class="px-3 py-2 align-top text-center w-[300px]">
+                    <div class="flex flex-col items-center w-44">
                         ${img3 ? `<img src="${img3}" alt="img3"
-                            class="w-32 h-32 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
+                            class="w-40 h-40 object-cover rounded-lg mb-2 border border-gray-300 shadow-sm" />` :
                         ''}
                         <input type="text" value="${img3}" data-id="${p._id}" data-field="img3"
                             class="w-full text-xs border border-gray-200 rounded p-1.5 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
@@ -510,9 +525,9 @@
                     </div>
                 </td>
 
-                <td class="px-3 py-2 align-top w-[800px]">
+                <td class="px-3 py-2 align-top w-[250px]">
                     <textarea data-id="${p._id}" data-field="name"
-                        class="w-full text-base font-semibold text-gray-800 border border-gray-200 rounded p-2 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all shadow-sm"
+                        class=" w-[250px] text-base font-semibold text-gray-800 border border-gray-200 rounded p-2 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all shadow-sm"
                         rows="3">${p.name || ''}</textarea>
                     <div class="mt-2 text-xs text-gray-500 bg-gray-50 border border-dashed border-gray-200 rounded p-1.5 truncate"
                         title="Product ID: ${p._id}">
@@ -522,7 +537,7 @@
 
                 <td class="px-3 py-2 align-top w-[300px]">
                     <select data-id="${p._id}" data-field="category"
-                        class="w-full border border-gray-200 rounded p-2 text-sm bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">
+                        class="w-[300px] border border-gray-200 rounded p-2 text-sm bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">
                         <option value="">-- select --</option>
                         <option value="coffee beans" ${p.category === 'coffee beans' ? 'selected' : ''}>coffee beans
                         </option>
@@ -540,33 +555,38 @@
                         class="w-full border border-gray-200 rounded p-2 text-sm font-mono text-right focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
                         placeholder="0.00" />
                 </td>
-
                 <td class="px-3 py-2 align-top w-[200px]">
+                    <input type="text" value="${p.quantity != null ? p.quantity : ''}" data-id="${p._id}" data-field="quantity"
+                        class="w-full border border-gray-200 rounded p-2 text-sm font-mono text-right focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
+                        placeholder="kg/ g/ pcs" />
+                </td>
+
+                <td class="px-3 py-2 align-top w-[401px] ">
                     <input value="${p.menufacturer || ''}" data-id="${p._id}" data-field="menufacturer"
-                        class="w-full border border-gray-200 rounded p-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
+                        class="w-[401px] border border-gray-200 rounded p-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
                         placeholder="Company" />
                 </td>
                 <td class="px-3 py-2 align-top w-[150px]">
                     <input value="${p.menufactured_country || ''}" data-id="${p._id}" data-field="menufactured_country"
-                        class="w-full border border-gray-200 rounded p-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
+                        class="w-[150px] border border-gray-200 rounded p-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
                         placeholder="Country" />
                 </td>
 
                 <td class="px-3 py-2 align-top min-w-[300px] max-w-[350px]">
                     <textarea data-id="${p._id}" data-field="details1" rows="5"
-                        class="w-full border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details1 || ''}</textarea>
+                        class="min-w-[300px] max-w-[350px] h-40 border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details1 || ''}</textarea>
                 </td>
                 <td class="px-3 py-2 align-top min-w-[300px] max-w-[350px]">
                     <textarea data-id="${p._id}" data-field="details2" rows="5"
-                        class="w-full border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details2 || ''}</textarea>
+                        class="min-w-[300px] max-w-[350px] h-40 border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details2 || ''}</textarea>
                 </td>
                 <td class="px-3 py-2 align-top min-w-[300px] max-w-[350px]">
                     <textarea data-id="${p._id}" data-field="details3" rows="5"
-                        class="w-full border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details3 || ''}</textarea>
+                        class="min-w-[300px] max-w-[350px] h-40 border border-gray-200 rounded p-2 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all">${p.details3 || ''}</textarea>
                 </td>
 
                 <td class="px-3 py-2 align-top min-w-[350px] max-w-[450px]">
-                    <div class="flex flex-col space-y-1">
+                    <div class="flex flex-col space-y-1 min-w-[350px] max-w-[450px]">
                         <input value="${p.key_points1 || ''}" data-id="${p._id}" data-field="key_points1"
                             class="w-full border border-gray-200 rounded p-1.5 text-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-200 transition-all"
                             placeholder="Point 1" />
@@ -605,7 +625,6 @@
                 </td>
             </tr>
             `;
-
                 table.appendChild(tr);
             });
         }
@@ -621,6 +640,18 @@
                     img3: document.getElementById('newImg3').value.trim(),
                     name,
                     price: parseFloat(document.getElementById('newPrice').value) || 0,
+                    quantity: document.getElementById('newQuantity').value.trim(),
+                    details1: document.getElementById('newDetails1').value.trim(),
+                    details2: document.getElementById('newDetails2').value.trim(),
+                    details3: document.getElementById('newDetails3').value.trim(),
+                    menufacturer: document.getElementById('newManufacturer').value.trim(),
+                    menufactured_country: document.getElementById('newManufacturedCountry').value.trim(),
+                    key_points1: document.getElementById('newKey1').value.trim(),
+                    key_points2: document.getElementById('newKey2').value.trim(),
+                    key_points3: document.getElementById('newKey3').value.trim(),
+                    key_points4: document.getElementById('newKey4').value.trim(),
+                    key_points5: document.getElementById('newKey5').value.trim(),
+                    category: document.getElementById('newCategory').value,
                     available: document.getElementById('newAvailable').value
                 };
                 console.log('newProduct', newProduct)
@@ -646,6 +677,7 @@
                 document.getElementById('newKey3').value = '';
                 document.getElementById('newKey4').value = '';
                 document.getElementById('newKey5').value = '';
+                document.getElementById('newQuantity').value = '';
                 alert('New product is successfully added');
                 await loadProducts();
             } catch (err) {
@@ -670,6 +702,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)
                 });
+                alert('product updated')
                 await loadProducts();
             } catch (err) {
                 console.error('updateProduct error:', err);
@@ -682,6 +715,7 @@
             if (!confirm('Are you sure you want to delete this product?')) return;
             try {
                 await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                alert('product deleted')
                 await loadProducts();
             } catch (err) {
                 console.error('deleteProduct error:', err);
@@ -714,7 +748,8 @@
 
                     const productName = nameCell.textContent.toLowerCase().trim();
                     const productCategory = categoryCell.textContent.toLowerCase().trim();
-
+                    console.log({ categoryCell, selectedCategory })
+                    console.log(categoryCell)
                     let matchesSearch = true;
                     let matchesCategory = true;
 
@@ -815,6 +850,7 @@
                     heading: document.getElementById('contentHeading').value.trim(),
                     subHeading: document.getElementById('contentSubHeading').value.trim(),
                     details: document.getElementById('contentDetails').value.trim(),
+                    search_Key: document.getElementById('contentHeading').value.trim() + document.getElementById('contentSubHeading').value.trim(),
                     productId: document.getElementById('contentProductId').value.trim()
                 };
                 await fetch(CONTENT_API, {
@@ -822,6 +858,12 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newContent)
                 });
+                alert('contain posted');
+                document.getElementById('contentImg').value = '',
+                    document.getElementById('contentHeading').value = '',
+                    document.getElementById('contentSubHeading').value = '',
+                    document.getElementById('contentDetails').value = '',
+                    document.getElementById('contentProductId').value = ''
                 await loadContent();
             } catch (err) {
                 console.error('addContent error:', err);
@@ -836,6 +878,7 @@
                     heading: document.getElementById('modalHeading').value.trim(),
                     subHeading: document.getElementById('modalSubHeading').value.trim(),
                     details: document.getElementById('modalDetails').value.trim(),
+                    search_Key: document.getElementById('modalHeading').value.trim() + document.getElementById('modalSubHeading').value.trim(),
                     productId: document.getElementById('modalProductId').value.trim()
                 };
                 await fetch(`${CONTENT_API}/${currentContentId}`, {
@@ -844,6 +887,7 @@
                     body: JSON.stringify(updated)
                 });
                 modal.style.display = 'none';
+                alert('content updated')
                 await loadContent();
             } catch (err) {
                 console.error('update content error:', err);
@@ -896,7 +940,7 @@
             };
 
             // ---------------------------------------------------------
-            // 1. RENDER TABLE ROW
+            // 1. RENDER CARDS
             // ---------------------------------------------------------
             function buildRowHTML(card) {
                 // Map backend fields to display
@@ -918,9 +962,9 @@
                             </div>
                         </td>
                         <td class="px-4 py-3 font-semibold text-gray-800">${escapeHtml(card.name)}</td>
-                        <td class="px-4 py-3 text-gray-600">
+                        <td class="px-4 py-3 text-gray-600 w-64">
                             <span
-                                class="px-2 py-1 bg-gray-100 rounded-md text-xs border border-gray-200">${escapeHtml(card.category)}</span>
+                                class="px-2 py-1 bg-gray-100 rounded-md text-xs border border-gray-200 w-48">${escapeHtml(card.category)}</span>
                         </td>
                         <td class="px-4 py-3 text-gray-500 text-xs max-w-xs truncate" title="${escapeHtml(note)}">
                             ${escapeHtml(note)}
@@ -949,7 +993,7 @@
             }
 
             // ---------------------------------------------------------
-            // 2. LOAD DATA (GET)
+            // 2. LOAD CARDS (GET)
             // ---------------------------------------------------------
             async function loadCards(searchParams = {}) {
                 const tableBody = qs("#cardTable");
@@ -1004,7 +1048,7 @@
             }
 
             // ---------------------------------------------------------
-            // 3. SUBMIT FORM (POST / PUT)
+            // 3. CARD UPDATE
             // ---------------------------------------------------------
             async function handleFormSubmit(e) {
                 e.preventDefault();
@@ -1077,7 +1121,7 @@
             };
 
             // ---------------------------------------------------------
-            // 5. DELETE ACTION
+            // 5. CARD DELETE 
             // ---------------------------------------------------------
             window.deleteCard = async function (id) {
                 if (!confirm("Are you sure you want to delete this card? This action cannot be undone."))
@@ -1107,7 +1151,7 @@
             };
 
             // ---------------------------------------------------------
-            // 6. RESET & UTILS
+            // 6. RESET & UTILS (CARDS)
             // ---------------------------------------------------------
             function resetForm() {
                 qs("#adminPostForm").reset();
