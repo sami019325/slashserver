@@ -66,4 +66,62 @@ router.put("/update", async (req, res) => {
     }
 });
 
+
+// =============================
+// ✅ ORDER MANAGEMENT ROUTES
+// =============================
+
+// // GET all orders
+// router.get("/orders", async (req, res) => {
+//     try {
+//         const orders = await OrderData.find().sort({ tran_date: -1 });
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: "Error fetching orders", error });
+//     }
+// });
+
+// UPDATE order
+router.put("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { Status, Order_note } = req.body;
+
+        const order = await OrderData.findById(id);
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        let updatedNote = Order_note;
+        if (order.Order_note && Order_note) {
+            // Append only if there's a new note and an old note
+            updatedNote = order.Order_note + " " + Order_note;
+        } else if (order.Order_note) {
+            // Keep old note if no new note provided (though usually one is provided)
+            updatedNote = order.Order_note;
+        }
+
+        // If Status is provided, update it
+        if (Status) order.Status = Status;
+        // If Order_note is provided (even empty string to clear, but logic above preserves), update it.
+        // The logic above assumes we are appending. If we want to strictly follow the "append" logic from before:
+        if (Order_note) order.Order_note = updatedNote;
+
+        const updatedOrder = await order.save();
+        res.json(updatedOrder);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating order", error });
+    }
+});
+
+// DELETE order
+router.delete("/:id", async (req, res) => {
+    try {
+        await OrderData.findByIdAndDelete(req.params.id);
+        res.json({ message: "Order deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting order", error });
+    }
+});
+
 export default router;
