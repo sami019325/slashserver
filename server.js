@@ -34,11 +34,11 @@ app.use(express.json());
 
 // ✅ Configure allowed origins for CORS
 const allowedOrigins = [
-    "https://aajamnsami.com", // 🌐  frontend (deployed)
     "https://slashcoffeebd.com", // 🌐  frontend (deployed)
-    "http://localhost:5000",          // 🧪 Local dev (Vite/React)
-    "http://127.0.0.1:5500",
+    // "http://localhost:5000",          // 🧪 Local dev (Vite/React)
+    // "http://127.0.0.1:5500",
     "https://slashserver.onrender.com",
+    "https://slashserver.vercel.app",
     "http://admin.slashcoffeebd.com",
     "https://admin.slashcoffeebd.com"
     // "null", // when opened from file:///
