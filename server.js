@@ -30,19 +30,19 @@ const __dirname = path.dirname(__filename);
 // =============================
 
 // Parse incoming JSON
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // ✅ Configure allowed origins for CORS
 const allowedOrigins = [
     "https://slashcoffeebd.com", // 🌐  frontend (deployed)
-    // "http://localhost:5000",          // 🧪 Local dev (Vite/React)
-    // "http://127.0.0.1:5500",
+    "http://localhost:5000",          // 🧪 Local dev (Vite/React)
+    "http://127.0.0.1:5500",
     "https://slashserver.onrender.com",
     "https://slashserver.vercel.app",
     "http://admin.slashcoffeebd.com",
-    "https://admin.slashcoffeebd.com"
-    // "null", // when opened from file:///
-    // null
+    "https://admin.slashcoffeebd.com",
+    "null", // when opened from file:///
+    null
 ];
 
 // ✅ CORS configuration
@@ -121,6 +121,9 @@ app.use("/native_resources", express.static(path.join(__dirname, "native_resourc
 // =============================
 // ✅ ROUTES
 // =============================
+import enrollmentRoutes from "./routes/enrollmentRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
+
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/content", contentRoutes);
@@ -128,6 +131,8 @@ app.use("/api/pageItem", pageItemRoutes);
 app.use("/api/paymentpage", paymentGateway);
 app.use("/api/cards", cardRoutes);
 app.use("/api/adminpanel1", adminPaneGetOnly);
+app.use("/api/enroll", enrollmentRoutes);
+app.use("/api/upload", uploadRoutes);
 // ✅ 404 handler (for API routes)
 app.use((req, res) => {
     res.status(404).json({ alert: "Route not found" });

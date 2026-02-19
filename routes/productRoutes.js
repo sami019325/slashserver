@@ -61,16 +61,73 @@ router.get("/name/:name", async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 });
-// GET product by category
+// GET product by category with advanced filtering
 router.get("/ctgry/:ctgry", async (req, res) => {
     try {
         const ctgry = req.params.ctgry.trim();
-        const Category = await Product.find({ category: ctgry });
+        let query = { category: ctgry };
 
-        if (!Category) {
-            return res.status(404).json({ message: "Product not found" });
+        // Advanced Filtering Logic (Query Params)
+        const { type, blend, origin, grind } = req.query;
+
+        // 1. Filter by Type (e.g., "Whole Bean", "Ground Bean")
+        // Checks name or details since specific field might not exist
+        if (type && type !== 'undefined' && type !== 'null') {
+            query.$or = [
+                { name: { $regex: type, $options: "i" } },
+                { details1: { $regex: type, $options: "i" } }
+            ];
         }
-        res.json(Category);
+
+        // 2. Filter by Blend (e.g., "Premium Blend")
+        if (blend && blend !== 'undefined' && blend !== 'null') {
+            // Create a new $and condition if $or already exists, or merge
+            // For simplicity, we'll iterate and add to an $and array if multiple complex conditions
+            if (!query.$and) query.$and = [];
+            query.$and.push({
+                $or: [
+                    { name: { $regex: blend, $options: "i" } },
+                    { details1: { $regex: blend, $options: "i" } }
+                ]
+            });
+        }
+
+        // 3. Filter by Origin (e.g., "Brazil", "Colombia")
+        if (origin && origin !== 'undefined' && origin !== 'null') {
+            const originKey = origin.split(' ')[0]; // Extract "Brazil" from "Brazil (Arabica)"
+            if (!query.$and) query.$and = [];
+            query.$and.push({
+                $or: [
+                    { name: { $regex: originKey, $options: "i" } },
+                    { menufactured_country: { $regex: originKey, $options: "i" } },
+                    { details1: { $regex: originKey, $options: "i" } }
+                ]
+            });
+        }
+
+        // 4. Filter by Grind (e.g., "Espresso", "Moka Pot")
+        if (grind && grind !== 'undefined' && grind !== 'null') {
+            if (!query.$and) query.$and = [];
+            query.$and.push({
+                $or: [
+                    { name: { $regex: grind, $options: "i" } },
+                    { details1: { $regex: grind, $options: "i" } }
+                ]
+            });
+        }
+
+        // Clean up empty $and if it wasn't used
+        if (query.$and && query.$and.length === 0) delete query.$and;
+
+        console.log("Filtered Query:", JSON.stringify(query)); // Debug
+
+        const products = await Product.find(query);
+
+        if (!products || products.length === 0) {
+            // Return empty array instead of 404 to handle "no results found" gracefully on frontend
+            return res.status(200).json([]);
+        }
+        res.json(products);
     } catch (error) {
         console.error("Error fetching Category by name:", error);
         res.status(500).json({ message: "Server error" });

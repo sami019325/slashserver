@@ -5,6 +5,14 @@ import { Product } from "../models/Product.js";
 import { isAdmin } from "./adminRoutes.js";
 const router = express.Router();
 
+const COURSE_PRICES = {
+  "Foundation": 4999,
+  "Basic": 8999,
+  "Intermediate": 11999,
+  "Professional": 19999,
+  "Advance Professional": 29999
+};
+
 const store_id = '0000'
 const store_passwd = '00000';
 const is_live = false;
@@ -34,6 +42,7 @@ router.post('/init', async (req, res) => {
       currency: 'BDT',
       tran_date: new Date(),
       tran_id: tran_idGenerator(),
+      order_id: reqData.order_id,
       shipping_method: reqData.paymentMethod,
       product_name: JSON.stringify(dataAfterFiltering.items),
       cus_name: reqData.C_Name,
@@ -99,6 +108,21 @@ const itemListing = async (data) => {
         const product = await Product.findById(p.productId);
 
         if (!product) {
+          // Check if it's a course enrollment (skip DB lookup)
+          if (p.productId.startsWith('course_')) {
+            const officialPrice = COURSE_PRICES[p.productName];
+            if (officialPrice) {
+              return {
+                itemId: p.productId,
+                itemName: p.productName,
+                itemPrice: officialPrice,
+                itemQuantity: 1,
+                itemSubTotal: officialPrice * 1,
+                customNote: p.customNote || null,
+                customImageUrl: p.customImageUrl || null,
+              };
+            }
+          }
           throw new Error(`Product not found: ${p.productId}`);
         }
 
@@ -110,6 +134,8 @@ const itemListing = async (data) => {
           itemPrice: product.price,
           itemQuantity: p.quantity,
           itemSubTotal: subTotal,
+          customNote: p.customNote || null,
+          customImageUrl: p.customImageUrl || null,
         };
       })
     );
