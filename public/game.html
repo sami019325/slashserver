@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCA Classes - Memory Game</title>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Tiro+Bangla:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-green: #10B981;
+            --brand-dark: #064E3B;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Perspective for 3D flip */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        /* Essential flip styles */
+        .transform-style-preserve-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Hide scrollbar for game container but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Card transition */
+        .card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body class="flex justify-start lg:justify-center bg-amber-950 min-h-screen">
+    <div class="w-full lg:w-[500px] bg-white relative pb-28 flex flex-col h-screen overflow-hidden">
+
+        <!-- Top Board / Scoreboard -->
+        <div class="bg-lime-900 text-white rounded-b-3xl shadow-lg p-4 z-10 sticky top-0 flex-shrink-0">
+            <div class="flex justify-between items-center mb-2">
+                <div id="player1-score-box"
+                    class="flex flex-col items-center bg-lime-800 p-2 rounded-lg border-2 border-lime-400 w-1/3 transition-all duration-300">
+                    <span class="text-xs font-bold text-lime-100">PLAYER 1</span>
+                    <span id="player1-score" class="text-2xl font-black">0</span>
+                </div>
+
+                <div class="flex flex-col items-center w-1/3 text-center">
+                    <span class="text-[10px] text-lime-200 uppercase tracking-widest">Turn</span>
+                    <span id="turn-indicator" class="text-sm font-bold text-lime-400">Player 1</span>
+                </div>
+
+                <div id="player2-score-box"
+                    class="flex flex-col items-center bg-lime-800 p-2 rounded-lg border-2 border-transparent w-1/3 transition-all duration-300 opacity-60">
+                    <span class="text-xs font-bold text-lime-100">PLAYER 2</span>
+                    <span id="player2-score" class="text-2xl font-black">0</span>
+                </div>
+            </div>
+
+            <!-- Card Name Display -->
+            <div
+                class="bg-white/10 rounded-xl p-3 text-center min-h-[50px] flex items-center justify-center backdrop-blur-sm border border-white/20">
+                <p id="card-name-display" class="text-lg font-bold tracking-wide text-lime-50 leading-tight">
+                    Select a card to begin
+                </p>
+            </div>
+        </div>
+
+        <!-- Game Grid Area (Scrollable) -->
+        <div class="flex-grow overflow-y-auto w-full p-4 no-scrollbar">
+            <div id="game-grid" class="grid grid-cols-4 gap-2 pb-6">
+                <!-- Cards will be injected here by JS -->
+            </div>
+        </div>
+
+        <!-- Action / Reset button -->
+        <div class="absolute bottom-24 right-4 z-20">
+            <button onclick="initGame()"
+                class="bg-lime-600 hover:bg-lime-500 text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95">
+                <i class="fas fa-undo"></i>
+            </button>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav id="nav"
+            class="fixed bottom-0 left-0 right-0 h-20 flex items-center justify-center z-50 px-4 mb-4 lg:left-auto lg:right-auto lg:w-[500px]">
+            <div
+                class="bg-lime-950/95 backdrop-blur-xl w-full h-full rounded-2xl border border-lime-800/50 shadow-2xl flex items-center justify-around px-2">
+                <a href="./classes.html"
+                    class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                    <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                        <img src="./resources/course.png" class="w-6 h-6 object-contain" alt="Classes">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold">Classes</span>
+                </a>
+
+                <a href="./game.html"
+                    class="flex flex-col items-center justify-center text-white transition duration-300 group">
+                    <div class="bg-lime-700 p-2 rounded-xl shadow-lg shadow-lime-900/50 mb-1 transform -translate-y-1">
+                        <img src="./resources/game.png" class="w-6 h-6 object-contain" alt="Game">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-bold text-lime-400">Game</span>
+                </a>
+
+                <a href="./certificate.html"
+                    class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                    <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                        <img src="./resources/certificate.png" class="w-6 h-6 object-contain" alt="Certificate">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold">Certificate</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Full list of menu beverages
+        const allBeverages = [
+            "ESPRESSO", "AMERICANO", "ESPRESSO MACCHIATO", "CARAMEL MACCHIATO", "SALTED CARAMEL MACCHIATO",
+            "CAPPUCCINO", "CINNAMON CAPPUCCINO", "LATTE", "HAZELNUT LATTE", "BUTTERSCOTCH LATTE", "VANILLA LATTE",
+            "CARAMEL LATTE", "SALTED CARAMEL LATTE", "SPANISH LATTE", "MOCHA", "WHITE MOCHA", "SALTED CARAMEL MOCHA", "HOT CHOCOLATE",
+            "MOCHA FRAPPE", "MOCHA COOKIE CRUMBLE", "WHITE MOCHA FRAPPE", "CARAMEL RIBBON CRUSH", "JAVA CHIP FRAPPE",
+            "VANILLA FRAPPE", "HEZELNUT FRAPPE", "ESPRESSO FRAPPE", "CARAMEL MACCHIATO FRAPPE",
+            "VIRGIN PASSION MOHITO", "GUMMY BEER", "SURISE TAMPLE", "BLUE DRAGON", "LEMON MINT", "ORANGE OCEAN",
+            "ICED AMERICANO", "ICED CAPPUCCINO", "ICED LATTE", "ICED HAZELNUT LATTE", "ICED VANILLA LATTE",
+            "ICED BUTTERSCOTCH LATTE", "ICED CARAMEL LATTE", "ICED SALTED CARAMEL LATTE", "ICED MOCHA", "ICED WHITE MOCHA",
+            "ICED CARAMEL MACCHIATO", "ICED SALTED CARAMEL MACCHIATO", "ICED SPANISH LATTE", "LEMON ICED TEA", "PASSION ICED TEA",
+            "STRAWBERRY ICED TEA", "MIX BERRY ICED TEA",
+            "CLASSIC BUBBLE TEA", "CHOCOLATE BUBBLE TEA", "CARAMEL BUBBLE TEA", "SALTED CARAMEL BUBBLE TEA", "HAZELNUT BUBBLE TEA",
+            "VANILLA BUBBLE TEA", "BUTTERSCOTCH BUBBLE TEA", "STRAWBERRY BUBBLE TEA", "MIX BERRY BUBBLE TEA", "BLUEBERRY BUBBLE TEA",
+            "COOKIES & CREAM", "OREO SHAKE", "FRUITY TOOTY", "STRAWBERRY PURE", "CHOCOLATE BLAST", "BLUEBERRY SMOOTHIE",
+            "ORANGE JUICE", "SEASONAL JUICE",
+            "HOT BREWED TEA", "MILK TEA"
+        ];
+
+        // Game State Variables
+        let cardsContext = [];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+
+        let currentPlayer = 1; // 1 or 2
+        let scoreP1 = 0;
+        let scoreP2 = 0;
+
+        // Utility: formats name for image URL (e.g. "ESPRESSO MACCHIATO" -> "espresso_macchiato")
+        const formatImageName = (name) => {
+            return name.toLowerCase().replace(/[ &]+/g, "_");
+        };
+
+        // Utility: randomly shuffle array
+        const shuffle = (array) => {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        };
+
+        const updateScoreBoard = () => {
+            document.getElementById('player1-score').textContent = scoreP1;
+            document.getElementById('player2-score').textContent = scoreP2;
+
+            const p1Box = document.getElementById('player1-score-box');
+            const p2Box = document.getElementById('player2-score-box');
+            const turnIndicator = document.getElementById('turn-indicator');
+
+            if (currentPlayer === 1) {
+                p1Box.classList.remove('border-transparent', 'opacity-60');
+                p1Box.classList.add('border-lime-400', 'opacity-100');
+
+                p2Box.classList.remove('border-lime-400', 'opacity-100');
+                p2Box.classList.add('border-transparent', 'opacity-60');
+
+                turnIndicator.textContent = 'Player 1';
+                turnIndicator.className = 'text-sm font-bold text-lime-400';
+            } else {
+                p2Box.classList.remove('border-transparent', 'opacity-60');
+                p2Box.classList.add('border-lime-400', 'opacity-100');
+
+                p1Box.classList.remove('border-lime-400', 'opacity-100');
+                p1Box.classList.add('border-transparent', 'opacity-60');
+
+                turnIndicator.textContent = 'Player 2';
+                turnIndicator.className = 'text-sm font-bold text-amber-400';
+            }
+        };
+
+        const switchTurn = () => {
+            currentPlayer = currentPlayer === 1 ? 2 : 1;
+            updateScoreBoard();
+        };
+
+        const checkMatch = () => {
+            const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+
+            if (isMatch) {
+                // Keep cards flipped and increment score
+                if (currentPlayer === 1) scoreP1++;
+                else scoreP2++;
+
+                updateScoreBoard();
+
+                // Keep turn if match (standard rules), or could switch. We'll keep turn.
+                // Reset card variables
+                firstCard.removeEventListener('click', flipCard);
+                secondCard.removeEventListener('click', flipCard);
+
+                // Add a match glow effect
+                firstCard.querySelector('.card-front').classList.add('border-4', 'border-lime-400');
+                secondCard.querySelector('.card-front').classList.add('border-4', 'border-lime-400');
+
+                resetBoard();
+                checkWinCondition();
+            } else {
+                // If no match, freeze board, wait, flip back, switch turn
+                lockBoard = true;
+                setTimeout(() => {
+                    firstCard.querySelector('.card-inner').classList.remove('rotate-y-180');
+                    secondCard.querySelector('.card-inner').classList.remove('rotate-y-180');
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+
+                    switchTurn();
+                    resetBoard();
+                }, 1200);
+            }
+        };
+
+        const resetBoard = () => {
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+        };
+
+        const checkWinCondition = () => {
+            if (scoreP1 + scoreP2 === 16) {
+                setTimeout(() => {
+                    let winnerHTML = '';
+                    if (scoreP1 > scoreP2) {
+                        winnerHTML = `<span class="text-lime-400">Player 1 Wins!</span>`;
+                    } else if (scoreP2 > scoreP1) {
+                        winnerHTML = `<span class="text-amber-400">Player 2 Wins!</span>`;
+                    } else {
+                        winnerHTML = `<span class="text-white">It's a Tie!</span>`;
+                    }
+                    document.getElementById('card-name-display').innerHTML = `Game Over! ${winnerHTML}`;
+                }, 500);
+            }
+        };
+
+        const setTopDisplayText = (text) => {
+            const display = document.getElementById('card-name-display');
+            display.textContent = text;
+
+            // tiny pop animation
+            display.classList.remove('scale-105');
+            void display.offsetWidth; // trigger reflow
+            display.classList.add('scale-105', 'transition-transform');
+            setTimeout(() => display.classList.remove('scale-105'), 200);
+        };
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            // Mark as flipped
+            this.classList.add('flipped');
+            // Execute CSS flip
+            this.querySelector('.card-inner').classList.add('rotate-y-180');
+
+            const cardName = this.dataset.name;
+            setTopDisplayText(cardName);
+
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            checkMatch();
+        }
+
+        const buildCardHTML = (name, imgPath) => {
+            const card = document.createElement('div');
+            card.classList.add('relative', 'w-full', 'aspect-[3/4]', 'cursor-pointer', 'perspective-1000', 'card-container');
+            card.dataset.name = name;
+
+            card.innerHTML = `
+                <div class="card-inner w-full h-full relative transform-style-preserve-3d shadow-md rounded-xl">
+                    <!-- Back of Card (Shown initially) -->
+                    <div class="card-back absolute w-full h-full backface-hidden bg-amber-800 rounded-xl border-2 border-amber-900 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiPjwvY2lyY2xlPgo8L3N2Zz4=')]">
+                        <i class="fas fa-coffee text-3xl text-amber-600/50"></i>
+                    </div>
+                    
+                    <!-- Front of Card (Hidden initially, shown on flip) -->
+                    <div class="card-front absolute w-full h-full backface-hidden rotate-y-180 bg-white rounded-xl border-2 border-lime-100 flex items-center justify-center overflow-hidden">
+                        <!-- Fallback icon if image fails to load -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-gray-50 z-0">
+                             <i class="fas fa-mug-hot text-gray-300 text-3xl"></i>
+                        </div>
+                        <img src="${imgPath}" alt="${name}" class="w-full h-full object-cover z-10 relative" onerror="this.style.opacity='0'">
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', flipCard);
+            return card;
+        };
+
+        const initGame = () => {
+            // Reset state
+            currentPlayer = 1;
+            scoreP1 = 0;
+            scoreP2 = 0;
+            updateScoreBoard();
+            setTopDisplayText('Select a card to begin');
+            resetBoard();
+
+            // 1. Pick 16 random items from allBeverages
+            const shuffledBeverages = shuffle([...allBeverages]);
+            const selected16 = shuffledBeverages.slice(0, 16);
+
+            // 2. Duplicate to make pairs (32 cards total)
+            const deck = [...selected16, ...selected16];
+
+            // 3. Shuffle the deck
+            const shuffledDeck = shuffle(deck);
+
+            // 4. Render Grid
+            const grid = document.getElementById('game-grid');
+            grid.innerHTML = ''; // clear existing
+
+            shuffledDeck.forEach((itemName) => {
+                // Ensure image names use .png extension as per typical web assets, 
+                // formatted with underscores
+                const imgFileName = formatImageName(itemName) + '.png';
+                const imgPath = `./gameassests/${imgFileName}`;
+                const cardElement = buildCardHTML(itemName, imgPath);
+                grid.appendChild(cardElement);
+            });
+        };
+
+        // Run init on load
+        document.addEventListener('DOMContentLoaded', initGame);
+
+    </script>
+</body>
+
+</html>

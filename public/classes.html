@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCA Classes</title>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Tiro+Bangla:ital@0;1&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- jsPDF for invoice generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --brand-green: #10B981;
+            --brand-dark: #064E3B;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .lang-bn {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .lang-en {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .accent-text {
+            color: var(--brand-green);
+        }
+
+        .coffee-light {
+            background-color: #FDFBFA;
+        }
+
+        .coffee-bg {
+            background-color: #F3F4F6;
+        }
+
+        .content-fade {
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Ensure smooth sticky nav */
+        nav {
+            transition: all 0.3s ease;
+        }
+
+        .tiro-bangla-regular {
+            font-family: "Tiro Bangla", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .tiro-bangla-regular-italic {
+            font-family: "Tiro Bangla", serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="flex justify-start lg:justify-center bg-amber-950">
+    <div class="w-full min-h-screen lg:w-[500px] bg-white">
+        <nav id="nav" class="fixed bottom-0 left-0 right-0 h-20 flex items-center justify-center z-50 px-4 mb-4">
+            <div
+                class="bg-lime-950/90 backdrop-blur-xl w-full lg:w-[500px] h-full rounded-2xl border border-lime-800/50 shadow-2xl flex items-center justify-around px-2">
+                <a href="./classes.html"
+                    class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                    <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                        <img src="./resources/course.png" class="w-6 h-6 object-contain" alt="Classes">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold">Classes</span>
+                </a>
+
+                <a href="./game.html"
+                    class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                    <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                        <img src="./resources/game.png" class="w-6 h-6 object-contain" alt="Game">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold">Game</span>
+                </a>
+
+                <a href="./certificate.html"
+                    class=" flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                    <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                        <img src="./resources/certificate.png" class="w-6 h-6 object-contain" alt="Certificate">
+                    </div>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold">Certificate</span>
+                </a>
+            </div>
+        </nav>
+        <section>
+            <!-- Language Switcher -->
+            <div class="px-4 pt-6 flex justify-between items-center bg-white sticky top-0 z-40 pb-2 border-b border-gray-100/50 backdrop-blur-md bg-white/90">
+                <div class="flex items-center gap-2">
+                    <img src="https://slashcoffeebd.com/native_resources/logo_wth_white_bg.png" class="h-8 invert opacity-80" alt="Logo">
+                    <span class="font-black text-xs uppercase tracking-tighter text-slate-400">Academy</span>
+                </div>
+                <div class="flex bg-gray-100 p-1 rounded-xl border border-gray-200 shadow-sm">
+                    <button id="btn-en" onclick="setLanguage('English')" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">EN</button>
+                    <button id="btn-bn" onclick="setLanguage('Bangla')" class="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">BN</button>
+                </div>
+            </div>
+
+            <div class="w-full flex flex-col gap-5 px-4 pt-4">
+                <!-- Progress Section (Duolingo style path/progress) -->
+                <div id="pogressSection"
+                    class="w-full bg-white rounded-2xl border-2 border-gray-200 p-5 shadow-sm flex items-center gap-4">
+                    <div
+                        class="w-14 h-14 shrink-0 rounded-xl bg-[#ffc800]/20 flex items-center justify-center border-2 border-[#ffc800]">
+                        <i class="fa-solid fa-bolt text-[#ffc800] text-3xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-end mb-2">
+                            <h3 class="font-bold text-gray-700 text-lg leading-none">Your Progress</h3>
+                            <p class="text-sm text-[#58cc02] font-bold"><span id="pogressValue">0</span>%</p>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 relative">
+                            <div class="bg-[#58cc02] h-full rounded-full transition-all duration-1000 ease-out relative"
+                                style="width: 0%" id="pogressBar">
+                                <div class="absolute top-1 left-2 right-2 h-1 bg-white/30 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login / Profile Section -->
+                <div id="loginSection" class="w-full">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Courses Path Section (Duolingo style) -->
+                <div id="coursesPathContainer" class="w-full mt-2 pb-24 flex flex-col items-center">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="./js/academy/classespage.js"></script>
+</body>
+
+</html>

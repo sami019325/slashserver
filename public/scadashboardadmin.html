@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCA Dashboard Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Certificate Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 antialiased overflow-x-hidden">
+    <!-- Admin Login Overlay -->
+    <div id="login-overlay" class="fixed inset-0 bg-slate-100 z-[200] flex items-center justify-center p-4">
+        <div
+            class="w-full max-w-md bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden p-10 animate-in fade-in zoom-in duration-500">
+            <div class="flex flex-col items-center mb-8">
+                <div
+                    class="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-bolt text-white text-3xl"></i>
+                </div>
+                <h1 class="text-2xl font-black text-slate-800 tracking-tight">Admin Portal</h1>
+                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest mt-1">Slash Coffee Academy</p>
+            </div>
+
+            <form id="admin-login-form" class="space-y-6">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase text-slate-500 tracking-wider ml-1">Admin Email</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="email" name="email" required placeholder="admin@example.com"
+                            class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase text-slate-500 tracking-wider ml-1">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="password" name="password" required placeholder="••••••••"
+                            class="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all">
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full py-4 bg-emerald-500 text-white font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 active:scale-[0.98] transition-all">
+                    Secure Entry
+                </button>
+                <p id="login-error" class="text-center text-red-500 text-sm font-bold hidden animate-pulse">Invalid
+                    Credentials</p>
+            </form>
+            <div class="mt-10 pt-8 border-t border-slate-100 text-center">
+                <p class="text-slate-400 text-xs font-medium italic">Restricted Access • Authorized Personnel Only</p>
+            </div>
+        </div>
+    </div>
+
+    <nav id="sidebar-nav"
+        class="fixed top-0 left-0 h-full w-72 bg-slate-900 text-slate-300 border-r border-slate-800 z-50 transition-all duration-300 hidden">
+        <div class="p-6 border-b border-slate-800 mb-4 bg-slate-950/20">
+            <h1 class="text-white font-bold text-xl tracking-tight flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center">
+                    <i class="fa-solid fa-bolt text-white text-sm"></i>
+                </div>
+                SCA Admin
+            </h1>
+            <p class="text-xs text-slate-500 font-bold uppercase mt-2 tracking-widest">Dashboard Panel</p>
+        </div>
+
+        <div class="px-4 py-2 flex flex-col gap-1 overflow-y-auto h-[calc(100%-100px)]">
+            <a href="#" id="nav-requested"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-600/10 text-emerald-400 border border-emerald-600/20 font-semibold group transition-all">
+                <i class="fa-solid fa-user-plus text-lg"></i>
+                <span>Requested Registration</span>
+            </a>
+
+            <a href="#" id="nav-all-reg"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-users text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>All Registration</span>
+            </a>
+
+            <a href="#" id="nav-cert-viewers"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-certificate text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Certificate Viewers</span>
+            </a>
+
+            <div class="h-px bg-slate-800/50 my-2 mx-4"></div>
+
+            <a href="#" id="nav-enrolled"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-user-graduate text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Enrolled Students</span>
+            </a>
+
+            <a href="#" id="nav-completed"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-user-check text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Completed Students</span>
+            </a>
+
+            <a href="#" id="nav-employees"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-user-tie text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Employees Management</span>
+            </a>
+
+            <div class="h-px bg-slate-800/50 my-2 mx-4"></div>
+
+            <a href="#" id="nav-courses"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-book-open text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Course Management</span>
+            </a>
+
+            <a href="#" id="nav-create-user"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all group">
+                <i class="fa-solid fa-user-cog text-lg text-slate-500 group-hover:text-emerald-400"></i>
+                <span>Create User</span>
+            </a>
+
+            <div class="mt-auto mb-4">
+                <a href="#" id="nav-logout"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/10 hover:text-red-400 transition-all font-semibold text-slate-400">
+                    <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-body" class="ml-72 min-h-screen bg-slate-50 p-8 hidden">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h2 id="page-title" class="text-3xl font-extrabold text-slate-800 tracking-tight">System Management</h2>
+                <p id="page-subtitle" class="text-slate-500 font-medium mt-1">Manage registrations, courses and user
+                    certifications.</p>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button
+                    class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-50 shadow-sm transition-all">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 font-bold overflow-hidden shadow-sm">
+                    <i class="fa-solid fa-user-shield text-xl"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <div id="main-content">
+            <!-- Default Dashboard Cards (can be hidden/shown via JS) -->
+            <div id="dashboard-overview" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Stats overview cards... -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-user-plus text-2xl"></i>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-wider">New Requests</h3>
+                    <p class="text-3xl font-black text-slate-800 mt-1">12</p>
+                    <div class="mt-4 flex items-center text-emerald-500 text-xs font-bold gap-1">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>25% since yesterday</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-user-graduate text-2xl"></i>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-wider">Active Students</h3>
+                    <p class="text-3xl font-black text-slate-800 mt-1">456</p>
+                    <div class="mt-4 flex items-center text-emerald-500 text-xs font-bold gap-1">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>8% increase</span>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-certificate text-2xl"></i>
+                    </div>
+                    <h3 class="text-slate-500 font-bold text-sm uppercase tracking-wider">Certificates</h3>
+                    <p class="text-3xl font-black text-slate-800 mt-1">89</p>
+                    <div class="mt-4 flex items-center text-slate-400 text-xs font-bold gap-1">
+                        <span>Target: 100 this month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="selection-placeholder"
+                class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 min-h-[400px] flex flex-col items-center justify-center text-center">
+                <div
+                    class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-4 border-2 border-dashed border-slate-200">
+                    <i class="fa-solid fa-plus text-3xl"></i>
+                </div>
+                <h4 class="text-xl font-bold text-slate-700">Select a section to begin</h4>
+                <p class="text-slate-400 max-w-sm mt-2 font-medium">Click on any navigation item on the left sidebar to
+                    manage the different parts of the academy.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Container -->
+    <div id="modal-container"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <!-- Modal content injected by JS -->
+    </div>
+
+    <!-- Hidden Certificate Template (for rendering) -->
+    <div id="cert-render-container" class="fixed -left-[2000px] top-0">
+        <div id="certificate-template"
+            style="width: 1000px; height: 750px; background: white; position: relative; padding: 40px; box-sizing: border-box; font-family: 'Inter', sans-serif; color: #1e293b; border: 8px solid #1e2256;">
+            <!-- Top-Left Graphics -->
+            <div
+                style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-top: 200px solid #1e2256; border-right: 200px solid transparent; z-index: 2;">
+            </div>
+            <div
+                style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-top: 240px solid #b2d8e5; border-right: 240px solid transparent; z-index: 1;">
+            </div>
+
+            <!-- Bottom-Right Graphics -->
+            <div
+                style="position: absolute; bottom: 0; right: 0; width: 0; height: 0; border-bottom: 200px solid #1e2256; border-left: 200px solid transparent; z-index: 2;">
+            </div>
+            <div
+                style="position: absolute; bottom: 0; right: 0; width: 0; height: 0; border-bottom: 240px solid #b2d8e5; border-left: 240px solid transparent; z-index: 1;">
+            </div>
+
+            <!-- Seal/Ribbon (Top-Right) -->
+            <div style="position: absolute; top: 30px; left: 60px; z-index: 4; white-space: nowrap;">
+                <p
+                    style="font-size: 14px; font-weight: 800; color: #1e2256; opacity: 0.6; margin-left: 250px; letter-spacing: 1px;">
+                    SERIAL NO:- <span id="cert-serial" style="color: #000; opacity: 1;">SCA-2026-0001</span></p>
+            </div>
+
+            <div style="position: absolute; top: 50px; right: 70px; z-index: 3;">
+                <div style="position: relative; width: 100px; height: 100px;">
+                    <!-- Ribbons -->
+                    <div
+                        style="position: absolute; top: 60px; left: 20px; width: 30px; height: 70px; background: #fbbf24; clip-path: polygon(100% 0, 0 0, 50% 100%); transform: rotate(15deg); border-left: 2px solid #d97706;">
+                    </div>
+                    <div
+                        style="position: absolute; top: 60px; right: 20px; width: 30px; height: 70px; background: #fbbf24; clip-path: polygon(100% 0, 0 0, 50% 100%); transform: rotate(-15deg); border-right: 2px solid #d97706;">
+                    </div>
+                    <!-- Circle -->
+                    <div
+                        style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; background: #fbbf24; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid #d97706; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
+                        <div
+                            style="width: 85px; height: 85px; border: 2px dashed #d97706; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 65px; height: 65px; border: 4px double #d97706; border-radius: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div
+                style="position: relative; z-index: 3; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 60px;">
+                <h1
+                    style="font-size: 80px; font-weight: 800; letter-spacing: 8px; margin: 0; color: #000; font-family: 'Inter', sans-serif;">
+                    CERTIFICATE</h1>
+                <p
+                    style="font-size: 20px; font-weight: 700; letter-spacing: 4px; margin: 10px 0 0 0; color: #000; opacity: 0.9;">
+                    THIS CERTIFICATE IS AWARDED TO</p>
+
+                <div style="margin: 35px 0;">
+                    <h2 id="cert-user-name"
+                        style="font-size: 56px; font-weight: 800; color: #000; margin: 0; text-transform: uppercase;">
+                        KAWSAR MIAH</h2>
+                    <div style="width: 400px; height: 2px; background: #e2e8f0; margin: 10px auto;"></div>
+                </div>
+
+                <p
+                    style="max-width: 90%; margin: 0 auto; line-height: 1.5; font-size: 20px; font-weight: 500; color: #000;">
+                    This professional <span id="cert-course-name" style="font-weight: 700;">barista</span> course
+                    certificate is a recognition of your skills we are happy to
+                    be a part of your journey.
+                </p>
+                <p style="font-size: 20px; font-weight: 700; color: #000; margin-top: 15px;">
+                    And Award This Certificate From <b>Slash Coffee Roasting Co.</b>
+                </p>
+
+                <!-- Footer Signatures -->
+                <div
+                    style="margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 20px;">
+                    <div style="text-align: center; min-width: 250px;">
+                        <div
+                            style="font-family: 'Dancing Script', cursive; font-size: 32px; color: #000; margin-bottom: -5px; padding-left: 10px; white-space: nowrap;">
+                            Kazi Abid Ahsan</div>
+                        <div style="width: 100%; border-bottom: 2px solid #000;"></div>
+                        <p
+                            style="margin: 8px 0 0 0; font-weight: 800; font-size: 16px; color: #000; letter-spacing: 0.5px; white-space: nowrap;">
+                            KAZI ABID AHSAN</p>
+                        <p
+                            style="margin: 0; font-size: 12px; font-weight: 600; color: #475569; line-height: 1.3; white-space: nowrap;">
+                            Coffee Specialist & Director<br>Slash coffee roasting co.</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p
+                            style="font-weight: 800; font-size: 20px; color: #000; margin-right: 100px; white-space: nowrap;">
+                            Date:-<span id="cert-date">10/12/25</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/admin/adminUsers.js"></script>
+
+</body>
+
+</html>
