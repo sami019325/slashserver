@@ -14,6 +14,7 @@ import contentRoutes from "./routes/contentRoutes.js";
 import pageItemRoutes from "./routes/pageContentRout.js";
 import paymentGateway from "./routes/paymentGayeway.js";
 import adminPaneGetOnly from "./routes/adminPanel1.js";
+import certificateRoutes from "./routes/certificateRoutes.js";
 
 dotenv.config();
 
@@ -123,6 +124,8 @@ app.use("/native_resources", express.static(path.join(__dirname, "native_resourc
 // =============================
 import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import academyRoutes from "./routes/academyRoutes.js";
+import userAuthRoutes from "./routes/userAuthRoutes.js";
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
@@ -133,6 +136,9 @@ app.use("/api/cards", cardRoutes);
 app.use("/api/adminpanel1", adminPaneGetOnly);
 app.use("/api/enroll", enrollmentRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/academy", academyRoutes);
+app.use("/api/user", userAuthRoutes);
+app.use("/api/certificate", certificateRoutes);
 // ✅ 404 handler (for API routes)
 app.use((req, res) => {
     res.status(404).json({ alert: "Route not found" });
