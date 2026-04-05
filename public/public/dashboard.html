@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Slash Coffee</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 30px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #000e07;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #013f09;
+        }
+
+
+
+        .logout-btn {
+            background: #e74c3c;
+        }
+
+        /* small responsive fix for the fixed header top spacing */
+        main {
+            margin-top: 6rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- top fixed header (nav) -->
+    <header
+        class="fixed top-0 left-0 right-0 h-16 md:h-20 bg-green-950/95 backdrop-blur-sm text-white font-bold z-50 shadow-lg">
+        <div class="h-full px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto">
+            <!-- Logo / Title -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="text-xl md:text-2xl tracking-tight text-white hover:text-green-300 transition">
+                    Dashboard 2
+                </a>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-4">
+                <a href="#addProductDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Add
+                    Product</a>
+                <a href="#seeProductDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Products</a>
+                <a href="#addOrderDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Add
+                    Order</a>
+                <a href="#seeOrderDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Orders</a>
+                <a href="#addCardDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Add
+                    Card</a>
+                <a href="#seeCardDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Cards</a>
+                <a href="#academyEnrolledDiv"
+                    class="text-sm px-3 py-1 rounded-full border border-transparent hover:border-green-400 hover:bg-green-900 transition-all">Academy</a>
+
+                <div class="w-px h-6 bg-green-800 mx-2"></div>
+
+                <button
+                    class="logout-trigger bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded-lg text-sm shadow-md transition-transform ml-2">
+                    Logout
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-green-100 hover:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu"
+            class="hidden absolute top-16 left-0 w-full bg-green-950 border-t border-green-900 shadow-2xl flex-col animate-fade-in-down origin-top">
+            <a href="#addProductDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">Add
+                Product</a>
+            <a href="#seeProductDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">See
+                Products</a>
+            <a href="#addOrderDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">Add
+                Order</a>
+            <a href="#seeOrderDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">See
+                Orders</a>
+            <a href="#addCardDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">Add
+                Card</a>
+            <a href="#seeCardDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">See
+                Cards</a>
+            <a href="#academyEnrolledDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">Academy
+                Enrolled</a>
+            <a href="#addArticleDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">Add
+                Article</a>
+            <a href="#seeArticleDiv"
+                class="block px-6 py-4 text-white hover:bg-green-900 border-b border-green-900/50 transition">See
+                Articles</a>
+            <a href="#"
+                class="logout-trigger block px-6 py-4 text-red-200 hover:bg-red-900/30 border-b border-green-900/50 transition font-bold">Logout</a>
+        </div>
+    </header>
+
+    <!-- branding header -->
+    <header class="bg-gradient-to-r from-green-100 to-green-50 border-b border-green-200">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="./native_resources/logo.svg" alt="Logo" class="w-12 h-12 object-contain" />
+                <div>
+                    <p class="text-sm text-green-700">Slash Coffee — Admin</p>
+                    <p class="text-xs text-green-500">Manage products & content</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="addProductDiv"
+        class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+        <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+
+        <p>Add Product</p>
+    </div>
+    <!-- Main layout for product -->
+    <main class="w-full mx-auto px-4 py-12 flex flex-col items-center justify-center bg-gray-50 min-h-screen font-sans">
+        <section id="addForm"
+            class="w-full max-w-4xl bg-white border border-gray-100 rounded-3xl p-10 shadow-2xl transition-shadow duration-300 hover:shadow-emerald-200/50">
+            <div class="border-b border-gray-100 pb-5 mb-8">
+                <h2 class="text-3xl font-extrabold text-emerald-900">✨ Add New Product</h2>
+                <p class="text-md text-gray-500 mt-1">Fill out the form to securely add a new item to your inventory.
+                </p>
+            </div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Product Name</label>
+            <input id="newName" type="text" placeholder="e.g. Signature Espresso Blend"
+                class="block w-full p-3.5 bg-white border border-gray-200 rounded-xl mb-6 text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                required />
+
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Product Images</label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <!-- Image 1 -->
+                <div class="relative group">
+                    <div id="preview1"
+                        class="w-full h-32 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden mb-2 relative">
+                        <span class="text-xs text-gray-400">Primary Image</span>
+                        <div id="loader1" class="absolute inset-0 bg-white/80 hidden items-center justify-center">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                        </div>
+                    </div>
+                    <input id="fileImg1" type="file" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    <button type="button"
+                        class="w-full py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 group-hover:bg-emerald-100 transition-colors">
+                        Select Primary
+                    </button>
+                    <input id="newImg1" type="hidden" />
+                </div>
+
+                <!-- Image 2 -->
+                <div class="relative group">
+                    <div id="preview2"
+                        class="w-full h-32 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden mb-2 relative">
+                        <span class="text-xs text-gray-400">Secondary Image</span>
+                        <div id="loader2" class="absolute inset-0 bg-white/80 hidden items-center justify-center">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                        </div>
+                    </div>
+                    <input id="fileImg2" type="file" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    <button type="button"
+                        class="w-full py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 group-hover:bg-emerald-100 transition-colors">
+                        Select Secondary
+                    </button>
+                    <input id="newImg2" type="hidden" />
+                </div>
+
+                <!-- Image 3 -->
+                <div class="relative group">
+                    <div id="preview3"
+                        class="w-full h-32 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden mb-2 relative">
+                        <span class="text-xs text-gray-400">Tertiary Image</span>
+                        <div id="loader3" class="absolute inset-0 bg-white/80 hidden items-center justify-center">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                        </div>
+                    </div>
+                    <input id="fileImg3" type="file" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    <button type="button"
+                        class="w-full py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 group-hover:bg-emerald-100 transition-colors">
+                        Select Tertiary
+                    </button>
+                    <input id="newImg3" type="hidden" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Price</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">৳</span>
+                        <input id="newPrice" type="number" placeholder="0.00"
+                            class="block w-full pl-9 p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                            required />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity</label>
+                    <div class="relative">
+                        <input id="newQuantity" type="text" placeholder="e.g. 1kg/ 500g/ 1pcs"
+                            class="block w-full pl-9 p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                            required />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Availability</label>
+                    <div class="relative">
+                        <select id="newAvailable"
+                            class="block w-full p-3.5 bg-white border placeholder-gray-400 border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
+                            <option value="available">Available</option>
+                            <option value="not available">Not Available</option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+            <div class="relative mb-6">
+                <select id="newCategory"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 appearance-none focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm pr-10">
+                    <option value="coffee beans">Coffee Beans</option>
+                    <option value="merchandise products">Merchandise Products</option>
+                    <option value="cake and pastry">Cake and Pastry</option>
+                    <option value="Barista Training">Barista Training</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Coffee Bean Specific Fields (Hidden by default) -->
+            <div id="coffeeBeansFields" class="space-y-4 mb-6 hidden">
+                <div class="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-emerald-900 mb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z" />
+                        </svg>
+                        Coffee Bean Attributes
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Bean Type -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bean Type</label>
+                            <select id="newBeanType"
+                                class="block w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500">
+                                <option value="">Select Type</option>
+                                <option value="Whole Bean">Whole Bean</option>
+                                <option value="Ground Bean">Ground Bean</option>
+                                <option value="Single Origin">Single Origin</option>
+                            </select>
+                        </div>
+
+                        <!-- Blend -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1.5">Blend (if
+                                applicable)</label>
+                            <select id="newBlend"
+                                class="block w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500">
+                                <option value="">Select Blend</option>
+                                <option value="Premium Blend">Premium Blend</option>
+                                <option value="Winter Blend">Winter Blend</option>
+                                <option value="Seasonal Blend">Seasonal Blend</option>
+                                <option value="Espresso Blend">Espresso Blend</option>
+                            </select>
+                        </div>
+
+                        <!-- Origin -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1.5">Origin (if Single
+                                Origin)</label>
+                            <select id="newOrigin"
+                                class="block w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500">
+                                <option value="">Select Origin</option>
+                                <option value="Brazil (Arabica)">Brazil (Arabica)</option>
+                                <option value="Colombia (Arabica)">Colombia (Arabica)</option>
+                                <option value="Kenya (Arabica)">Kenya (Arabica)</option>
+                                <option value="Vietnam (Robusta)">Vietnam (Robusta)</option>
+                                <option value="Java (Arabica)">Java (Arabica)</option>
+                                <option value="Yunnan (Arabica)">Yunnan (Arabica)</option>
+                            </select>
+                        </div>
+
+                        <!-- Grind Size -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1.5">Grind Size (if
+                                Ground)</label>
+                            <select id="newGrindSize"
+                                class="block w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500">
+                                <option value="">Select Grind</option>
+                                <option value="Espresso">Espresso</option>
+                                <option value="Moka Pot">Moka Pot</option>
+                                <option value="Paper Filter">Paper Filter</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-emerald-700 mt-3 italic">
+                        💡 Tip: These attributes will be added to the product name automatically to ensure proper
+                        filtering.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Merchandise Specific Fields (Hidden by default) -->
+            <div id="merchandiseFields" class="space-y-4 mb-6 hidden">
+                <div class="bg-indigo-50 border-2 border-indigo-200 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Merchandise Attributes
+                    </h3>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Merchandise Type</label>
+                        <select id="newMerchType"
+                            class="block w-full p-2.5 bg-white border border-indigo-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+                            <option value="">Select Type</option>
+                            <option value="coffee machine">Coffee Machine</option>
+                            <option value="Gift set">Gift Set</option>
+                            <option value="Moka Pot">Moka Pot</option>
+                            <option value="Cleaner">Cleaner</option>
+                            <option value="Tamperature miter">Tamperature miter</option>
+                            <option value="temp and holder">Temp and Holder</option>
+                            <option value="knock box">Knock Box</option>
+                            <option value="measurement cup">Measurement Cup</option>
+                            <option value="art pen">Art Pen</option>
+                        </select>
+                        <p class="text-xs text-indigo-700 mt-2 italic">
+                            💡 Tip: The selected type will be appended to the product name (e.g. "My Product || Moka
+                            Pot")
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Product Details</label>
+            <div class="space-y-4 mb-6">
+                <textarea id="newDetails1" rows="2" placeholder="Primary Description"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"
+                    required></textarea>
+                <textarea id="newDetails2" rows="2" placeholder="Additional Detail (Optional)"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
+                <textarea id="newDetails3" rows="2" placeholder="Additional Detail (Optional)"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Manufacturer</label>
+                    <input id="newManufacturer" type="text" placeholder="Company name"
+                        class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Country of Manufacture</label>
+                    <input id="newManufacturedCountry" type="text" placeholder="Country name"
+                        class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 transition-all shadow-sm" />
+                </div>
+            </div>
+
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Key Selling Points</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                <input id="newKey1" type="text" placeholder="Key Point 1"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                <input id="newKey2" type="text" placeholder="Key Point 2"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                <input id="newKey3" type="text" placeholder="Key Point 3"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                <input id="newKey4" type="text" placeholder="Key Point 4"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+                <input id="newKey5" type="text" placeholder="Key Point 5"
+                    class="block w-full p-3.5 placeholder-gray-400 bg-white border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-600 outline-none transition-all shadow-sm" />
+            </div>
+
+            <button id="addBtn" type="button"
+                class="w-full bg-emerald-700 text-white font-bold text-lg rounded-xl py-4 shadow-xl shadow-emerald-700/30 hover:bg-emerald-600 hover:shadow-2xl active:scale-[0.99] transition-all duration-300">
+                ➕ Add Product to Database
+            </button>
+        </section>
+
+        <div id="seeProductDiv"
+            class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+            <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+
+            <p>Product Managemnt</p>
+        </div>
+
+        <section id="seeProduct"
+            class="mt-12 w-full max-w-7xl bg-white border border-gray-100 rounded-3xl p-8 shadow-2xl overflow-hidden">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4">
+                <h2 class="text-3xl font-extrabold text-emerald-900 flex items-center gap-3">
+                    <div class="p-3 bg-emerald-50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-emerald-700" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 4a1 1 0 011-1h3.28a1 1 0 01.948.684l1.498 4.49a1 1 0 01-.217.95L6.6 12.5a1 1 0 00-.3.707V19a1 1 0 001 1h2a1 1 0 001-1v-5.5l1.43-1.43a1 1 0 011.42 0l2.72 2.72a1 1 0 01.22.95l-1.5 4.49A1 1 0 0018.72 20H21a1 1 0 001-1V4a1 1 0 00-1-1H3z" />
+                        </svg>
+                    </div>
+                    Product Inventory
+                </h2>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <input id="quickSearch" type="search" placeholder="Search by name"
+                        class="p-3 px-4 border border-gray-300 rounded-xl w-60 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 transition-shadow" />
+                    <select id="filterCategory"
+                        class="p-3 px-4 border border-gray-300 rounded-xl bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 cursor-pointer appearance-none pr-10">
+                        <option value="">All Categories</option>
+                        <option value="coffee beans">Coffee beans</option>
+                        <option value="merchandise products">Merchandise</option>
+                        <option value="cake and pastry">Cakes & Pastry</option>
+                        <option value="Barista Training">Training</option>
+                    </select>
+
+                    <!-- Coffee Bean Specific Filters (Hidden by default) -->
+                    <div id="beanFilters" class="hidden flex-wrap gap-3">
+                        <select id="filterBeanType"
+                            class="p-3 px-4 border border-emerald-300 rounded-xl bg-emerald-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 cursor-pointer">
+                            <option value="">All Types</option>
+                            <option value="Whole Bean">Whole Bean</option>
+                            <option value="Ground Bean">Ground Bean</option>
+                            <option value="Single Origin">Single Origin</option>
+                        </select>
+
+                        <select id="filterBlend"
+                            class="p-3 px-4 border border-emerald-300 rounded-xl bg-emerald-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 cursor-pointer">
+                            <option value="">All Blends</option>
+                            <option value="Premium Blend">Premium Blend</option>
+                            <option value="Winter Blend">Winter Blend</option>
+                            <option value="Seasonal Blend">Seasonal Blend</option>
+                            <option value="Espresso Blend">Espresso Blend</option>
+                        </select>
+
+                        <select id="filterOrigin"
+                            class="p-3 px-4 border border-emerald-300 rounded-xl bg-emerald-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 cursor-pointer">
+                            <option value="">All Origins</option>
+                            <option value="Brazil (Arabica)">Brazil (Arabica)</option>
+                            <option value="Colombia (Arabica)">Colombia (Arabica)</option>
+                            <option value="Kenya (Arabica)">Kenya (Arabica)</option>
+                            <option value="Vietnam (Robusta)">Vietnam (Robusta)</option>
+                            <option value="Java (Arabica)">Java (Arabica)</option>
+                            <option value="Yunnan (Arabica)">Yunnan (Arabica)</option>
+                        </select>
+
+                        <select id="filterGrind"
+                            class="p-3 px-4 border border-emerald-300 rounded-xl bg-emerald-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 cursor-pointer">
+                            <option value="">All Grinds</option>
+                            <option value="Espresso">Espresso</option>
+                            <option value="Moka Pot">Moka Pot</option>
+                            <option value="Paper Filter">Paper Filter</option>
+                        </select>
+                    </div>
+
+                    <button id="reloadBtn"
+                        class="p-3 px-5 rounded-xl bg-gray-100 text-gray-700 font-semibold border border-gray-200 hover:bg-gray-200 active:scale-[0.98] transition-colors">
+                        🔄 Reload
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden border border-gray-200 rounded-2xl shadow-lg">
+                <div
+                    class="overflow-x-auto overflow-y-auto h-[400px] max-h-[60vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-gray-50 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <thead
+                            class="bg-gray-50 text-gray-600 font-bold uppercase tracking-wider text-xs sticky top-0 z-20 shadow-sm border-b border-gray-200">
+                            <tr>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 1</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 2</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[300px]">Img 3</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[250px]">Name</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[400px]">Category</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[150px]">Price (৳)</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[200px]">Quantity</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[401px] ">Manufacturer</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[150px]">Made In</th>
+
+                                <th class="px-5 py-3 whitespace-nowrap min-w-[300px] max-w-[350px]">Details 1</th>
+                                <th class="px-5 py-3 whitespace-nowrap min-w-[300px] max-w-[350px]">Details 2</th>
+                                <th class="px-5 py-3 whitespace-nowrap min-w-[300px] max-w-[350px]">Details 3</th>
+                                <th class="px-5 py-3 whitespace-nowrap min-w-[350px] max-w-[450px]">Key Points</th>
+                                <th class="px-5 py-3 whitespace-nowrap w-[120px]">Availability</th>
+                                <th
+                                    class="px-5 py-3 whitespace-nowrap text-center w-[150px] sticky right-0 bg-gray-50 shadow-[-4px_0_8px_-2px_rgba(0,0,0,0.05)]">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="productTable" class="bg-white divide-y divide-gray-100 text-gray-700 text-xs">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-500 mt-6 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 7a1 1 0 012 0v5a1 1 0 11-2 0V7zM10 16a1 1 0 100-2 1 1 0 000 2z" />
+                </svg>
+                <span class="italic">Tip: The <strong class="text-emerald-700">Actions</strong> column is sticky and
+                    always visible. Text fields can be edited inline.</span>
+            </p>
+        </section>
+    </main>
+
+    <div id="addCardDiv"
+        class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+        <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+
+        <p>Add Card</p>
+    </div>
+    <!-- main for cards -->
+    <main class="p-6 max-w-7xl mx-auto">
+
+        <section id="addCardForm"
+            class="w-full bg-white border border-green-100 rounded-2xl p-6 shadow-lg relative overflow-hidden mb-10">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-900 to-green-400"></div>
+
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-green-950 flex items-center gap-2">
+                    <span id="formTitleAction">📌 Add New</span> Card
+                </h2>
+                <button id="cancelUpdateBtn"
+                    class="hidden text-sm text-red-600 hover:text-red-800 underline font-semibold">
+                    Cancel Edit
+                </button>
+            </div>
+
+            <form id="adminPostForm" enctype="multipart/form-data">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Name</label>
+                        <input name="name" type="text" placeholder="e.g. kawsar Ahmed" required
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Category</label>
+                        <input name="category" type="text" placeholder="e.g. Barista" required
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Phone Number</label>
+                        <input name="phone" type="number" placeholder="e.g. 01700000000"
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Location</label>
+                        <input name="location" type="text" placeholder="e.g. Dhaka, Banani"
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Availability</label>
+                        <select name="available"
+                            class="block w-full p-3 border border-green-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
+                            <option value="available">Available</option>
+                            <option value="not available">Not Available</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-green-900 mb-1">Image File</label>
+                        <input name="image" type="file" accept="image/*"
+                            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-700 hover:file:bg-green-200 cursor-pointer" />
+                        <p class="text-xs text-gray-400 mt-1 ml-1">Leave empty to keep existing image (when editing)</p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-green-900 mb-1">Note Content</label>
+                    <textarea name="note" rows="4" placeholder="Write the sticky note content here..."
+                        class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"></textarea>
+                </div>
+
+                <button id="submitBtn" type="submit"
+                    class="w-full bg-green-950 text-white font-bold rounded-xl py-4 shadow-md hover:bg-green-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2">
+                    <span>🚀</span> <span id="btnText">Publish Card</span>
+                </button>
+            </form>
+        </section>
+
+        <div id="seeCardDiv"
+            class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+            <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+
+            <p>Card Managemnt</p>
+        </div>
+        <section id="seeCards" class="w-full  bg-white border border-green-100 rounded-2xl p-6 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-green-950">Inventory List</h2>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="relative">
+                        <input id="cardSearch" type="search" placeholder="Search by Name..."
+                            class="pl-8 p-2 border border-green-200 rounded-lg w-64 focus:ring-2 focus:ring-green-400 outline-none" />
+                        <span class="absolute left-2 top-2.5 text-gray-400 text-sm">🔍</span>
+                    </div>
+                    <input id="cardFilterCat" type="text" placeholder="Filter Category"
+                        class="p-2 border border-green-200 rounded-lg w-40 focus:ring-2 focus:ring-green-400 outline-none" />
+                    <button id="cardReloadBtn"
+                        class="p-2 px-4 rounded-lg bg-green-100 text-green-800 font-bold hover:bg-green-200 transition flex items-center gap-1">
+                        ↻ Reload
+                    </button>
+                    <div
+                        class="p-2 px-4 rounded-md bg-green-950 text-white font-medium hover:bg-green-800 hover:scale-[1.05] transition">
+                        Tap here after adding value</div>
+                </div>
+            </div>
+
+            <div class=" border border-gray-100 rounded-xl shadow-inner custom-scrollbar h-52 overflow-auto">
+                <table class="text-sm w-full  text-left border-collapse">
+                    <thead class="bg-green-950 text-green-50 uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="px-4 py-3">Image</th>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3 w-64">Category</th>
+                            <th class="px-4 py-3 w-64">Note</th>
+                            <th class="px-4 py-3">Phone</th>
+                            <th class="px-4 py-3">Location</th>
+                            <th class="px-4 py-3 text-center">Status</th>
+                            <th class="px-4 py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cardTable" class="divide-y h-96 overflow-auto divide-gray-100 bg-white">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="addOrderDiv"
+        class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+        <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+        <p>Add New Order</p>
+    </div>
+    <!-- Main order management -->
+    <main>
+        <main class="p-6 max-w-7xl mx-auto">
+            <!-- Add New Order Form (POST /api/orders) -->
+            <section id="addOrderForm"
+                class="w-full bg-white border border-green-100 rounded-2xl p-6 shadow-lg relative overflow-hidden mb-10">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-900 to-green-400"></div>
+
+                <h2 class="text-2xl font-bold text-green-950 mb-6 flex items-center gap-2">
+                    <span id="formTitleAction">➕ New Order Entry</span>
+                </h2>
+
+                <form id="orderPostForm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <!-- Essential fields for a new order -->
+                        <div>
+                            <label class="block text-sm font-bold text-green-900 mb-1">Customer Name *</label>
+                            <input name="cus_name" type="text" placeholder="e.g. Jane Doe" required
+                                class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-green-900 mb-1">Customer Phone *</label>
+                            <input name="cus_phone" type="text" placeholder="e.g. 01700000000" required
+                                class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-green-900 mb-1">Total Amount *</label>
+                            <input name="total_amount" type="number" step="0.01" placeholder="e.g. 199.99" required
+                                class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-green-900 mb-1">Product Name</label>
+                        <input name="product_name" type="text" placeholder="e.g. Premium T-Shirt"
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition" />
+                    </div>
+
+                    <button id="submitBtn" type="submit"
+                        class="w-full bg-green-950 text-white font-bold rounded-xl py-4 shadow-md hover:bg-green-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2">
+                        <span>📦</span> <span id="btnText">Place New Order</span>
+                    </button>
+                </form>
+            </section>
+            <div id="seeOrderDiv"
+                class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+                <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+                <p>Order Managemnt</p>
+            </div>
+
+            <!-- Order List, Filters, and Pagination -->
+            <section id="orderList" class="w-full bg-white border border-green-100 rounded-2xl p-6 shadow-sm">
+
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 gap-4">
+                    <h2 class="text-2xl font-bold text-green-950">Recent Orders</h2>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <!-- Filter by Date -->
+                        <div>
+                            <label class="block text-xs font-bold text-green-900 mb-1">Filter by Date</label>
+                            <input id="dateFilter" type="date"
+                                class="p-2 border border-green-200 rounded-lg w-40 focus:ring-2 focus:ring-green-400 outline-none" />
+                        </div>
+                        <!-- Filter by Phone -->
+                        <div>
+                            <label class="block text-xs font-bold text-green-900 mb-1">Filter by Phone</label>
+                            <input id="phoneFilter" type="text" placeholder="Customer Phone"
+                                class="p-2 border border-green-200 rounded-lg w-40 focus:ring-2 focus:ring-green-400 outline-none" />
+                        </div>
+                        <button id="reloadBtn"
+                            class="mt-4 p-2 px-4 rounded-lg bg-green-100 text-green-800 font-bold hover:bg-green-200 transition flex items-center gap-1">
+                            ↻ Apply Filters / Reload
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="overflow-x-auto border border-gray-100 rounded-xl shadow-inner custom-scrollbar">
+                    <table class="text-sm w-full text-left border-collapse">
+                        <thead class="bg-green-950 text-green-50 uppercase text-xs tracking-wider sticky top-0">
+                            <tr>
+                                <th class="px-4 py-3">ID</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Customer</th>
+                                <th class="px-4 py-3">Phone</th>
+                                <th class="px-4 py-3">Product</th>
+                                <th class="px-4 py-3 text-right">Amount</th>
+                                <th class="px-4 py-3 text-center">Status</th>
+                                <th class="px-4 py-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTable" class="divide-y divide-gray-100 bg-white">
+                            <!-- Rows will be injected here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Control -->
+                <div id="paginationControls" class="flex justify-between items-center mt-4">
+                    <span class="text-sm text-gray-600">
+                        Page <span id="currentPageDisplay">1</span> of <span id="totalPagesDisplay">1</span>
+                        (<span id="totalItemsDisplay">0</span> total items)
+                    </span>
+                    <div class="flex gap-3">
+                        <button id="prevPageBtn" disabled
+                            class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition disabled:opacity-50">
+                            &larr; Previous
+                        </button>
+                        <button id="nextPageBtn" disabled
+                            class="px-4 py-2 rounded-lg bg-green-700 text-white font-medium hover:bg-green-600 transition disabled:opacity-50">
+                            Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- Update Status/Note Modal -->
+        <div id="updateModal"
+            class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 transform transition-all">
+                <h3 class="text-xl font-bold text-green-950 mb-4 flex items-center justify-between">
+                    Update Order Status
+                    <button onclick="closeUpdateModal()" class="text-gray-400 hover:text-gray-600">✕</button>
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Order ID: <span id="modalOrderId" class="font-mono"></span></p>
+
+                <form id="updateStatusForm">
+                    <input type="hidden" id="modalIdInput" name="id">
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-green-900 mb-1">New Status</label>
+                        <select name="Status" required
+                            class="block w-full p-3 border border-green-200 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition">
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-green-900 mb-1">Append Internal Note</label>
+                        <textarea name="Order_note" rows="3"
+                            placeholder="Add a new admin note (will be appended to existing notes)..." required
+                            class="block w-full p-3 border border-green-200 bg-green-50/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"></textarea>
+                    </div>
+
+                    <button id="modalUpdateBtn" type="submit"
+                        class="w-full bg-blue-600 text-white font-bold rounded-xl py-3 shadow-md hover:bg-blue-700 transition-all duration-300 flex justify-center items-center gap-2">
+                        <span>💾</span> Update Status & Note
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Details Modal (Shows ALL Schema Fields) -->
+        <div id="detailsModal"
+            class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6 transform transition-all max-h-[90vh] overflow-y-auto">
+                <h3 class="text-xl font-bold text-green-950 mb-4 flex items-center justify-between">
+                    Order Details
+                    <button onclick="closeDetailsModal()" class="text-gray-400 hover:text-gray-600">✕</button>
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Order MongoDB ID: <span id="detailOrderId"
+                        class="font-mono"></span></p>
+
+                <div id="detailsContent" class="space-y-6">
+                    <!-- Data is injected here -->
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <button onclick="closeDetailsModal()"
+                        class="w-full bg-gray-200 text-gray-700 font-bold rounded-xl py-3 hover:bg-gray-300 transition-all">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Academy Enrolled Section -->
+    <div id="academyEnrolledDiv"
+        class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+        <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+        <p>🎓 Academy Enrolled</p>
+    </div>
+    <main class="p-6 max-w-7xl mx-auto">
+        <section class="w-full bg-white border border-green-100 rounded-2xl p-6 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-green-950 flex items-center gap-2">
+                    🎓 Enrolled Students
+                </h2>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="relative">
+                        <input id="enrollSearch" type="search" placeholder="Search name, phone, email..."
+                            class="pl-8 p-2 border border-green-200 rounded-lg w-64 focus:ring-2 focus:ring-green-400 outline-none" />
+                        <span class="absolute left-2 top-2.5 text-gray-400 text-sm">🔍</span>
+                    </div>
+                    <button id="enrollReloadBtn"
+                        class="p-2 px-4 rounded-lg bg-green-100 text-green-800 font-bold hover:bg-green-200 transition flex items-center gap-1">
+                        ↻ Reload
+                    </button>
+                </div>
+            </div>
+
+            <div class="border border-gray-100 rounded-xl shadow-inner overflow-auto max-h-[60vh]">
+                <table class="text-sm w-full text-left border-collapse">
+                    <thead class="bg-green-950 text-green-50 uppercase text-xs tracking-wider sticky top-0">
+                        <tr>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Course</th>
+                            <th class="px-4 py-3">Phone</th>
+                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">Date</th>
+                            <th class="px-4 py-3">Order ID</th>
+                            <th class="px-4 py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enrollmentTable" class="divide-y divide-gray-100 bg-white">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Enrollment Detail Modal -->
+        <div id="enrollDetailModal"
+            class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+                <h3 class="text-xl font-bold text-green-950 mb-4 flex items-center justify-between">
+                    Enrollment Details
+                    <button onclick="closeEnrollDetail()" class="text-gray-400 hover:text-gray-600">✕</button>
+                </h3>
+                <div id="enrollDetailContent" class="space-y-1">
+                </div>
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <button onclick="closeEnrollDetail()"
+                        class="w-full bg-gray-200 text-gray-700 font-bold rounded-xl py-3 hover:bg-gray-300 transition-all">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <div id="addArticleDiv"
+        class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+        <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+        <p>Add New Article</p>
+    </div>
+    <!-- Content form -->
+    <main>
+        <section id="contentForm" class="mt-12 max-w-6xl mx-auto px-4">
+            <h2 class="text-xl font-semibold mb-4">Add New Article Block</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="relative group">
+                    <div id="contentPreview"
+                        class="w-full h-32 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden mb-2 relative">
+                        <span class="text-xs text-gray-400">Article Image</span>
+                        <div id="contentLoader" class="absolute inset-0 bg-white/80 hidden items-center justify-center">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                        </div>
+                    </div>
+                    <input id="fileContentImg" type="file" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    <button type="button"
+                        class="w-full py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 group-hover:bg-emerald-100 transition-colors">
+                        Select Image
+                    </button>
+                    <input id="contentImg" type="hidden" />
+                </div>
+                <input type="text" id="contentHeading" placeholder="Heading" required class="p-2 border rounded" />
+                <input type="text" id="contentSubHeading" placeholder="Sub Heading" class="p-2 border rounded" />
+                <input type="text" id="contentProductId" placeholder="Product ID" class="p-2 border rounded" />
+                <textarea id="contentDetails" placeholder="Details"
+                    class="h-52 p-2 border rounded col-span-1 md:col-span-2"></textarea>
+            </div>
+            <div class="mt-3">
+                <button id="addContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Post</button>
+            </div>
+        </section>
+        <div id="seeArticleDiv"
+            class="bg-green-950 text-2xl flex flex-col gap-3 items-center justify-center text-white font-bold w-full h-40">
+            <img src="./../native_resources/logo_wth_white_bg.svg" alt="" srcset="">
+            <p>Article Managemnt</p>
+        </div>
+        <!-- small content table and modal -->
+        <div class="max-w-6xl mx-auto px-4 mt-8">
+            <table class="w-full bg-white rounded shadow">
+                <thead>
+                    <tr>
+                        <th class="p-3 text-left">Title</th>
+                        <th class="p-3 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contentTable"></tbody>
+            </table>
+        </div>
+
+        <div id="contentModal"
+            style="display:none; position:fixed; top:0; left:0; width: 100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;"
+            class="h-11/12 w-full mt-20">
+            <div
+                style="background:white; padding:1rem; border-radius:10px; max-width:500px; width:90%; margin:4rem auto;">
+                <h2 class="text-lg font-semibold mb-2">Edit Content Block</h2>
+                <div class="relative group mb-4">
+                    <div id="modalPreview"
+                        class="w-full h-40 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden mb-2 relative">
+                        <span class="text-xs text-gray-400">Current/New Image</span>
+                        <div id="modalLoader" class="absolute inset-0 bg-white/80 hidden items-center justify-center">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-600"></div>
+                        </div>
+                    </div>
+                    <input id="fileModalImg" type="file" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer" />
+                    <button type="button"
+                        class="w-full py-2 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 group-hover:bg-emerald-100 transition-colors">
+                        Change Image
+                    </button>
+                    <input id="modalImg" type="hidden" />
+                </div>
+                <input type="text" id="modalHeading" placeholder="Heading" class="w-full p-2 border rounded mb-2" />
+                <input type="text" id="modalSubHeading" placeholder="Sub Heading"
+                    class="w-full p-2 border rounded mb-2" />
+                <textarea id="modalDetails" placeholder="Details"
+                    class="h-48 p-2 border rounded mb-2 w-full"></textarea>
+                <input type="text" id="modalProductId" placeholder="Product ID"
+                    class="w-full p-2 border rounded mb-2" />
+                <div class="flex gap-2 justify-end">
+                    <button id="updateContentBtn" class="px-4 py-2 bg-green-900 text-white rounded">Update</button>
+                    <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 rounded">Close</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/dashboard/common.js"></script>
+    <script src="js/dashboard/seeProducts.js"></script>
+    <script src="js/dashboard/addProduct.js"></script>
+    <script src="js/dashboard/seeCards.js"></script>
+    <script src="js/dashboard/addCard.js"></script>
+    <script src="js/dashboard/seeOrders.js"></script>
+    <script src="js/dashboard/addOrder.js"></script>
+    <script src="js/dashboard/seeArticles.js"></script>
+    <script src="js/dashboard/addArticle.js"></script>
+    <script src="js/dashboard/seeEnrollments.js"></script>
+</body>
+
+</html>

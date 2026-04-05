@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Academy | SCA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-[#f7f8fa] min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full animate-in fade-in zoom-in duration-500">
+        <!-- Logo / Branding -->
+        <div class="text-center mb-8">
+            <div
+                class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white shadow-xl shadow-emerald-500/10 mb-4 transform hover:-rotate-6 transition-transform">
+                <i class="fa-solid fa-bolt text-4xl text-[#58cc02]"></i>
+            </div>
+            <h1 class="text-3xl font-black text-gray-800 font-outfit uppercase tracking-tight text-center">Get Started
+            </h1>
+            <p class="text-gray-500 font-medium mt-2">Create your student account today.</p>
+        </div>
+
+        <!-- Register Form -->
+        <div class="glass-card rounded-[32px] shadow-2xl shadow-emerald-500/5 p-8 sm:p-10">
+            <form id="register-form" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-black uppercase text-gray-400 tracking-widest mb-2 pl-1">Full
+                        Name</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" name="name" required placeholder="Samiul Islam..."
+                            class="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#58cc02]/50 focus:ring-4 focus:ring-[#58cc02]/10 transition-all font-medium">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black uppercase text-gray-400 tracking-widest mb-2 pl-1">Phone
+                        Number</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="tel" name="phone" required placeholder="+8801..."
+                            class="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#58cc02]/50 focus:ring-4 focus:ring-[#58cc02]/10 transition-all font-medium">
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="block text-xs font-black uppercase text-gray-400 tracking-widest mb-2 pl-1">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="password" name="password" required placeholder="••••••••"
+                            class="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#58cc02]/50 focus:ring-4 focus:ring-[#58cc02]/10 transition-all font-medium">
+                    </div>
+                </div>
+
+                <div class="pt-2 text-center">
+                    <p class="text-xs text-gray-400 font-medium leading-relaxed">
+                        By registering, you agree to our <a href="#" class="text-[#58cc02] font-bold">Terms</a> and <a
+                            href="#" class="text-[#58cc02] font-bold">Privacy Policy</a>.
+                    </p>
+                </div>
+
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-[#58cc02] hover:bg-[#46a302] border-b-4 border-[#58a700] active:border-b-0 active:translate-y-1 text-white font-black py-4 rounded-2xl uppercase tracking-widest transition-all mt-4 text-lg">
+                    Register Now
+                </button>
+            </form>
+
+            <div class="mt-8 pt-8 border-t-2 border-gray-100 flex flex-col items-center gap-6">
+                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Already have an account?</p>
+                <a href="/login.html"
+                    class="w-full flex items-center justify-center gap-3 bg-white text-gray-600 border-2 border-gray-200 border-b-4 hover:bg-gray-50 active:border-b-0 active:translate-y-1 font-black py-4 rounded-2xl uppercase tracking-widest transition-all">
+                    <i class="fa-solid fa-arrow-right-to-bracket text-[#1cb0f6]"></i>
+                    Log In instead
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center mt-8 text-sm font-bold text-gray-400 uppercase tracking-widest">
+            &copy; 2026 SCA Platform
+        </p>
+    </div>
+
+    <script src="/js/auth/auth.js"></script>
+</body>
+
+</html>

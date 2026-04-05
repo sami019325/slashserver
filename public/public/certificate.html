@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verification | Slash Coffee Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-6 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+    <nav id="nav" class="fixed bottom-0 left-0 right-0 h-20 flex items-center justify-center z-50 px-4 mb-4">
+        <div
+            class="bg-lime-950/90 backdrop-blur-xl w-full lg:w-[500px] h-full rounded-2xl border border-lime-800/50 shadow-2xl flex items-center justify-around px-2">
+            <a href="./classes.html"
+                class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                    <img src="./resources/course.png" class="w-6 h-6 object-contain" alt="Classes">
+                </div>
+                <span class="text-[10px] uppercase tracking-wider font-semibold">Classes</span>
+            </a>
+
+            <a href="./game.html"
+                class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                    <img src="./resources/game.png" class="w-6 h-6 object-contain" alt="Game">
+                </div>
+                <span class="text-[10px] uppercase tracking-wider font-semibold">Game</span>
+            </a>
+
+            <a href="./certificate.html"
+                class=" flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                    <img src="./resources/certificate.png" class="w-6 h-6 object-contain" alt="Certificate">
+                </div>
+                <span class="text-[10px] uppercase tracking-wider font-semibold">Certificate</span>
+            </a>
+        </div>
+    </nav>
+    <div class="max-w-2xl w-full">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div
+                class="w-20 h-20 bg-emerald-600 rounded-2xl mx-auto flex items-center justify-center shadow-2xl shadow-emerald-500/40 mb-6 active:scale-95 transition-transform cursor-pointer">
+                <i class="fa-solid fa-certificate text-white text-4xl"></i>
+            </div>
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-3 italic uppercase">Slash Coffee Academy
+            </h1>
+            <p class="text-slate-500 font-medium">Official Student Certificate Verification System</p>
+        </div>
+
+        <!-- Search Card -->
+        <div class="glass border border-white shadow-2xl rounded-[2.5rem] p-10 mb-8 relative overflow-hidden group">
+            <div
+                class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110">
+            </div>
+
+            <div class="relative z-10">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="viewer-name"
+                            class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Your Full
+                            Name</label>
+                        <input type="text" id="viewer-name" placeholder="4 Ahmed"
+                            class="w-full px-5 py-3 bg-slate-100 border-none rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:bg-white transition-all font-bold text-slate-800">
+                    </div>
+                    <div>
+                        <label for="organization"
+                            class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Organization</label>
+                        <input type="text" id="organization" placeholder="Self / Company Name"
+                            class="w-full px-5 py-3 bg-slate-100 border-none rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:bg-white transition-all font-bold text-slate-800">
+                    </div>
+                </div>
+
+                <label for="serial" class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Enter
+                    Certificate Serial Number</label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-hashtag absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="serial" placeholder="SCA-2026-XXXX"
+                            class="w-full pl-14 pr-4 py-5 bg-slate-100 border-none rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:bg-white transition-all text-lg font-bold text-slate-800 uppercase">
+                    </div>
+                    <button id="verify-btn"
+                        class="px-8 py-5 bg-emerald-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-emerald-500/20 active:scale-95 whitespace-nowrap">
+                        Verify Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="result-container" class="hidden">
+            <!-- Details Card -->
+            <div id="success-card"
+                class="hidden glass border border-emerald-100 shadow-2xl rounded-[2.5rem] p-10 text-center animate-in zoom-in duration-500">
+                <div
+                    class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-circle-check text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase italic">Certificate Verified!</h2>
+                <p class="text-slate-500 mb-8 font-medium">This is an authentic certificate issued by Slash Coffee
+                    Roasting Co.</p>
+
+                <div class="grid grid-cols-2 gap-6 text-left border-t border-slate-100 pt-8">
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Student Name</p>
+                        <p id="res-name" class="font-bold text-slate-800 text-lg uppercase"></p>
+                    </div>
+                    <div class="flex justify-end relative group/img">
+                        <img id="studentImg" src="" alt="Student portrait" 
+                             class="w-24 h-24 rounded-2xl object-cover border-2 border-slate-100 shadow-sm hidden cursor-zoom-in hover:scale-105 transition-transform">
+                        <div class="absolute inset-0 bg-emerald-600/10 opacity-0 group-hover/img:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Course Title</p>
+                        <p id="res-course" class="font-bold text-slate-800 text-lg uppercase"></p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Issue Date</p>
+                        <p id="res-date" class="font-bold text-slate-800 text-lg"></p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Serial Number
+                        </p>
+                        <p id="res-serial" class="font-bold text-emerald-600 text-lg"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Card -->
+            <div id="error-card"
+                class="hidden glass border border-red-100 shadow-2xl rounded-[2.5rem] p-10 text-center animate-in zoom-in duration-500">
+                <div
+                    class="w-20 h-20 bg-red-100 text-red-600 rounded-full mx-auto flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-circle-xmark text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 mb-2">Invalid Certificate</h2>
+                <p id="error-msg" class="text-slate-500 font-medium"></p>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center">
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">&copy; 2026 Slash Coffee Roasting Co.
+                All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] hidden items-center justify-center p-4 cursor-zoom-out">
+        <div class="relative max-w-4xl w-full h-full flex items-center justify-center pointer-events-none">
+            <img id="modal-img" src="" alt="Full size portrait" class="max-w-full max-h-[90vh] rounded-3xl shadow-2xl animate-in zoom-in duration-300 border-4 border-white/20 pointer-events-auto">
+            <button id="close-modal" class="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all pointer-events-auto">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const verifyBtn = document.getElementById('verify-btn');
+        const serialInput = document.getElementById('serial');
+        const viewerInput = document.getElementById('viewer-name');
+        const orgInput = document.getElementById('organization');
+        const resultContainer = document.getElementById('result-container');
+        const successCard = document.getElementById('success-card');
+        const errorCard = document.getElementById('error-card');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Results fields
+        const resName = document.getElementById('res-name');
+        const resCourse = document.getElementById('res-course');
+        const resDate = document.getElementById('res-date');
+        const resSerial = document.getElementById('res-serial');
+        const studentImg = document.getElementById('studentImg');
+        const imageModal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        verifyBtn.addEventListener('click', async () => {
+            const serial = serialInput.value.trim();
+            const viewerName = viewerInput.value.trim();
+            const organization = orgInput.value.trim();
+
+            if (!viewerName) return alert("Please enter your name");
+            if (!serial) return alert("Please enter the serial number");
+
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Verifying...';
+
+            resultContainer.classList.add('hidden');
+            successCard.classList.add('hidden');
+            errorCard.classList.add('hidden');
+
+            try {
+                const res = await fetch(`/api/certificate/verify`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ serial, viewerName, organization })
+                });
+                const data = await res.json();
+
+                resultContainer.classList.remove('hidden');
+
+                if (data.success) {
+                    resName.innerText = data.data.name;
+                    resCourse.innerText = data.data.course || "General Certificate";
+                    resSerial.innerText = data.data.serial;
+
+                    const d = new Date(data.data.date);
+                    resDate.innerText = d.toLocaleDateString('en-GB', {
+                        day: '2-digit', month: '2-digit', year: 'numeric'
+                    });
+
+                    if (data.data.image) {
+                        studentImg.src = data.data.image;
+                        studentImg.classList.remove('hidden');
+                    } else {
+                        studentImg.classList.add('hidden');
+                    }
+
+                    successCard.classList.remove('hidden');
+                } else {
+                    errorMsg.innerText = data.message;
+                    errorCard.classList.remove('hidden');
+                }
+            } catch (err) {
+                resultContainer.classList.remove('hidden');
+                errorCard.classList.remove('hidden');
+                errorMsg.innerText = "Connection error. Please try again later.";
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = 'Verify Now';
+            }
+        });
+
+        // Enter key support
+        serialInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyBtn.click();
+        });
+
+        // Image Modal Logic
+        studentImg.addEventListener('click', () => {
+            modalImg.src = studentImg.src;
+            imageModal.classList.remove('hidden');
+            imageModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        });
+
+        const closeFullImage = () => {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        };
+
+        closeModalBtn.addEventListener('click', closeFullImage);
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) closeFullImage();
+        });
+    </script>
+</body>
+
+</html>

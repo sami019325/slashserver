@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="mainTitle">Slash Coffee Academy</title>
+    <script>
+        if (localStorage.getItem("VISITED") === "1") {
+            window.location.href = "./classes.html";
+        }
+    </script>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Tiro+Bangla:ital@0;1&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- jsPDF for invoice generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --brand-green: #10B981;
+            --brand-dark: #064E3B;
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .lang-bn {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .lang-en {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .accent-text {
+            color: var(--brand-green);
+        }
+
+        .coffee-light {
+            background-color: #FDFBFA;
+        }
+
+        .coffee-bg {
+            background-color: #F3F4F6;
+        }
+
+        .content-fade {
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Ensure smooth sticky nav */
+        nav {
+            transition: all 0.3s ease;
+        }
+
+        .tiro-bangla-regular {
+            font-family: "Tiro Bangla", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .tiro-bangla-regular-italic {
+            font-family: "Tiro Bangla", serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+    </style>
+    <script src="./js/academy/welcomepage.js" defer></script>
+</head>
+
+<body class=" text-gray-900 lang-en m-0 p-0 bg-amber-950 tiro-bangla-regular">
+    <div class="flex justify-start lg:justify-center">
+
+        <div class="w-full min-h-screen lg:w-[500px] bg-white">
+            <nav id="nav" class="fixed bottom-0 left-0 right-0 h-20 flex items-center justify-center z-50 px-4 mb-4">
+                <div
+                    class="bg-lime-950/90 backdrop-blur-xl w-full lg:w-[500px] h-full rounded-2xl border border-lime-800/50 shadow-2xl flex items-center justify-around px-2">
+                    <a href="./classes.html"
+                        class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                        <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                            <img src="./resources/course.png" class="w-6 h-6 object-contain" alt="Classes">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold">Classes</span>
+                    </a>
+
+                    <a href="./game.html"
+                        class="flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                        <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                            <img src="./resources/game.png" class="w-6 h-6 object-contain" alt="Game">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold">Game</span>
+                    </a>
+
+                    <a href="./certificate.html"
+                        class=" flex flex-col items-center justify-center text-lime-100 hover:text-white transition duration-300 group">
+                        <div class="bg-lime-900/50 p-2 rounded-xl group-hover:bg-lime-800 transition duration-300 mb-1">
+                            <img src="./resources/certificate.png" class="w-6 h-6 object-contain" alt="Certificate">
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold">Certificate</span>
+                    </a>
+                </div>
+            </nav>
+            <main class="w-full h-full " id="mainContent">
+                <div id="contentPage"
+                    class=" w-full  bg-gradient-to-br from-lime-900 via-green-950 to-lime-800 flex items-center justify-center p-6">
+
+                    <div class=" backdrop-blur-md rounded-2xl p-8 max-w-xl w-full text-center ">
+
+                        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide">
+                            🕵🏽 <br> Solve The Case Study
+                        </h1>
+
+                        <p class="text-lime-100 mb-6 font-extrabold text-lg">
+                            Where did you see the best coffee in town last time?
+                        </p>
+
+                        <img class="w-64 mx-auto rounded-xl shadow-lg mb-8 hover:scale-105 transition duration-500"
+                            src="https://i.ibb.co/Z1VBT5NH/missing-espresso.png" alt="Missing Espresso">
+
+                        <div class="space-y-4">
+                            <button onclick="solveMystery()"
+                                class="w-full py-3 rounded-xl bg-green-500 hover:bg-green-600 text-black font-semibold transition duration-300 shadow-lg">
+                                Slash Coffee
+                            </button>
+
+                            <button onclick="solveMystery()"
+                                class="w-full py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white font-semibold transition duration-300 shadow-lg">
+                                Slash Coffee
+                            </button>
+
+                            <button onclick="solveMystery()"
+                                class="w-full py-3 rounded-xl bg-green-700 hover:bg-green-600 text-white font-semibold transition duration-300 shadow-lg">
+                                Slash Coffee
+                            </button>
+                        </div>
+
+
+
+                        <script>
+                            document.getElementById("nav").style.display = "none";
+                            function setLanguage(lang) {
+
+                                console.log(lang);
+                                localStorage.setItem('lang', lang);
+                                localStorage.setItem('VISITED', '1');
+                                document.getElementById("nav").style.display = "flex";
+                                welcomePage();
+                                setTimeout(() => getLanguage(lang), 50);
+
+                            }
+
+                            function solveMystery() {
+                                const mainContent = document.getElementById("mainContent");
+                                // 1. Initial Success Message
+                                mainContent.innerHTML = `
+                                <div id="result" class="min-h-screen bg-black flex flex-col items-center justify-center p-6 text-center">
+                                    <div class="animate-bounce mb-8">
+                                        <span class="text-6xl">🎉</span>
+                                    </div>
+                                    <h2 class="text-green-400 text-3xl md:text-5xl font-bold tracking-tight">
+                                        Case Solved Successfully
+                                    </h2>
+                                    <p class="text-gray-400 mt-4 text-lg">Preparing your welcome experience...</p>
+                                </div>
+                            `;
+
+                                // 2. Final Video & Language Selection
+                                setTimeout(() => {
+                                    mainContent.innerHTML = `
+                                    <div id="result" class="min-h-screen bg-gray-950 flex items-center justify-center p-4">
+                                        <div class="max-w-2xl w-full space-y-8 animate-in fade-in duration-700">
+                                            
+
+                                            <!-- Video Section -->
+                                            <div class="relative group rounded-3xl overflow-hidden h-[600px] w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 aspect-video bg-black">
+                                                <video 
+                                                    id="mysteryVideo"
+                                                    class="w-full h-[600px] object-cover"
+                                                    src="https://slashcoffeebd.com/native_resources/Barista_writes_welcome_on_latte.mp4"
+                                                    autoplay
+                                                    muted
+                                                    playsinline>
+                                                </video>
+                                                
+                                                <!-- Overlay when video ends (optional but professional) -->
+                                                <div id="videoOverlay" class="absolute inset-0 bg-black/40 hidden flex items-center justify-center">
+                                                     <div class="text-white text-sm font-medium tracking-widest uppercase">Video Played</div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Language Selection AT THE TOP -->
+                                            <div id="languageButtons" class="text-center space-y-6">
+                                                <h3 class="text-white text-xl font-medium opacity-80">Welcome to Slash Coffee</h3>
+                                                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                                    <button onclick="setLanguage('en')"
+                                                        class="px-8 py-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-black font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                                                        Continue in English
+                                                    </button>
+
+                                                    <button onclick="setLanguage('bn')"
+                                                        class="px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                                                        Continue in Bangla
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+
+
+                                    // Handle video events
+                                    const video = document.getElementById("mysteryVideo");
+                                    if (video) {
+                                        video.addEventListener("ended", () => {
+                                            // Ensure it doesn't loop and show overlay
+                                            video.pause();
+                                            document.getElementById("videoOverlay")?.classList.remove("hidden");
+                                        });
+                                    }
+                                }, 2000);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+        fetch('https://slashcoffeebd.com/api/v1/academy/welcome')
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+    </script>
+</body>
+
+</html>

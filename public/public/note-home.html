@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>words</title>
+</head>
+
+<body>
+    <div id="dataLoaderDivOfSA" class="flex items-center justify-center bg-slate-950">
+        <!-- Navigation -->
+        <nav class="text-white py-1 sticky top-0 z-50 backdrop-blur-3xl bg-green-950/90 shadow-lg">
+            <div class="container mx-auto px-4 flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <img src="https://slashcoffeebd.com/native_resources/logo_wth_white_bg.png" alt="Logo" class="h-10">
+                    <span class="font-bold text-xl hidden sm:inline" data-t="navTitle">Slash Coffee Academy</span>
+                </div>
+                <div class="">
+                    <a href="https://slashcoffeebd.com" target="_blank">Classes</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- Language Toggle -->
+                    <div class="flex items-center bg-black/20 rounded-full p-1 border border-white/10">
+                        <button onclick="setLanguage('en')" id="btn-en"
+                            class="px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 bg-white text-green-950">EN</button>
+                        <button onclick="setLanguage('bn')" id="btn-bn"
+                            class="px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 hover:bg-white/10">বাং</button>
+                    </div>
+
+                    <a href="#enroll" data-t="navEnroll"
+                        class="bg-[#10B981] hover:bg-[#059669] text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-md">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="content-fade" id="mainContent">
+            <!-- Header Carousel/Grid -->
+            <div class="bg-white text-black max-w-7xl mx-auto px-6 py-16 rounded-3xl shadow-2xl mt-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348"
+                        class="rounded-2xl h-80 w-full object-cover shadow-lg hover:scale-[1.02] transition"
+                        alt="Coffee Prep">
+                    <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df"
+                        class="rounded-2xl h-80 w-full object-cover shadow-lg hover:scale-[1.02] transition"
+                        alt="Barista Training">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+                        class="rounded-2xl h-80 w-full object-cover shadow-lg hover:scale-[1.02] transition"
+                        alt="Latte Art">
+                </div>
+
+                <!-- Mission & Values Sections -->
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-green-900" data-t="v1Title">Barista Training &
+                                Skill
+                                Development</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4 text-lg" data-t="v1Desc1">Slash Coffee
+                                Academy
+                                works to create the next generation of professional baristas. Students here learn
+                                Espresso Extraction, Milk Steaming, Brewing Science, and Latte Art — the foundation
+                                of
+                                making extraordinary coffee.</p>
+                            <p class="text-gray-700 leading-relaxed text-lg" data-t="v1Desc2">The training is
+                                completely
+                                hands-on and practical, using cafe-grade equipment under the supervision of
+                                experienced
+                                trainers.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-green-900" data-t="v2Title">Student Success
+                                Stories
+                            </h3>
+                            <p class="text-gray-700 leading-relaxed text-lg" data-t="v2Desc">Recently, many trainees
+                                have secured opportunities in cafes in various countries like Saudi Arabia after
+                                completing our courses — manifesting our success beyond the classroom.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-green-900" data-t="v3Title">Association with
+                                Slash
+                                Coffee</h3>
+                            <p class="text-gray-700 leading-relaxed text-lg" data-t="v3Desc">The academy is directly
+                                linked with the Slash Coffee brand, giving students the chance to apply their skills
+                                in
+                                a real cafe environment.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-green-900" data-t="v4Title">Why We Are Different
+                            </h3>
+                            <ul class="space-y-4 text-gray-700 text-lg">
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <div><span class="font-bold text-black" data-t="f1Title">Real Experience:</span>
+                                        <span data-t="f1Desc">Train on professional espresso machines and cafe
+                                            workflows.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <div><span class="font-bold text-black" data-t="f2Title">Career Path:</span>
+                                        <span data-t="f2Desc">Skills that open doors locally and
+                                            internationally.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <div><span class="font-bold text-black" data-t="f3Title">Community &
+                                            Culture:</span>
+                                        <span data-t="f3Desc">Become part of a genuine coffee culture and build a
+                                            strong
+                                            technical foundation.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Core Philosophy Quote -->
+                <div class="mt-20 pt-10 border-t border-gray-100 text-center">
+                    <p class="text-2xl italic text-green-800 font-light" data-t="footerQuote">“We don't just teach
+                        coffee. We build confidence, personal style, and successful careers.”</p>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section
+                class="relative bg-[url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center h-[650px] flex items-center mt-20">
+                <div class="absolute inset-0 bg-black/75"></div>
+                <div class="container mx-auto px-6 relative z-10 text-center text-white">
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight" data-t="heroTitle">
+                        Master the Art of <span class="accent-text">Coffee</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light leading-relaxed" data-t="heroSub">
+                        From raw bean to the perfect cup, start your journey today with professional barista
+                        training in
+                        Dhaka.
+                    </p>
+                    <div class="flex flex-col md:flex-row justify-center gap-5">
+                        <a href="#courses" data-t="viewCourses"
+                            class="bg-transparent border-2 border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-white font-bold py-4 px-10 rounded-full transition duration-300">
+                            View Courses
+                        </a>
+                        <a href="#enroll" data-t="startLearning"
+                            class="bg-[#10B981] text-white hover:bg-[#059669] font-bold py-4 px-10 rounded-full transition duration-300 shadow-xl">
+                            Start Learning
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="py-24 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-[#064E3B] mb-6" data-t="whyTitle">Why Choose
+                            Slash Coffee Academy?</h2>
+                        <div class="w-24 h-1.5 bg-[#10B981] mx-auto rounded-full"></div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-10">
+                        <div
+                            class="text-center p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition-all group">
+                            <div class="text-[#10B981] text-5xl mb-6 group-hover:scale-110 transition-transform"><i
+                                    class="fas fa-seedling"></i></div>
+                            <h3 class="text-2xl font-bold mb-3 text-green-900" data-t="w1Title">Bean to Cup Journey
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed" data-t="w1Desc">Learn about the entire
+                                lifecycle of
+                                coffee, from the farm to perfect extraction.</p>
+                        </div>
+                        <div
+                            class="text-center p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition-all group">
+                            <div class="text-[#10B981] text-5xl mb-6 group-hover:scale-110 transition-transform"><i
+                                    class="fas fa-blender"></i></div>
+                            <h3 class="text-2xl font-bold mb-3 text-green-900" data-t="w2Title">Advanced Skills</h3>
+                            <p class="text-gray-600 leading-relaxed" data-t="w2Desc">Master Latte Art, V60 Brewing,
+                                Syphon, French Press, and Modern Mixology.</p>
+                        </div>
+                        <div
+                            class="text-center p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition-all group">
+                            <div class="text-[#10B981] text-5xl mb-6 group-hover:scale-110 transition-transform"><i
+                                    class="fas fa-briefcase"></i></div>
+                            <h3 class="text-2xl font-bold mb-3 text-green-900" data-t="w3Title">Professional Growth
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed" data-t="w3Desc">Gain essential skills like POS
+                                handling, hygiene, inventory management, and costing.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Curriculum Section -->
+            <section id="courses" class="py-24 coffee-light">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-[#064E3B] mb-6" data-t="curriculumTitle">Our
+                            Curriculum</h2>
+                        <p class="text-gray-600 max-w-3xl mx-auto text-lg" data-t="curriculumSub">Choose the right
+                            path
+                            for your career goals. From foundation to advanced professional skills.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="coursesGrid">
+                        <!-- Foundation Card -->
+                        <div
+                            class="bg-white rounded-2xl shadow-lg border-t-8 border-[#34D399] p-8 hover:-translate-y-2 transition duration-300">
+                            <h3 class="text-2xl font-bold text-[#064E3B]" data-t="c1Title">Foundation</h3>
+                            <div class="text-4xl font-extrabold text-[#10B981] my-4" data-t="c1Price">৳4,999</div>
+                            <p class="text-xs font-black uppercase text-gray-400 tracking-widest mb-6"
+                                data-t="c1Duration">Duration: 4 Days</p>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c1L1">History & Culture of Coffee</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c1L2">Espresso Machine Operation</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c1L3">Cleaning & Maintenance</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c1L4">Bean to Cup Basics</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Basic Card -->
+                        <div
+                            class="bg-white rounded-2xl shadow-lg border-t-8 border-[#10B981] p-8 hover:-translate-y-2 transition duration-300">
+                            <h3 class="text-2xl font-bold text-[#064E3B]" data-t="c2Title">Basic</h3>
+                            <div class="text-4xl font-extrabold text-[#10B981] my-4" data-t="c2Price">৳8,999</div>
+                            <p class="text-xs font-black uppercase text-gray-400 tracking-widest mb-6"
+                                data-t="c2Duration">Duration: 7 Days</p>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center"><i
+                                        class="fas fa-plus-circle text-green-500 mr-3"></i><span
+                                        data-t="c2L1">Everything in Foundation +</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c2L2">Perfect Espresso Shot</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c2L3">Tamping & Extraction Time</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c2L4">Intro to Calibration</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c2L5">Intro to Latte Art</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Intermediate Card -->
+                        <div
+                            class="bg-white rounded-2xl shadow-xl border-t-8 border-[#059669] p-8 hover:-translate-y-2 transition duration-300 border-2 border-green-50 relative">
+                            <div class="absolute -top-4 right-6 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-bounce"
+                                data-t="c3Popular">Popular</div>
+                            <h3 class="text-2xl font-bold text-[#064E3B]" data-t="c3Title">Intermediate</h3>
+                            <div class="text-4xl font-extrabold text-[#10B981] my-4" data-t="c3Price">৳11,999</div>
+                            <p class="text-xs font-black uppercase text-gray-400 tracking-widest mb-6"
+                                data-t="c3Duration">Duration: 10 Days</p>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c3L1">Mastery in Calibration</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c3L2">Milk Texturing Techniques</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c3L3">Steps to Latte Art</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c3L4">Intro to V60 Brewing</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c3L5">Customer Service Skills</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Professional Card -->
+                        <div
+                            class="bg-white rounded-2xl shadow-lg border-t-8 border-[#047857] p-8 hover:-translate-y-2 transition duration-300">
+                            <h3 class="text-2xl font-bold text-[#064E3B]" data-t="c4Title">Professional</h3>
+                            <div class="text-4xl font-extrabold text-[#10B981] my-4" data-t="c4Price">৳19,999</div>
+                            <p class="text-xs font-black uppercase text-gray-400 tracking-widest mb-6"
+                                data-t="c4Duration">Duration: 15 Days</p>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c4L1">Advanced Latte Art</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c4L2">Hot V60 Brewing</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c4L3">Iced Coffee & Frappes</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c4L4">Refreshment Drinks</span></li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i><span
+                                        data-t="c4L5">POS Handling & Hygiene</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Advance Professional Card (Expanded) -->
+                        <div
+                            class="bg-white rounded-2xl shadow-2xl border-t-8 border-[#064E3B] p-8 hover:-translate-y-2 transition duration-300 md:col-span-2 lg:col-span-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-[#064E3B] text-white text-xs font-bold px-5 py-2 rounded-bl-2xl shadow-lg"
+                                data-t="c5Offer">Best Offer</div>
+                            <div class="grid md:grid-cols-2 gap-10">
+                                <div>
+                                    <h3 class="text-3xl font-bold text-[#064E3B] mb-2" data-t="c5Title">Advance
+                                        Professional</h3>
+                                    <div class="text-5xl font-black text-[#10B981] mb-2" data-t="c5Price">৳29,999
+                                    </div>
+                                    <p class="text-sm font-bold uppercase text-gray-400 tracking-widest mb-6"
+                                        data-t="c5Duration">Duration: 26 Days</p>
+                                    <p class="text-gray-600 leading-relaxed mb-6" data-t="c5Desc">The ultimate
+                                        career
+                                        transformation course. Master everything from roasting to inventory costing.
+                                    </p>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                                    <h4 class="font-bold text-green-900 mb-4 flex items-center"><i
+                                            class="fas fa-award mr-2 text-yellow-500"></i><span
+                                            data-t="c5ModTitle">Advanced Modules:</span></h4>
+                                    <ul class="space-y-3 text-gray-700 text-sm">
+                                        <li class="flex items-center"><i
+                                                class="fas fa-star text-[#10B981] mr-3"></i><span data-t="c5Mod1">Brewed
+                                                Coffee: V60, Syphon, AeroPress</span></li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-star text-[#10B981] mr-3"></i><span
+                                                data-t="c5Mod2">Roasting Methods & Cupping Wheel</span></li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-star text-[#10B981] mr-3"></i><span
+                                                data-t="c5Mod3">Inventory Management & Costing</span></li>
+                                        <li class="flex items-center"><i
+                                                class="fas fa-star text-[#10B981] mr-3"></i><span data-t="c5Mod4">Elite
+                                                Level Latte Art</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enrollment Form Section -->
+            <section id="enroll" class="py-24 coffee-bg">
+                <div class="container mx-auto px-6">
+                    <div id="enrollmentFormContainer"
+                        class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+                        <div class="grid md:grid-cols-5">
+                            <div class="md:col-span-2 bg-green-950 p-10 text-white flex flex-col justify-center">
+                                <h2 class="text-3xl font-bold mb-6" data-t="enrollTitle">Enroll Now</h2>
+                                <p class="text-green-100 mb-8 leading-relaxed" data-t="enrollSub">Secure your seat
+                                    at
+                                    Dhaka's premier Coffee Academy. Professional certification awaits.</p>
+                                <div class="space-y-4 text-sm opacity-80">
+                                    <div class="flex items-center gap-3"><i
+                                            class="fas fa-map-marker-alt"></i><span>Kuril Bishwaroad, Dhaka</span>
+                                    </div>
+                                    <div class="flex items-center gap-3"><i class="fas fa-phone"></i><span>+880
+                                            1645-640801</span></div>
+                                    <div class="flex items-center gap-3"><i
+                                            class="fas fa-envelope"></i><span>academy@slashcoffee.com</span></div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-3 p-10">
+                                <form id="enrollmentForm" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-bold text-gray-700 mb-2"
+                                            data-t="formCourse">Course</label>
+                                        <select id="courseSelect"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none bg-gray-50 transition">
+                                            <option value="Foundation course" data-t="opt1">Foundation - ৳4,999
+                                            </option>
+                                            <option value="Basic course" data-t="opt2">Basic - ৳8,999</option>
+                                            <option value="Intermediate course" data-t="opt3">Intermediate - ৳11,999
+                                            </option>
+                                            <option value="Professional course" data-t="opt4">Professional - ৳19,999
+                                            </option>
+                                            <option value="AdvanceProfessional course" data-t="opt5">Advance
+                                                Professional - ৳29,999</option>
+                                        </select>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-2"
+                                                data-t="formName">Name</label>
+                                            <input type="text" id="PcustomerName"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none"
+                                                placeholder="Full Name" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-2"
+                                                data-t="formEmail">Email</label>
+                                            <input type="email" id="PemailAddress"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none"
+                                                placeholder="Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-2"
+                                                data-t="formPhone1">Phone 1</label>
+                                            <input type="tel" id="PcontactNumber1"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none"
+                                                placeholder="Active Phone" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-700 mb-2"
+                                                data-t="formPhone2">Phone 2</label>
+                                            <input type="tel" id="PcontactNumber2"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none"
+                                                placeholder="Optional">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-gray-700 mb-2"
+                                            data-t="formAddress">Address</label>
+                                        <textarea id="PshippingAddress" rows="2"
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#10B981] outline-none"
+                                            placeholder="Location" required></textarea>
+                                    </div>
+                                    <button type="button" onclick="checkoutHandlerAcademy()" data-t="submitBtn"
+                                        class="w-full bg-[#10B981] hover:bg-green-600 text-white font-black py-4 rounded-xl shadow-lg transition transform hover:scale-[1.01] active:scale-95 text-lg">
+                                        Complete Enrollment
+                                    </button>
+                                    <p class="text-[10px] text-center text-gray-400 mt-4 leading-relaxed"
+                                        data-t="formTerms">By enrolling, you agree to our terms of service regarding
+                                        course attendance and payments.</p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-green-950 text-gray-400 py-16">
+            <div class="container mx-auto px-6 text-center">
+                <img src="https://slashcoffeebd.com/native_resources/logo_wth_white_bg.png" alt="Logo"
+                    class="h-16 mx-auto mb-8 opacity-60">
+                <p class="mb-4 text-white font-bold" data-t="footerCopy">&copy; 2026 Slash Coffee Academy. All
+                    Rights
+                    Reserved.</p>
+                <p class="text-sm max-w-md mx-auto" data-t="footerAddr">Kuril Bishwaroad, Pragati Sarani, Dhaka
+                    (Beside
+                    Jamuna Future Park)</p>
+                <div class="flex justify-center gap-8 mt-10">
+                    <a href="#" class="hover:text-[#10B981] transition text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-[#10B981] transition text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-[#10B981] transition text-2xl"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
