@@ -1,0 +1,34 @@
+Query object:
+{
+  "$and": [
+    {
+      "category": {
+        "$regex": "^coffee beans$",
+        "$options": "i"
+      }
+    },
+    {
+      "name": {
+        "$regex": "Ground Bean",
+        "$options": "i"
+      }
+    },
+    {
+      "name": {
+        "$regex": "Winter Blend",
+        "$options": "i"
+      }
+    }
+  ]
+}
+
+Found 9 products
+- Ground Beans Winter Blend (Espresso Fine) - 250 gm
+- Ground Beans Winter Blend (Moka Pot) - 250 gm
+- Ground Beans - Winter Blend -Paper Filter Grind
+- Ground Beans Winter Blend (Espresso Fine) - 500 gm
+- Ground Beans Winter Blend (Moka Pot Grind) - 500 gm
+- Ground Beans Winter Blend (Paper Filter Grind) - 500 gm
+- Ground Beans Winter Blend (Espresso Fine) - 1 kg
+- Ground Beans Winter Blend (Moka Pot Grind) - 1 kg
+- Ground Beans Winter Blend (Paper Filter Grind) - 1 kg

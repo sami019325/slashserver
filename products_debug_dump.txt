@@ -1,0 +1,271 @@
+Found 54 products in coffee beans category:
+-------------------
+ID: 69985e6e85fd575c5928e847
+Name: Arabica Whole Beans Single Origin (Brazil) - Brazil (Arabica)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69985eb585fd575c5928e84a
+Name: Arabica Whole Beans Single Origin (Colombia) - Colombia (Arabica)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69985ee885fd575c5928e84d
+Name: Arabica Whole Beans Single Origin (Keniya) - Kenya (Arabica)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69985f6385fd575c5928e859
+Name: Robusta Whole Beans Single Origin (Vietnam) - Vietnam (Robusta)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69985fa585fd575c5928e85c
+Name: Arabica Whole Beans Single Origin (Java) - Java (Arabica)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69985fea85fd575c5928e85f
+Name: Arabica Whole Beans Single Origin (Yunnan) - Yunnan (Arabica)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998606085fd575c5928e862
+Name: Whole Beans (Premium Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699860a885fd575c5928e865
+Name: Whole Beans (Premium Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699860db85fd575c5928e868
+Name: Whole Beans (Premium Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998615785fd575c5928e871
+Name: Whole Beans (Winter Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998617f85fd575c5928e874
+Name: Whole Beans (Winter Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699861b885fd575c5928e877
+Name: Whole Beans (Winter Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699862df85fd575c5928e87f
+Name: Whole Beans (Seasonal Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998630985fd575c5928e882
+Name: Whole Beans (Seasonal Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998634285fd575c5928e885
+Name: Whole Beans (Seasonal Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998637185fd575c5928e888
+Name: Whole Beans (Espresso Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 6998639e85fd575c5928e88b
+Name: Whole Beans (Espresso Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699863bd85fd575c5928e88e
+Name: Whole Beans (Espresso Blend)
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f64afe278306bf47d63aa
+Name: Ground Beans - Premium Blend - Espresso Fine
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f64e4e278306bf47d63b0
+Name: Ground Beans - Premium Blend - Moka Pot
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f6506e278306bf47d63b6
+Name: Ground Beans - Premium Blend - Paper Filter
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f6639e278306bf47d63c0
+Name: Ground Beans - Premium Blend - Espresso Fine
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f665fe278306bf47d63c3
+Name: Ground Beans - Premium Blend - Moka Pot
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f669be278306bf47d63c6
+Name: Ground Beans - Premium Blend - Paper Filter
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f66c3e278306bf47d63c9
+Name: Ground Beans - Premium Blend - Espresso Fine
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f66e5e278306bf47d63cc
+Name: Ground Beans - Premium Blend - Moka Pot
+Category: coffee beans
+Details1: 
+-------------------
+ID: 699f6702e278306bf47d63cf
+Name: Ground Beans - Premium Blend - Paper Filter
+Category: coffee beans
+Details1: 
+-------------------
+ID: 69d189edb15ba0f80707b0f8
+Name: Ground Beans Winter Blend (Espresso Fine) - 250 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0f9
+Name: Ground Beans Winter Blend (Moka Pot) - 250 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0fa
+Name: Ground Beans - Winter Blend -Paper Filter Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0fb
+Name: Ground Beans Winter Blend (Espresso Fine) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0fc
+Name: Ground Beans Winter Blend (Moka Pot Grind) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0fd
+Name: Ground Beans Winter Blend (Paper Filter Grind) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0fe
+Name: Ground Beans Winter Blend (Espresso Fine) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b0ff
+Name: Ground Beans Winter Blend (Moka Pot Grind) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d189edb15ba0f80707b100
+Name: Ground Beans Winter Blend (Paper Filter Grind) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b102
+Name: Ground Beans - Seasonal Blend - Espresso Fine
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b103
+Name: Ground Beans - Seasonal Blend - Moka Pot Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b104
+Name: Ground Beans - Seasonal Blend - Paper Filter Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b105
+Name: Ground Beans - Seasonal Blend - Espresso Fine
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b106
+Name: Ground Beans - Seasonal Blend - Moka Pot Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b107
+Name: Ground Beans - Seasonal Blend - Paper Filter Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b108
+Name: Ground Beans - Seasonal Blend - Espresso Fine
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b109
+Name: Ground Beans - Seasonal Blend - Moka Pot Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a2ab15ba0f80707b10a
+Name: Ground Beans - Seasonal Blend - Paper Filter Grind
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b10c
+Name: Ground Beans Espresso Blend (Espresso Grind) - 250 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b10d
+Name: Ground Beans Espresso Blend (Moka Pot Grind) - 250 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b10e
+Name: Ground Beans Espresso Blend (Paper Filter Grind) - 250 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b10f
+Name: Ground Beans Espresso Blend (Espresso Grind) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b110
+Name: Ground Beans Espresso Blend (Moka Pot Grind) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b111
+Name: Ground Beans Espresso Blend (Paper Filter Grind) - 500 gm
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b112
+Name: Ground Beans Espresso Blend (Espresso Grind) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b113
+Name: Ground Beans Espresso Blend (Moka Pot Grind) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
+-------------------
+ID: 69d18a3cb15ba0f80707b114
+Name: Ground Beans Espresso Blend (Paper Filter Grind) - 1 kg
+Category: coffee beans
+Details1: Winter blend ground coffee
