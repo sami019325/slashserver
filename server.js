@@ -36,6 +36,9 @@ app.use(express.json({ limit: '10mb' }));
 // ✅ Configure allowed origins for CORS
 const allowedOrigins = [
     "https://slashcoffeebd.com", // 🌐  frontend (deployed)
+    "https://www.slashcoffeebd.com",
+    "http://slashcoffeebd.com",
+    "http://www.slashcoffeebd.com",
     "http://localhost:5000",          // 🧪 Local dev (Vite/React)
     "http://127.0.0.1:5500",
     "https://slashserver.onrender.com",
