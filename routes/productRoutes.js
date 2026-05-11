@@ -49,13 +49,54 @@ router.get("/limit", async (req, res) => {
 router.get("/name/:name", async (req, res) => {
     try {
         const name = req.params.name.trim();
-        const product = await Product.find({ name: { $regex: name, $options: "i" } });
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+        if (!name) {
+            return res.status(200).json([]);
         }
 
-        res.json(product);
+        const searchTerms = name.split(/\s+/).filter(t => t.length > 0);
+        
+        // Fetch items that match at least one term
+        const query = {
+            $or: searchTerms.map(term => ({
+                $or: [
+                    { name: { $regex: term, $options: "i" } },
+                    { details1: { $regex: term, $options: "i" } },
+                    { category: { $regex: term, $options: "i" } }
+                ]
+            }))
+        };
+
+        const products = await Product.find(query);
+
+        // Score results for relevance
+        const lowerName = name.toLowerCase();
+        const rankedProducts = products.map(p => {
+            let score = 0;
+            const pName = (p.name || "").toLowerCase();
+            const pDetails = (p.details1 || "").toLowerCase();
+            const pCategory = (p.category || "").toLowerCase();
+
+            // 1. Exact match in name (Highest priority)
+            if (pName === lowerName) score += 1000;
+            
+            // 2. Full phrase match in name
+            else if (pName.includes(lowerName)) score += 500;
+
+            // 3. Individual word matches
+            searchTerms.forEach(term => {
+                const t = term.toLowerCase();
+                if (pName.includes(t)) score += 100;
+                if (pCategory.includes(t)) score += 50;
+                if (pDetails.includes(t)) score += 10;
+            });
+
+            return { ...p._doc, score };
+        });
+
+        // Sort by score (desc), then by newest ID
+        rankedProducts.sort((a, b) => b.score - a.score || b._id.toString().localeCompare(a._id.toString()));
+
+        res.json(rankedProducts);
     } catch (error) {
         console.error("Error fetching product by name:", error);
         res.status(500).json({ message: "Server error" });

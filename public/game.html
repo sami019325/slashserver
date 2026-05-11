@@ -68,6 +68,50 @@
         .card-inner {
             transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
+
+        /* Fullscreen game-area overlay (modal-like) */
+        .fullscreen-section {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 60 !important;
+            padding: 1rem !important;
+            background: rgba(0, 0, 0, 1) !important;
+            overflow: auto !important;
+        }
+
+        /* The actual game-area content when modal'd */
+        .fullscreen-section.game-modal {
+            width: min(100vw) !important;
+            height: min(100vh) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 40px rgba(2, 6, 23, 0.6) !important;
+            overflow: auto !important;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 1) 0%, rgba(16, 185, 129, 1) 100%) !important;
+            margin: auto !important;
+            display: block !important;
+        }
+
+        .fullscreen-close-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 70;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgb(106, 78, 18);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.4);
+        }
+
+        /* Intro block dynamic styling */
+        #game-intro {
+            transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+        }
     </style>
 </head>
 
@@ -75,12 +119,12 @@
     <div class="w-full lg:w-[500px] bg-white relative pb-28 flex flex-col h-screen overflow-hidden">
 
         <!-- Top Board / Scoreboard -->
-        <div class="bg-lime-900 text-white rounded-b-3xl shadow-lg p-4 z-10 sticky top-0 flex-shrink-0">
+        <div id="top-board" class="bg-lime-900 text-white rounded-b-3xl shadow-lg p-2 z-10 flex-shrink-0">
             <div class="flex justify-between items-center mb-2">
                 <div id="player1-score-box"
-                    class="flex flex-col items-center bg-lime-800 p-2 rounded-lg border-2 border-lime-400 w-1/3 transition-all duration-300">
+                    class="flex flex-col items-center bg-lime-800 p-1 rounded-lg border-2 border-lime-400 w-1/3 transition-all duration-300">
                     <span class="text-xs font-bold text-lime-100">PLAYER 1</span>
-                    <span id="player1-score" class="text-2xl font-black">0</span>
+                    <span id="player1-score" class="text-xl font-black">0</span>
                 </div>
 
                 <div class="flex flex-col items-center w-1/3 text-center">
@@ -89,33 +133,35 @@
                 </div>
 
                 <div id="player2-score-box"
-                    class="flex flex-col items-center bg-lime-800 p-2 rounded-lg border-2 border-transparent w-1/3 transition-all duration-300 opacity-60">
+                    class="flex flex-col items-center bg-lime-800 p-1 rounded-lg border-2 border-transparent w-1/3 transition-all duration-300 opacity-60">
                     <span class="text-xs font-bold text-lime-100">PLAYER 2</span>
-                    <span id="player2-score" class="text-2xl font-black">0</span>
+                    <span id="player2-score" class="text-xl font-black">0</span>
                 </div>
-            </div>
-
-            <!-- Card Name Display -->
-            <div
-                class="bg-white/10 rounded-xl p-3 text-center min-h-[50px] flex items-center justify-center backdrop-blur-sm border border-white/20">
-                <p id="card-name-display" class="text-lg font-bold tracking-wide text-lime-50 leading-tight">
-                    Select a card to begin
-                </p>
             </div>
         </div>
 
         <!-- Game Grid Area (Scrollable) -->
-        <div class="flex-grow overflow-y-auto w-full p-4 no-scrollbar">
-            <div id="game-grid" class="grid grid-cols-4 gap-2 pb-6">
+        <div id="game-area"
+            class="flex-grow overflow-y-auto w-full p-4 no-scrollbar bg-green-50 sticky top-0 h-screen bg-[linear-gradient(180deg,rgba(16,185,129,1) 0%,rgba(16,185,129,0) 80%)]">
+            <!-- Card Name Display -->
+            <div
+                class="bg-white rounded-xl p-2 text-center min-h-[40px] flex items-center justify-center backdrop-blur-sm border border-white/20 mb-4">
+                <p id="card-name-display" class="text-base font-bold tracking-wide text-red-950 leading-tight">
+                    Select a card to begin
+                </p>
+            </div>
+            <div id="game-grid" class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2 pb-6">
                 <!-- Cards will be injected here by JS -->
+
             </div>
         </div>
 
-        <!-- Action / Reset button -->
+        <!-- Fullscreen toggle button (replaces restart) -->
         <div class="absolute bottom-24 right-4 z-20">
-            <button onclick="initGame()"
-                class="bg-lime-600 hover:bg-lime-500 text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95">
-                <i class="fas fa-undo"></i>
+            <button id="toggle-fullscreen-btn" onclick="toggleFullscreenSection()"
+                class="bg-lime-600 hover:bg-lime-500 text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95"
+                aria-label="Toggle game section fullscreen">
+                <i id="toggle-fullscreen-icon" class="fas fa-expand"></i>
             </button>
         </div>
 
@@ -167,7 +213,7 @@
             "CLASSIC BUBBLE TEA", "CHOCOLATE BUBBLE TEA", "CARAMEL BUBBLE TEA", "SALTED CARAMEL BUBBLE TEA", "HAZELNUT BUBBLE TEA",
             "VANILLA BUBBLE TEA", "BUTTERSCOTCH BUBBLE TEA", "STRAWBERRY BUBBLE TEA", "MIX BERRY BUBBLE TEA", "BLUEBERRY BUBBLE TEA",
             "COOKIES & CREAM", "OREO SHAKE", "FRUITY TOOTY", "STRAWBERRY PURE", "CHOCOLATE BLAST", "BLUEBERRY SMOOTHIE",
-            "ORANGE JUICE", "SEASONAL JUICE",
+            "ORANGE JUICE",
             "HOT BREWED TEA", "MILK TEA"
         ];
 
@@ -229,6 +275,8 @@
         const switchTurn = () => {
             currentPlayer = currentPlayer === 1 ? 2 : 1;
             updateScoreBoard();
+            // also update intro highlight
+            updateGameIntro();
         };
 
         const checkMatch = () => {
@@ -240,6 +288,7 @@
                 else scoreP2++;
 
                 updateScoreBoard();
+                updateGameIntro();
 
                 // Keep turn if match (standard rules), or could switch. We'll keep turn.
                 // Reset card variables
@@ -374,17 +423,223 @@
             shuffledDeck.forEach((itemName) => {
                 // Ensure image names use .png extension as per typical web assets, 
                 // formatted with underscores
+                const imgURL = {
+                    "Aero Press": "https://i.ibb.co.com/bQJz2607/aero-press.png",
+                    "Affogato": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "AMERICANO": "https://i.ibb.co.com/y3fmx1r/americano.png",
+                    "BLUE DRAGON": "https://i.ibb.co.com/sdHjdNRg/blue-dragon.png",
+                    "BLUEBERRY BUBBLE TEA": "https://i.ibb.co.com/FLcybsDn/blueberry-bubble-tea.png",
+                    "BLUEBERRY SMOOTHIE": "https://i.ibb.co.com/20M7L2vq/blueberry-smoothie.png",
+                    "Bulletproof Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "BUTTERSCOTCH BUBBLE TEA": "https://i.ibb.co.com/zTgNv6YZ/butterscotch-bubble-tea.png",
+                    "BUTTERSCOTCH LATTE": "https://i.ibb.co.com/k6JMnD61/butterscotch-latte.png",
+                    "CAPPUCCINO": "https://i.ibb.co.com/yBFgsM7c/cappachino.png",
+                    "CARAMEL BUBBLE TEA": "hhttps://i.ibb.co.com/Kc5HG6KQ/caramel-bubble-tea.png",
+                    "CARAMEL LATTE": "https://i.ibb.co.com/qMxNPvQh/caramel-latte.png",
+                    "CARAMEL MACCHIATO": "https://i.ibb.co.com/TBqgs4Th/caramel-macchiato.png",
+                    "CARAMEL MACCHIATO FRAPPE": "hhttps://i.ibb.co.com/tT5MvZVc/caramel-macchiato-frappe.png",
+                    "CARAMEL RIBBON CRUSH": "https://i.ibb.co.com/8LNpP2Wj/caramel-ribbon-crush.png",
+                    "Chemex": "https://i.ibb.co.com/h2y6xP35/chemex.png",
+                    "CHOCOLATE BLAST": "https://i.ibb.co.com/R4DXz9mb/chocolate-blast.png",
+                    "CHOCOLATE BUBBLE TEA": "https://i.ibb.co.com/cSmg7sXZ/chocolate-bubble-tea.png",
+                    "CINNAMON CAPPUCCINO": "https://i.ibb.co.com/GfQKGpBY/cinnamon-cappuccino.png",
+                    "CLASSIC BUBBLE TEA": "hhttps://i.ibb.co.com/xqPMJfzm/classic-bubble-tea.png",
+                    "Cold Brew": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "COOKIES & CREAM": "https://i.ibb.co.com/RG9D7Bn8/cookies-cream.png",
+                    "Cortado": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Drip Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "ESPRESSO": "https://i.ibb.co.com/KxsnjhgX/espresso.png",
+                    "ESPRESSO FRAPPE": "https://i.ibb.co.com/nMzdsD6d/espresso-frappe.png",
+                    "ESPRESSO MACCHIATO": "https://i.ibb.co.com/SDxFzynr/espresso-macchiato.png",
+                    "Flat White": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Frappe": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "French Press": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "FRUITY TOOTY": "https://i.ibb.co.com/s9YkH8xZ/fruity-tooty.png",
+                    "GUMMY BEER": "https://i.ibb.co.com/9kY42Q6v/gummy-beer.png",
+                    "HAZELNUT BUBBLE TEA": "https://i.ibb.co.com/JFtky3Hc/hazelnut-bubble-tea.png",
+                    "HAZELNUT LATTE": "https://i.ibb.co.com/6RsZVdgd/hazelnut-latte.png",
+                    "HEZELNUT FRAPPE": "https://i.ibb.co.com/Hfct5kjZ/hezelnut-frappe.png",
+                    "HOT BREWED TEA": "https://i.ibb.co.com/F4QGkXpx/hot-brewed-tea.png",
+                    "HOT CHOCOLATE": "https://i.ibb.co.com/wN3pNvkW/hot-chocolate.png",
+                    "ICED AMERICANO": "https://i.ibb.co.com/JwKHjDzx/iced-americano.png",
+                    "ICED BUTTERSCOTCH LATTE": "https://i.ibb.co.com/fR17Kj3/iced-butterscotch-latte.png",
+                    "ICED CAPPUCCINO": "https://i.ibb.co.com/NdNPLMBh/iced-cappuccino.png",
+                    "ICED CARAMEL LATTE": "https://i.ibb.co.com/hxBT2VVd/iced-caramel-latte.png",
+                    "ICED CARAMEL MACCHIATO": "https://i.ibb.co.com/bMzpxbvg/iced-caramel-macchiato.png",
+                    "ICED HAZELNUT LATTE": "https://i.ibb.co.com/LGCWLYk/iced-hazelnut-latte.png",
+                    "ICED LATTE": "https://i.ibb.co.com/gZJ6PXbC/iced-latte.png",
+                    "ICED MOCHA": "https://i.ibb.co.com/gbWfQ4pd/iced-mocha.png",
+                    "ICED SALTED CARAMEL LATTE": "https://i.ibb.co.com/JwD1HGqw/iced-salted-caramel-latte.png",
+                    "ICED SALTED CARAMEL MACCHIATO": "https://i.ibb.co.com/DDYmtRqN/iced-salted-caramel-macchiato.png",
+                    "ICED SPANISH LATTE": "https://i.ibb.co.com/3mpxFkhY/iced-spanish-latte.png",
+                    "ICED VANILLA LATTE": "https://i.ibb.co.com/MxHVrgfm/iced-vanilla-latte.png",
+                    "ICED WHITE MOCHA": "https://i.ibb.co.com/v4yQggBq/iced-white-mocha.png",
+                    "Iced Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Irish Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "JAVA CHIP FRAPPE": "https://i.ibb.co.com/Xf5RKqXY/java-chip-frappe.png",
+                    "Java chip frappe": "https://i.ibb.co.com/Xf5RKqXY/java-chip-frappe.png",
+                    "LATTE": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Latte": "https://i.ibb.co.com/9kBMtXb8/latthe.png",
+                    "LEMON ICED TEA": "https://i.ibb.co.com/F4jHjHGM/lemon-iced-tea.png",
+                    "LEMON MINT": "https://i.ibb.co.com/35sknPqd/lemon-mint.png",
+                    "MILK TEA": "https://i.ibb.co.com/DfHW9zwq/milk-tea.png",
+                    "MIX BERRY BUBBLE TEA": "https://i.ibb.co.com/mr5pGYC6/mix-berry-bubble-tea.png",
+                    "MIX BERRY ICED TEA": "https://i.ibb.co.com/xqtxzLbG/mix-berry-iced-tea.png",
+                    "MOCHA": "https://i.ibb.co.com/jSjQ40c/mocha.png",
+                    "MOCHA COOKIE CRUMBLE": "https://i.ibb.co.com/rKVGyVXy/mocha-cookie-crumble.png",
+                    "MOCHA FRAPPE": "https://i.ibb.co.com/5wRch86/mocha-frappe.png",
+                    "Moka Pot": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Nitro Cold Brew": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "ORANGE JUICE": "https://i.ibb.co.com/wDvxttJ/orange-juice.png",
+                    "ORANGE OCEAN": "https://i.ibb.co.com/TxFkWkny/orange-ocean.png",
+                    "Oreo Cream Frappe": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "OREO SHAKE": "https://i.ibb.co.com/vxsFtm71/oreo-shake.png",
+                    "PASSION ICED TEA": "https://i.ibb.co.com/8L6ZKSL0/passion-iced-tea.png",
+                    "Pour Over": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "Red Eye": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "SALTED CARAMEL BUBBLE TEA": "https://i.ibb.co.com/8gFNKY9d/salted-caramel-bubble-tea.png",
+                    "SALTED CARAMEL LATTE": "https://i.ibb.co.com/DgDytWbd/salted-caramel-latte.png",
+                    "SALTED CARAMEL MACCHIATO": "https://i.ibb.co.com/7dBQp8Wx/salted-caramel-macchiato.png",
+                    "SALTED CARAMEL MOCHA": "https://i.ibb.co.com/Lhrn8K5c/salted-caramel-mocha.png",
+                    "Siphon": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "SPANISH LATTE": "https://i.ibb.co.com/RTqXncDK/spanish-latte.png",
+                    "STRAWBERRY BUBBLE TEA": "https://i.ibb.co.com/NgmCCBpL/strawberry-bubble-tea.png",
+                    "STRAWBERRY ICED TEA": "https://i.ibb.co.com/67pKJkZs/strawberry-iced-tea.png",
+                    "STRAWBERRY PURE": "https://i.ibb.co.com/zHNXX5jC/strawberry-pure.png",
+                    "SURISE TAMPLE": "https://i.ibb.co.com/d41BYbsg/urise-tample.png",
+                    "Turkish Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "VANILLA BUBBLE TEA": "https://i.ibb.co.com/ZRMkLf0d/vanilla-bubble-tea.png",
+                    "VANILLA FRAPPE": "https://i.ibb.co.com/JWQd4zh7/vanilla-frappe.png",
+                    "VANILLA LATTE": "https://i.ibb.co.com/0R9zzTcJ/vanilla-latte.png",
+                    "Vietnamese Coffee": "https://i.ibb.co.com/QcQ01R23/french-press.png",
+                    "VIRGIN PASSION MOHITO": "https://i.ibb.co.com/hJZ8Kg4r/virgin-passion-mohito.png",
+                    "WHITE MOCHA": "https://i.ibb.co.com/5XGfMpKj/white-mocha.png",
+                    "WHITE MOCHA FRAPPE": "https://i.ibb.co.com/Sw3ZLWCT/white-mocha-frappe.png",
+                }
                 const imgFileName = formatImageName(itemName) + '.png';
-                const imgPath = `./gameassests/${imgFileName}`;
+                const imgPath = imgURL[itemName];
                 const cardElement = buildCardHTML(itemName, imgPath);
                 grid.appendChild(cardElement);
             });
+
+            // After all cards are rendered, create the dynamic intro/header block
+            createGameIntro();
         };
 
         // Run init on load
         document.addEventListener('DOMContentLoaded', initGame);
 
+        // Fullscreen/modal toggle state
+        let _prevScrollPos = 0;
+        const toggleFullscreenSection = () => {
+            const area = document.getElementById('game-area');
+            const icon = document.getElementById('toggle-fullscreen-icon');
+            if (!area) return;
+
+            const entering = !area.classList.contains('fullscreen-section');
+
+            if (entering) {
+                // open modal: save inner scrollTop, lock body, add classes
+                _prevScrollPos = area.scrollTop || 0;
+                area.classList.add('fullscreen-section');
+                area.classList.add('game-modal');
+                // show close X button
+                createCloseButton();
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // close modal
+                area.classList.remove('fullscreen-section');
+                area.classList.remove('game-modal');
+                removeCloseButton();
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+                document.body.style.overflow = '';
+                // restore inner scroll
+                area.scrollTop = _prevScrollPos;
+            }
+        };
+
+        const createCloseButton = () => {
+            if (document.getElementById('fullscreen-close-btn')) return;
+            const btn = document.createElement('button');
+            btn.id = 'fullscreen-close-btn';
+            btn.className = 'fullscreen-close-btn';
+            btn.title = 'Close';
+            btn.innerHTML = '<i class="fas fa-times"></i>';
+            btn.addEventListener('click', () => toggleFullscreenSection());
+            document.body.appendChild(btn);
+        };
+
+        const removeCloseButton = () => {
+            const btn = document.getElementById('fullscreen-close-btn');
+            if (btn) btn.remove();
+        };
+
+        /* --- Dynamic intro/header block for the game grid --- */
+        const createGameIntro = () => {
+            const grid = document.getElementById('game-grid');
+            if (!grid) return;
+
+            // remove existing intro if present
+            const existing = document.getElementById('game-intro');
+            if (existing) existing.remove();
+
+            // build intro element
+            const intro = document.createElement('div');
+            intro.id = 'game-intro';
+            intro.className = 'col-span-3 md:col-span-5 lg:col-span-3 text-center text-gray-700 font-bold p-4 rounded-xl bg-white/30';
+            intro.innerHTML = `
+                <div class="text-sm">
+                    player 1<span id="intro-p1" ></span> (<span class="text-lime-400" id="intro-score-p1">0</span>)
+                    vs
+                    player 2 <span id="intro-p2" ></span> (<span class="text-red-400" id="intro-score-p2">0</span>)
+                </div>
+            `;
+
+            // Insert as first child of grid so it appears above cards
+            grid.insertAdjacentElement('afterbegin', intro);
+
+            // initial update to reflect current player
+            updateGameIntro();
+        };
+
+        const updateGameIntro = () => {
+            const p1 = document.getElementById('intro-p1');
+            const p2 = document.getElementById('intro-p2');
+            const s1 = document.getElementById('intro-score-p1');
+            const s2 = document.getElementById('intro-score-p2');
+            const intro = document.getElementById('game-intro');
+            if (!p1 || !p2 || !s1 || !s2 || !intro) return;
+
+            // update scores
+            s1.textContent = scoreP1;
+            s2.textContent = scoreP2;
+
+            // highlight active player by adding underline and bold
+            if (currentPlayer === 1) {
+                p1.classList.add('underline', 'font-extrabold');
+                p2.classList.remove('underline', 'font-extrabold');
+                // green-ish background for player 1's turn
+                intro.style.backgroundColor = 'rgba(185, 16, 81, 0.5)';
+                intro.style.color = '#064E3B';
+            } else {
+                p2.classList.add('underline', 'font-extrabold');
+                p1.classList.remove('underline', 'font-extrabold');
+                // coffee/amber background for player 2's turn
+                intro.style.backgroundColor = 'rgba(153,101,21,0.5)';
+                intro.style.color = '#6b3d00';
+            }
+        };
+
     </script>
 </body>
+
+<style>
+    .dd {
+        background-color: rgba(185, 16, 81, 0.5)
+    }
+</style>
 
 </html>
