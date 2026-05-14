@@ -85,10 +85,11 @@
             height: min(100vh) !important;
             border-radius: 12px !important;
             box-shadow: 0 10px 40px rgba(2, 6, 23, 0.6) !important;
-            overflow: auto !important;
+            overflow: hidden !important;
             background: linear-gradient(180deg, rgba(16, 185, 129, 1) 0%, rgba(16, 185, 129, 1) 100%) !important;
             margin: auto !important;
-            display: block !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
 
         .fullscreen-close-btn {
@@ -112,45 +113,119 @@
         #game-intro {
             transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
         }
+
+        /* Emoji animation */
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-80vh) scale(1.5) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .animate-float-up {
+            animation: float-up linear forwards;
+        }
     </style>
 </head>
 
 <body class="flex justify-start lg:justify-center bg-amber-950 min-h-screen">
-    <div class="w-full lg:w-[500px] bg-white relative pb-28 flex flex-col h-screen overflow-hidden">
+    <div class="w-full lg:w-[500px] bg-white relative pb-20 flex flex-col h-screen overflow-hidden">
 
         <!-- Top Board / Scoreboard -->
-        <div id="top-board" class="bg-lime-900 text-white rounded-b-3xl shadow-lg p-2 z-10 flex-shrink-0">
-            <div class="flex justify-between items-center mb-2">
+        <div id="top-board"
+            class="relative bg-amber-700 bg-[url('https://www.transparenttextures.com/patterns/cork-board.png')] pt-6 pb-4 px-3 shadow-[0_15px_20px_-5px_rgba(0,0,0,0.5)] z-10 flex-shrink-0 border-b-[12px] border-x-[12px] border-amber-950 rounded-b-3xl overflow-hidden before:absolute before:inset-0 before:bg-black/10">
+
+            <div class="relative flex justify-between items-center z-10">
+                <!-- Player 1 Sticky Note -->
                 <div id="player1-score-box"
-                    class="flex flex-col items-center bg-lime-800 p-1 rounded-lg border-2 border-lime-400 w-1/3 transition-all duration-300">
-                    <span class="text-xs font-bold text-lime-100">PLAYER 1</span>
-                    <span id="player1-score" class="text-xl font-black">0</span>
+                    class="relative flex flex-col items-center justify-center bg-[#fef08a] p-2 w-[30%] h-20 shadow-[2px_4px_8px_rgba(0,0,0,0.5)] transform -rotate-3 transition-all duration-300 border-2 border-lime-400 opacity-100">
+                    <!-- Red Pin -->
+                    <div
+                        class="absolute -top-3 z-10 w-5 h-5 bg-red-600 rounded-full shadow-[2px_3px_4px_rgba(0,0,0,0.6)] border-2 border-red-900 flex items-center justify-center">
+                        <div class="w-1.5 h-1.5 bg-white/60 rounded-full absolute top-0.5 left-1"></div>
+                    </div>
+
+                    <span class="text-[11px] font-bold text-amber-900 tracking-wider">PLAYER 1</span>
+                    <span id="player1-score"
+                        class="text-3xl font-black text-gray-800 font-mono mt-0 leading-none">0</span>
                 </div>
 
-                <div class="flex flex-col items-center w-1/3 text-center">
-                    <span class="text-[10px] text-lime-200 uppercase tracking-widest">Turn</span>
+                <!-- Turn Indicator Plaque (Wood) -->
+                <div
+                    class="relative flex flex-col items-center justify-center w-[36%] h-16 bg-[#38220f] p-2 rounded-lg shadow-[inset_0_3px_8px_rgba(0,0,0,0.9),0_4px_6px_rgba(0,0,0,0.6)] border border-[#2a1a0b] text-center">
+                    <!-- Screws -->
+                    <div
+                        class="absolute top-1.5 left-1.5 w-1.5 h-1.5 bg-gray-400 rounded-full shadow-[inset_1px_1px_2px_rgba(0,0,0,0.8)]">
+                    </div>
+                    <div
+                        class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-gray-400 rounded-full shadow-[inset_1px_1px_2px_rgba(0,0,0,0.8)]">
+                    </div>
+                    <div
+                        class="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 bg-gray-400 rounded-full shadow-[inset_1px_1px_2px_rgba(0,0,0,0.8)]">
+                    </div>
+                    <div
+                        class="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 bg-gray-400 rounded-full shadow-[inset_1px_1px_2px_rgba(0,0,0,0.8)]">
+                    </div>
+
+                    <span
+                        class="text-[10px] text-[#e5b77e] uppercase tracking-widest font-bold mb-0.5 opacity-80">Turn</span>
                     <span id="turn-indicator" class="text-sm font-bold text-lime-400">Player 1</span>
                 </div>
 
+                <!-- Player 2 Sticky Note -->
                 <div id="player2-score-box"
-                    class="flex flex-col items-center bg-lime-800 p-1 rounded-lg border-2 border-transparent w-1/3 transition-all duration-300 opacity-60">
-                    <span class="text-xs font-bold text-lime-100">PLAYER 2</span>
-                    <span id="player2-score" class="text-xl font-black">0</span>
+                    class="relative flex flex-col items-center justify-center bg-[#fef08a] p-2 w-[30%] h-20 shadow-[2px_4px_8px_rgba(0,0,0,0.5)] transform rotate-2 transition-all duration-300 border-2 border-transparent opacity-60">
+                    <!-- Blue Pin -->
+                    <div
+                        class="absolute -top-3 z-10 w-5 h-5 bg-blue-600 rounded-full shadow-[2px_3px_4px_rgba(0,0,0,0.6)] border-2 border-blue-900 flex items-center justify-center">
+                        <div class="w-1.5 h-1.5 bg-white/60 rounded-full absolute top-0.5 left-1"></div>
+                    </div>
+
+                    <span class="text-[11px] font-bold text-amber-900 tracking-wider">PLAYER 2</span>
+                    <span id="player2-score"
+                        class="text-3xl font-black text-gray-800 font-mono mt-0 leading-none">0</span>
                 </div>
             </div>
         </div>
 
         <!-- Game Grid Area (Scrollable) -->
         <div id="game-area"
-            class="flex-grow overflow-y-auto w-full p-4 no-scrollbar bg-green-50 sticky top-0 h-screen bg-[linear-gradient(180deg,rgba(16,185,129,1) 0%,rgba(16,185,129,0) 80%)]">
-            <!-- Card Name Display -->
+            class="flex-grow flex flex-col w-full px-2 pt-2 pb-4 bg-green-50 z-0 relative overflow-hidden bg-[linear-gradient(180deg,rgba(16,185,129,0.8)_0%,rgba(16,185,129,0.1)_80%)]">
+            <!-- Card Name Display (Arcade LED Marquee) -->
             <div
-                class="bg-white rounded-xl p-2 text-center min-h-[40px] flex items-center justify-center backdrop-blur-sm border border-white/20 mb-4">
-                <p id="card-name-display" class="text-base font-bold tracking-wide text-red-950 leading-tight">
+                class="bg-gray-950 rounded-md border-2 border-gray-800 p-1.5  mt-11 text-center min-h-[36px] flex items-center justify-between shadow-[inset_0_3px_10px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.4)] mb-2 shrink-0 relative overflow-hidden">
+                <!-- Scanlines for LED effect -->
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.4)_50%,transparent_50%)] bg-[length:100%_3px] pointer-events-none">
+                </div>
+
+                <!-- Left decoration -->
+                <div class="flex items-center gap-1 pl-2 z-10 opacity-80">
+                    <div class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_5px_rgba(239,68,68,0.8)]">
+                    </div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_5px_rgba(234,179,8,0.8)]"></div>
+                </div>
+
+                <p id="card-name-display"
+                    class="text-xs sm:text-sm font-black tracking-[0.15em] text-green-400 uppercase leading-tight font-mono drop-shadow-[0_0_8px_rgba(74,222,128,0.9)] z-10 mx-2">
                     Select a card to begin
                 </p>
+
+                <!-- Right decoration -->
+                <div class="flex items-center gap-1 pr-2 z-10 opacity-80">
+                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_5px_rgba(59,130,246,0.8)]"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)]"></div>
+                </div>
             </div>
-            <div id="game-grid" class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2 pb-6">
+
+            <!-- Added min-h-0 to let flex children shrink, h-full to take remaining space -->
+            <div id="game-grid"
+                class="grid grid-cols-4 grid-rows-8 sm:grid-cols-6 sm:grid-rows-6 lg:grid-cols-8 lg:grid-rows-4 gap-1.5 sm:gap-2 h-full flex-grow min-h-0">
                 <!-- Cards will be injected here by JS -->
 
             </div>
@@ -299,6 +374,8 @@
                 firstCard.querySelector('.card-front').classList.add('border-4', 'border-lime-400');
                 secondCard.querySelector('.card-front').classList.add('border-4', 'border-lime-400');
 
+                celebrateMatch();
+
                 resetBoard();
                 checkWinCondition();
             } else {
@@ -349,6 +426,28 @@
             setTimeout(() => display.classList.remove('scale-105'), 200);
         };
 
+        const celebrateMatch = () => {
+            const emojis = ['☕', '🫘', '😃', '🎉', '✨', '🍵', '🥳'];
+            for (let i = 0; i < 15; i++) {
+                const emoji = document.createElement('div');
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.className = 'fixed text-3xl z-[100] pointer-events-none animate-float-up';
+                // Random starting position horizontally
+                emoji.style.left = (Math.random() * 90 + 5) + 'vw';
+                emoji.style.bottom = '-50px';
+                // Random animation duration between 0.8s and 1.2s
+                emoji.style.animationDuration = (0.8 + Math.random() * 0.4) + 's';
+
+                document.body.appendChild(emoji);
+
+                setTimeout(() => {
+                    if (emoji && emoji.parentNode) {
+                        emoji.parentNode.removeChild(emoji);
+                    }
+                }, 1200);
+            }
+        };
+
         function flipCard() {
             if (lockBoard) return;
             if (this === firstCard) return;
@@ -372,23 +471,24 @@
 
         const buildCardHTML = (name, imgPath) => {
             const card = document.createElement('div');
-            card.classList.add('relative', 'w-full', 'aspect-[3/4]', 'cursor-pointer', 'perspective-1000', 'card-container');
+            // Changed from aspect-[3/4] to h-full to let grid handle sizing
+            card.classList.add('relative', 'w-full', 'h-full', 'cursor-pointer', 'perspective-1000', 'card-container');
             card.dataset.name = name;
 
             card.innerHTML = `
                 <div class="card-inner w-full h-full relative transform-style-preserve-3d shadow-md rounded-xl">
                     <!-- Back of Card (Shown initially) -->
-                    <div class="card-back absolute w-full h-full backface-hidden bg-amber-800 rounded-xl border-2 border-amber-900 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiPjwvY2lyY2xlPgo8L3N2Zz4=')]">
-                        <i class="fas fa-coffee text-3xl text-amber-600/50"></i>
+                    <div class="card-back absolute w-full h-full backface-hidden bg-amber-800 rounded-xl border border-amber-900 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiPjwvY2lyY2xlPgo8L3N2Zz4=')]">
+                        <i class="fas fa-coffee text-xl text-amber-600/50"></i>
                     </div>
                     
                     <!-- Front of Card (Hidden initially, shown on flip) -->
                     <div class="card-front absolute w-full h-full backface-hidden rotate-y-180 bg-white rounded-xl border-2 border-lime-100 flex items-center justify-center overflow-hidden">
                         <!-- Fallback icon if image fails to load -->
                         <div class="absolute inset-0 flex items-center justify-center bg-gray-50 z-0">
-                             <i class="fas fa-mug-hot text-gray-300 text-3xl"></i>
+                             <i class="fas fa-mug-hot text-gray-300 text-xl"></i>
                         </div>
-                        <img src="${imgPath}" alt="${name}" class="w-full h-full object-cover z-10 relative" onerror="this.style.opacity='0'">
+                        <img src="${imgPath}" alt="${name}" class="w-full h-full object-contain p-1 z-10 relative" onerror="this.style.opacity='0'">
                     </div>
                 </div>
             `;
@@ -589,17 +689,46 @@
             // build intro element
             const intro = document.createElement('div');
             intro.id = 'game-intro';
-            intro.className = 'col-span-3 md:col-span-5 lg:col-span-3 text-center text-gray-700 font-bold p-4 rounded-xl bg-white/30';
+            intro.className = 'w-full mb-2 shrink-0 bg-gray-900 border-4 rounded-xl p-2 relative overflow-hidden shadow-lg transition-all duration-300';
             intro.innerHTML = `
-                <div class="text-sm">
-                    player 1<span id="intro-p1" ></span> (<span class="text-lime-400" id="intro-score-p1">0</span>)
-                    vs
-                    player 2 <span id="intro-p2" ></span> (<span class="text-red-400" id="intro-score-p2">0</span>)
+                <!-- Scanline effect -->
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_50%,transparent_50%)] bg-[length:100%_4px] pointer-events-none z-10"></div>
+                <!-- Animated Background -->
+                <div class="absolute inset-0 bg-gradient-to-r from-red-900/30 via-gray-900 to-blue-900/30 z-0"></div>
+                
+                <div class="relative z-20 flex justify-between items-center px-2 sm:px-6">
+                    <!-- Player 1 -->
+                    <div class="flex flex-col items-center w-[35%]">
+                        <span class="text-[10px] sm:text-xs text-red-400 uppercase tracking-[0.2em] font-black drop-shadow-[0_0_4px_rgba(220,38,38,0.8)]">Player One</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <i class="fas fa-gamepad text-red-500 animate-pulse text-[10px] sm:text-xs"></i>
+                            <span id="intro-score-p1" class="text-2xl sm:text-3xl text-white font-mono font-black drop-shadow-[0_2px_4px_rgba(0,0,0,1)] transition-all duration-300">0</span>
+                        </div>
+                        <span id="intro-p1" class="hidden"></span>
+                    </div>
+
+                    <!-- VS Badge -->
+                    <div class="w-[30%] flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-yellow-500/20 blur-xl rounded-full"></div>
+                        <div class="bg-gradient-to-br from-yellow-300 to-yellow-600 border-2 border-yellow-100 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-[0_0_15px_rgba(250,204,21,0.6)] transform -skew-x-12 z-30">
+                            <span class="text-amber-950 font-black italic text-lg sm:text-xl transform skew-x-12 drop-shadow-sm">VS</span>
+                        </div>
+                    </div>
+
+                    <!-- Player 2 -->
+                    <div class="flex flex-col items-center w-[35%]">
+                        <span class="text-[10px] sm:text-xs text-blue-400 uppercase tracking-[0.2em] font-black drop-shadow-[0_0_4px_rgba(37,99,235,0.8)]">Player Two</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span id="intro-score-p2" class="text-2xl sm:text-3xl text-white font-mono font-black drop-shadow-[0_2px_4px_rgba(0,0,0,1)] transition-all duration-300">0</span>
+                            <i class="fas fa-headset text-blue-500 animate-pulse text-[10px] sm:text-xs"></i>
+                        </div>
+                        <span id="intro-p2" class="hidden"></span>
+                    </div>
                 </div>
             `;
 
-            // Insert as first child of grid so it appears above cards
-            grid.insertAdjacentElement('afterbegin', intro);
+            // Insert before grid so it appears above cards without messing up grid rows
+            grid.parentNode.insertBefore(intro, grid);
 
             // initial update to reflect current player
             updateGameIntro();
@@ -617,19 +746,21 @@
             s1.textContent = scoreP1;
             s2.textContent = scoreP2;
 
-            // highlight active player by adding underline and bold
+            // highlight active player
             if (currentPlayer === 1) {
-                p1.classList.add('underline', 'font-extrabold');
-                p2.classList.remove('underline', 'font-extrabold');
-                // green-ish background for player 1's turn
-                intro.style.backgroundColor = 'rgba(185, 16, 81, 0.5)';
-                intro.style.color = '#064E3B';
+                intro.style.boxShadow = '0 0 25px rgba(220, 38, 38, 0.4)';
+                intro.style.borderColor = '#7f1d1d'; // red-900
+                s1.classList.add('text-yellow-400', 'scale-125');
+                s1.classList.remove('text-white');
+                s2.classList.remove('text-yellow-400', 'scale-125');
+                s2.classList.add('text-white');
             } else {
-                p2.classList.add('underline', 'font-extrabold');
-                p1.classList.remove('underline', 'font-extrabold');
-                // coffee/amber background for player 2's turn
-                intro.style.backgroundColor = 'rgba(153,101,21,0.5)';
-                intro.style.color = '#6b3d00';
+                intro.style.boxShadow = '0 0 25px rgba(37, 99, 235, 0.4)';
+                intro.style.borderColor = '#1e3a8a'; // blue-900
+                s2.classList.add('text-yellow-400', 'scale-125');
+                s2.classList.remove('text-white');
+                s1.classList.remove('text-yellow-400', 'scale-125');
+                s1.classList.add('text-white');
             }
         };
 
